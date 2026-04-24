@@ -1,3 +1,6 @@
+# Cenotes Homún — Sitio Web
+
+Sitio web para venta de paquetes de cenotes en Homún, Yucatán.
 
 ## Estructura del proyecto
 
