@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jesusjavierSEO.github.io/cenotes-tesv1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jesusjavierSEO.github.io/cenotes-tesv1/en.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/en.html</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://jesusjavierSEO.github.io/cenotes-tesv1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jesusjavierSEO.github.io/cenotes-tesv1/en.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/guia-cenotes-homun.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/cenotes-guide-homun.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://jesusjavierSEO.github.io/cenotes-tesv1/como-llegar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>

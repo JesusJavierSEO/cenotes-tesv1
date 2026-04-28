@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jesusjavierSEO.github.io/cenotes-tesv1/sitemap.xml
