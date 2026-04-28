@@ -32,14 +32,15 @@
   .ripple:nth-child(3){width:700px;height:700px;right:-5%;top:25%;animation-delay:3s}
   .ripple:nth-child(4){width:900px;height:900px;right:-15%;top:10%;animation-delay:4.5s}
   .particle{position:absolute;width:3px;height:3px;background:var(--agua-light);border-radius:50%;opacity:0;animation:floatUp 8s ease-in infinite}
-  .hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 48px;padding-top:100px}
+  .hero-content{position:relative;z-index:2;max-width:1200px;width:100%;margin:0 auto;padding:120px 48px 64px;flex:1;display:flex;flex-direction:column;justify-content:center}
   .hero-label{display:inline-flex;align-items:center;gap:8px;color:var(--agua-light);font-size:0.8rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fadeUp 0.8s ease forwards 0.3s}
   .hero-label::before{content:'';display:block;width:32px;height:1px;background:var(--agua-light)}
   .hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,6.5rem);line-height:1.05;color:var(--arena);max-width:700px;opacity:0;animation:fadeUp 0.9s ease forwards 0.5s}
   .hero-title em{font-style:italic;color:var(--agua-light)}
   .hero-sub{margin-top:24px;font-size:1.1rem;font-weight:300;color:rgba(245,237,224,0.75);max-width:480px;line-height:1.7;opacity:0;animation:fadeUp 0.9s ease forwards 0.7s}
   .hero-actions{margin-top:44px;display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s ease forwards 0.9s}
-  .hero-stats{position:absolute;bottom:48px;left:48px;right:48px;display:flex;gap:48px;opacity:0;animation:fadeUp 0.9s ease forwards 1.1s}
+  .hero-stats-wrapper{position:relative;z-index:2;width:100%;background:rgba(10,32,25,0.5);backdrop-filter:blur(8px);border-top:1px solid rgba(127,227,232,0.08)}
+  .hero-stats{max-width:1200px;margin:0 auto;padding:28px 48px;display:flex;gap:48px;opacity:0;animation:fadeUp 0.9s ease forwards 1.1s;flex-wrap:wrap}
   .stat{border-left:2px solid var(--agua);padding-left:16px}
   .stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--arena);line-height:1}
   .stat-label{font-size:0.75rem;color:rgba(245,237,224,0.5);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px}
@@ -132,8 +133,8 @@
   .seo-section h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--selva);margin-bottom:16px}
   .seo-section p{font-size:0.95rem;color:#555;line-height:1.8;margin-bottom:16px}
   @media(max-width:900px){
-    .hero-content{padding:0 24px;padding-top:80px}
-    .hero-stats{left:24px;right:24px;gap:24px;flex-wrap:wrap}
+    .hero-content{padding:80px 24px 48px}
+    .hero-stats{padding:20px 24px;gap:24px}
     .cenote-art{display:none}
     .section-exp,.section-cenotes,.seo-section{padding:80px 24px}
     .section-paquetes,.section-proceso,.section-reviews,.section-cta{padding:80px 24px}
@@ -230,6 +231,7 @@
     </div>
   </div>
 
+<div class="hero-stats-wrapper">
   <div class="hero-stats">
     <div class="stat">
       <div class="stat-num">+20</div>
@@ -244,6 +246,7 @@
       <div class="stat-label">Authentic experience</div>
     </div>
   </div>
+</div>
 </section>
 
 <!-- WHY CHOOSE US -->
