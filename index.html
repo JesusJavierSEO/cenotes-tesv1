@@ -136,7 +136,7 @@
 
 <!-- EXPERIENCIA -->
 <section class="section-exp">
-  <div class="section-tag">Por qué elegirnos</div>
+  <div class="section-tag reveal">Por qué elegirnos</div>
   <h2 class="section-title">Una experiencia <em>auténtica</em> e inolvidable</h2>
 
   <div class="exp-grid">
@@ -149,14 +149,14 @@
           <div class="feature-desc">Pickup directo desde la zona arqueológica. Sin estrés, sin complicaciones — nosotros te llevamos.</div>
         </div>
       </div>
-      <div class="feature">
+      <div class="feature reveal reveal-delay-1">
         <div class="feature-icon">🤿</div>
         <div>
           <div class="feature-title">Equipo completo incluido</div>
           <div class="feature-desc">Chalecos salvavidas, snorkel y todo lo necesario para disfrutar con total seguridad.</div>
         </div>
       </div>
-      <div class="feature">
+      <div class="feature reveal reveal-delay-2">
         <div class="feature-icon">🌿</div>
         <div>
           <div class="feature-title">Los mejores cenotes de Homún</div>
@@ -205,7 +205,7 @@
 <section class="section-paquetes" id="paquetes">
   <div class="section-paquetes-inner">
     <div class="section-header">
-      <div class="section-tag">Nuestros paquetes</div>
+      <div class="section-tag reveal">Nuestros paquetes</div>
       <h2 class="section-title" style="margin: 0 auto; text-align:center;">Elige tu aventura</h2>
       <p style="margin-top:16px; color:#777; font-size:0.95rem; max-width:440px; margin-left:auto; margin-right:auto;">
         Todos los paquetes incluyen guía local y equipo de snorkel disponible.
@@ -214,7 +214,7 @@
 
     <div class="packages-grid">
       <!-- Paquete 1 -->
-      <div class="pkg-card">
+      <div class="pkg-card reveal">
         <div class="pkg-header">
           <div class="pkg-name">Explorador</div>
           <div class="pkg-tagline">Perfecto para tu primera vez</div>
@@ -235,7 +235,7 @@
       </div>
 
       <!-- Paquete 2 - FEATURED -->
-      <div class="pkg-card featured">
+      <div class="pkg-card featured reveal reveal-delay-1">
         <div class="pkg-badge">Más popular</div>
         <div class="pkg-header">
           <div class="pkg-name">Aventurero</div>
@@ -258,7 +258,7 @@
       </div>
 
       <!-- Paquete 3 -->
-      <div class="pkg-card">
+      <div class="pkg-card reveal reveal-delay-2">
         <div class="pkg-header">
           <div class="pkg-name">Premium</div>
           <div class="pkg-tagline">Para grupos y experiencias exclusivas</div>
@@ -285,7 +285,7 @@
 
 <!-- CENOTES SHOWCASE -->
 <section class="section-cenotes" id="cenotes">
-  <div class="section-tag">Los destinos</div>
+  <div class="section-tag reveal">Los destinos</div>
   <h2 class="section-title">Los cenotes de <em>Homún</em></h2>
 
   <div class="cenotes-scroll">
@@ -377,7 +377,7 @@
     <div class="section-tag">¿Cómo funciona?</div>
     <h2 class="section-title">Tu aventura en 4 pasos</h2>
 
-    <div class="steps">
+    <div class="steps reveal">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-title">Elige tu paquete</div>
@@ -405,7 +405,7 @@
 <!-- TESTIMONIALES -->
 <section class="section-reviews">
   <div class="section-reviews-inner">
-    <div class="section-tag">Lo que dicen viajeros</div>
+    <div class="section-tag reveal">Lo que dicen viajeros</div>
     <h2 class="section-title">Experiencias <em>reales</em></h2>
 
     <div class="reviews-grid">
@@ -446,17 +446,115 @@
   </div>
 </section>
 
+<!-- GARANTÍAS -->
+<section class="section-garantias">
+  <div class="garantias-inner reveal">
+    <div class="garantia-item">
+      <div class="garantia-icon">🕐</div>
+      <div class="garantia-text">
+        <strong>Respuesta en &lt;1 hora</strong>
+        <span>Confirmación inmediata por WhatsApp o correo</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">❌</div>
+      <div class="garantia-text">
+        <strong>Cancela sin costo</strong>
+        <span>Con 24 horas de anticipación, sin preguntas</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">🧭</div>
+      <div class="garantia-text">
+        <strong>Guía local experto</strong>
+        <span>Nativo de Homún, español e inglés</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">🤿</div>
+      <div class="garantia-text">
+        <strong>Equipo incluido</strong>
+        <span>Chaleco salvavidas y snorkel disponible</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="section-cta" id="contacto">
   <div class="section-cta-inner">
     <h2 class="cta-title">¿Listo para sumergirte?</h2>
-    <p class="cta-sub">Déjanos tu correo y te avisamos cuando abran las reservas, además de nuestros mejores precios de lanzamiento.</p>
-    <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="tu@correo.com">
-      <button class="cta-btn">Quiero mi lugar →</button>
+    <p class="cta-sub">Déjanos tu nombre, correo y fecha tentativa — te respondemos en menos de una hora.</p>
+
+    <form
+      action="https://formspree.io/f/REEMPLAZAR_CON_TU_ID"
+      method="POST"
+      class="cta-form-full"
+      id="contact-form-es"
+    >
+      <!-- Honeypot anti-spam -->
+      <input type="text" name="_gotcha" style="display:none">
+      <!-- Redirect después de enviar -->
+      <input type="hidden" name="_next" value="https://jesusjavierSEO.github.io/cenotes-tesv1/?gracias=1">
+      <!-- Asunto del email que recibirás -->
+      <input type="hidden" name="_subject" value="Nueva consulta — Cenotes Homún">
+
+      <div class="cta-form-row">
+        <input
+          class="cta-input"
+          type="text"
+          name="nombre"
+          placeholder="Tu nombre"
+          required
+          autocomplete="given-name"
+        >
+        <input
+          class="cta-input"
+          type="email"
+          name="email"
+          placeholder="tu@correo.com"
+          required
+          autocomplete="email"
+        >
+      </div>
+      <div class="cta-form-row">
+        <input
+          class="cta-input"
+          type="text"
+          name="fecha"
+          placeholder="Fecha tentativa de visita (ej: 15 de julio)"
+        >
+        <select class="cta-input" name="personas">
+          <option value="" disabled selected>¿Cuántas personas?</option>
+          <option value="1-2">1 – 2 personas</option>
+          <option value="3-5">3 – 5 personas</option>
+          <option value="6-10">6 – 10 personas</option>
+          <option value="10+">Más de 10</option>
+        </select>
+      </div>
+      <textarea
+        class="cta-input cta-textarea"
+        name="mensaje"
+        placeholder="¿Alguna pregunta o comentario? (opcional)"
+        rows="3"
+      ></textarea>
+      <button type="submit" class="cta-btn" id="submit-btn-es">
+        Enviar consulta →
+      </button>
+    </form>
+
+    <!-- Mensaje de éxito (oculto hasta que se envíe) -->
+    <div class="cta-success" id="cta-success-es" style="display:none">
+      <div class="cta-success-icon">✓</div>
+      <h3>¡Recibido!</h3>
+      <p>Te respondemos en menos de una hora por correo o WhatsApp.</p>
     </div>
-    <p style="margin-top:16px; color:rgba(255,255,255,0.6); font-size:0.8rem;">
-      O escríbenos directamente por WhatsApp. Respuesta inmediata.
+
+    <p class="cta-note">
+      También puedes contactarnos directamente por WhatsApp. Respuesta inmediata.
     </p>
   </div>
 </section>
@@ -482,7 +580,69 @@
 <!-- Shared components (nav, footer, whatsapp) -->
 <script src="assets/components.js"></script>
 <script>
-  // Partículas flotantes en hero
+  // ── Scroll reveal con IntersectionObserver ──
+  (function() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Solo anima una vez
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    // Observar todos los elementos con clase .reveal
+    function initReveal() {
+      document.querySelectorAll('.reveal').forEach(function(el) {
+        observer.observe(el);
+      });
+    }
+    // Esperar a que components.js inyecte el nav/footer
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReveal);
+    } else {
+      setTimeout(initReveal, 100);
+    }
+  })();
+
+  // ── Formulario Formspree con feedback visual ──
+  (function() {
+    var form = document.getElementById('contact-form-es');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      var btn = document.getElementById('submit-btn-es');
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      // Formspree maneja el POST — si usa AJAX:
+      e.preventDefault();
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('cta-success-es').style.display = 'block';
+          // GTM event
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: 'form_submit', form_name: 'contacto_es' });
+          }
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Enviar consulta →';
+          alert('Hubo un error. Por favor intenta de nuevo.');
+        }
+      }).catch(function() {
+        btn.disabled = false;
+        btn.textContent = 'Enviar consulta →';
+        alert('Error de conexión. Por favor intenta de nuevo.');
+      });
+    });
+  })();
+
+  // ── Partículas flotantes en hero ──
   const hero = document.querySelector('.hero');
   if (hero) {
     for (let i = 0; i < 15; i++) {

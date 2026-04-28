@@ -126,33 +126,33 @@
 
 <!-- WHY CHOOSE US -->
 <section class="section-exp">
-  <div class="section-tag">Why choose us</div>
+  <div class="section-tag reveal">Why choose us</div>
   <h2 class="section-title">An <em>authentic</em> and unforgettable experience</h2>
 
   <div class="exp-grid">
     <div class="exp-features">
-      <div class="feature">
+      <div class="feature reveal">
         <div class="feature-icon">📍</div>
         <div>
           <div class="feature-title">Meeting point in Homún</div>
           <div class="feature-desc">We meet you directly in the village — easy to reach from anywhere in Yucatán.</div>
         </div>
       </div>
-      <div class="feature">
+      <div class="feature reveal reveal-delay-1">
         <div class="feature-icon">🤿</div>
         <div>
           <div class="feature-title">Snorkel gear available</div>
           <div class="feature-desc">Life vests, snorkel and everything you need to explore the cenotes safely and comfortably.</div>
         </div>
       </div>
-      <div class="feature">
+      <div class="feature reveal reveal-delay-2">
         <div class="feature-icon">🌿</div>
         <div>
           <div class="feature-title">The best cenotes in Homún</div>
           <div class="feature-desc">We take you to the most beautiful and authentic cenotes in the municipality, hand-picked by our local guide.</div>
         </div>
       </div>
-      <div class="feature">
+      <div class="feature reveal reveal-delay-3">
         <div class="feature-icon">🧭</div>
         <div>
           <div class="feature-title">Expert local guide</div>
@@ -192,7 +192,7 @@
 <section class="section-paquetes" id="packages">
   <div class="section-paquetes-inner">
     <div class="section-header">
-      <div class="section-tag">Our packages</div>
+      <div class="section-tag reveal">Our packages</div>
       <h2 class="section-title" style="margin: 0 auto; text-align:center;">Choose your adventure</h2>
       <p style="margin-top:16px; color:#777; font-size:0.95rem; max-width:440px; margin-left:auto; margin-right:auto;">
         All packages include a local guide and snorkel gear available.
@@ -270,7 +270,7 @@
 
 <!-- CENOTES -->
 <section class="section-cenotes" id="cenotes">
-  <div class="section-tag">The destinations</div>
+  <div class="section-tag reveal">The destinations</div>
   <h2 class="section-title">The cenotes of <em>Homún</em></h2>
 
   <div class="cenotes-scroll">
@@ -356,7 +356,7 @@
     <div class="section-tag">How does it work?</div>
     <h2 class="section-title">Your adventure in 4 steps</h2>
 
-    <div class="steps">
+    <div class="steps reveal">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-title">Choose your package</div>
@@ -384,7 +384,7 @@
 <!-- REVIEWS -->
 <section class="section-reviews">
   <div class="section-reviews-inner">
-    <div class="section-tag">What travelers say</div>
+    <div class="section-tag reveal">What travelers say</div>
     <h2 class="section-title"><em>Real</em> experiences</h2>
 
     <div class="reviews-grid">
@@ -425,17 +425,87 @@
   </div>
 </section>
 
+<!-- GUARANTEES -->
+<section class="section-garantias">
+  <div class="garantias-inner reveal">
+    <div class="garantia-item">
+      <div class="garantia-icon">🕐</div>
+      <div class="garantia-text">
+        <strong>Reply within 1 hour</strong>
+        <span>Instant confirmation by WhatsApp or email</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">❌</div>
+      <div class="garantia-text">
+        <strong>Free cancellation</strong>
+        <span>Up to 24 hours before, no questions asked</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">🧭</div>
+      <div class="garantia-text">
+        <strong>Expert local guide</strong>
+        <span>Homún native, Spanish & English</span>
+      </div>
+    </div>
+    <div class="garantia-sep"></div>
+    <div class="garantia-item">
+      <div class="garantia-icon">🤿</div>
+      <div class="garantia-text">
+        <strong>Gear included</strong>
+        <span>Life vest and snorkel available</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="section-cta" id="contact">
   <div class="section-cta-inner">
     <h2 class="cta-title">Ready to dive in?</h2>
-    <p class="cta-sub">Leave your email and we'll notify you when bookings open — plus our best launch prices.</p>
-    <div class="cta-form">
-      <input class="cta-input" type="email" placeholder="your@email.com">
-      <button class="cta-btn">Save my spot →</button>
+    <p class="cta-sub">Leave your name, email and travel date — we'll get back to you within the hour.</p>
+
+    <form
+      action="https://formspree.io/f/REEMPLAZAR_CON_TU_ID"
+      method="POST"
+      class="cta-form-full"
+      id="contact-form-en"
+    >
+      <input type="text" name="_gotcha" style="display:none">
+      <input type="hidden" name="_next" value="https://jesusjavierSEO.github.io/cenotes-tesv1/en.html?thanks=1">
+      <input type="hidden" name="_subject" value="New inquiry — Cenotes Homún">
+
+      <div class="cta-form-row">
+        <input class="cta-input" type="text" name="name" placeholder="Your name" required autocomplete="given-name">
+        <input class="cta-input" type="email" name="email" placeholder="your@email.com" required autocomplete="email">
+      </div>
+      <div class="cta-form-row">
+        <input class="cta-input" type="text" name="date" placeholder="Planned visit date (e.g. July 15)">
+        <select class="cta-input" name="people">
+          <option value="" disabled selected>How many people?</option>
+          <option value="1-2">1 – 2 people</option>
+          <option value="3-5">3 – 5 people</option>
+          <option value="6-10">6 – 10 people</option>
+          <option value="10+">More than 10</option>
+        </select>
+      </div>
+      <textarea class="cta-input cta-textarea" name="message" placeholder="Any questions or comments? (optional)" rows="3"></textarea>
+      <button type="submit" class="cta-btn" id="submit-btn-en">
+        Send inquiry →
+      </button>
+    </form>
+
+    <div class="cta-success" id="cta-success-en" style="display:none">
+      <div class="cta-success-icon">✓</div>
+      <h3>Got it!</h3>
+      <p>We'll reply within the hour by email or WhatsApp.</p>
     </div>
-    <p style="margin-top:16px; color:rgba(255,255,255,0.6); font-size:0.8rem;">
-      Or reach us directly on WhatsApp. We reply instantly.
+
+    <p class="cta-note">
+      You can also reach us directly on WhatsApp. We reply instantly.
     </p>
   </div>
 </section>
@@ -458,6 +528,52 @@
 <div id="footer-placeholder"></div>
 
 <script src="assets/components.js"></script>
+<script>
+  // ── Scroll reveal ──
+  (function() {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    function initReveal() {
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReveal);
+    } else { setTimeout(initReveal, 100); }
+  })();
+
+  // ── Form handler ──
+  (function() {
+    var form = document.getElementById('contact-form-en');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('submit-btn-en');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      fetch(form.action, {
+        method: 'POST', body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('cta-success-en').style.display = 'block';
+          if (window.dataLayer) window.dataLayer.push({ event: 'form_submit', form_name: 'contact_en' });
+        } else {
+          btn.disabled = false; btn.textContent = 'Send inquiry →';
+          alert('Something went wrong. Please try again.');
+        }
+      }).catch(function() {
+        btn.disabled = false; btn.textContent = 'Send inquiry →';
+        alert('Connection error. Please try again.');
+      });
+    });
+  })();
+</script>
 <script>
   const hero = document.querySelector('.hero');
   if (hero) {
