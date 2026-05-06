@@ -55,6 +55,7 @@
     navES: [
       { label: "Inicio",       href: "index.html" },
       { label: "Guía",         href: "guia-cenotes-homun.html" },
+      { label: "Tours Cancún", href: "tours-cancun.html" },
       { label: "FAQ",          href: "faq.html" },
       { label: "Cómo llegar",  href: "como-llegar.html" },
     ],
@@ -64,6 +65,7 @@
     navEN: [
       { label: "Home",         href: "en.html" },
       { label: "Guide",        href: "cenotes-guide-homun.html" },
+      { label: "Cancún Tours", href: "tours-cancun.html" },
       { label: "FAQ",          href: "faq.html" },
       { label: "Getting there",href: "como-llegar.html" },
     ],
@@ -75,6 +77,7 @@
       { label: "Tour Aventurero",  href: "index.html#paquetes" },
       { label: "Tour Premium",     href: "index.html#paquetes" },
       { label: "Grupos y familias",href: "index.html#paquetes" },
+      { label: "Tours Cancún",     href: "tours-cancun.html" },
     ],
     // Footer — columna de info ES
     footerInfoES: [
@@ -89,6 +92,7 @@
       { label: "Adventurer Tour",  href: "en.html#packages" },
       { label: "Premium Tour",     href: "en.html#packages" },
       { label: "Groups & Families",href: "en.html#packages" },
+      { label: "Cancún Tours",     href: "tours-cancun.html" },
     ],
     footerInfoEN: [
       { label: "The cenotes",  href: "en.html#cenotes" },

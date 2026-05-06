@@ -303,3 +303,127 @@ select.cta-input { cursor: pointer; }
 @media (max-width: 480px) {
   .garantia-item { min-width: 100%; }
 }
+
+/* ─── SECCIÓN DESTINOS ──────────────────────────────────── */
+.section-destinos {
+  padding: 100px 48px;
+  background: var(--gris, #f0f0ee);
+}
+.destinos-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.destinos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.destino-card {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-decoration: none;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+}
+.destino-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.18);
+}
+.destino-card-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
+}
+.destino-card:hover .destino-card-bg {
+  transform: scale(1.04);
+}
+/* Overlay gradiente sobre la imagen */
+.destino-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 20, 15, 0.92) 0%,
+    rgba(10, 20, 15, 0.4) 50%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+.destino-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  background: var(--agua);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.destino-badge-soon {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(4px);
+}
+.destino-card-body {
+  position: relative;
+  z-index: 2;
+  padding: 28px 32px;
+}
+.destino-location {
+  font-size: 0.75rem;
+  color: rgba(245,237,224,0.55);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.destino-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--arena);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.destino-desc {
+  font-size: 0.88rem;
+  color: rgba(245,237,224,0.65);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  max-width: 380px;
+}
+.destino-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--agua-light);
+  letter-spacing: 0.02em;
+  transition: gap 0.2s;
+}
+.destino-card:hover .destino-link { gap: 10px; }
+.destino-link-soon {
+  color: rgba(245,237,224,0.45);
+}
+
+/* Estado desactivado / soon */
+.destino-soon {
+  opacity: 0.82;
+}
+.destino-soon:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .section-destinos { padding: 80px 24px; }
+  .destinos-grid { grid-template-columns: 1fr; }
+  .destino-card { min-height: 280px; }
+}
