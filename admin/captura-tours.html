@@ -386,7 +386,8 @@ body {
 }
 .btn-atras {
   background: var(--gris); color: var(--subtexto);
-  flex: 0.4;
+  flex: 0.45;
+  font-size: 0.88rem;
 }
 .btn-siguiente { background: var(--agua); color: white; }
 .btn-siguiente:hover { background: #088a94; }
@@ -925,7 +926,17 @@ function irAPaso(n) {
   }
   document.getElementById('paso-actual-num').textContent = n + 1;
   // Botones
-  document.getElementById('btn-atras').style.display = n === 0 ? 'none' : '';
+  const btnAtras = document.getElementById('btn-atras');
+  btnAtras.style.display = '';
+  if (n === 0) {
+    btnAtras.textContent = '✕ Cancelar';
+    btnAtras.onclick = function() {
+      if (confirm('¿Salir sin guardar este tour?')) irAInicio();
+    };
+  } else {
+    btnAtras.textContent = '← Atrás';
+    btnAtras.onclick = pasoAnterior;
+  }
   document.getElementById('btn-siguiente').style.display = n < TOTAL_PASOS - 1 ? '' : 'none';
   document.getElementById('btn-guardar').style.display = n === TOTAL_PASOS - 1 ? '' : 'none';
   // Init fotos en último paso
