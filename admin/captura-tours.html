@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Captura de Tours — Panel Privado</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────── */
+:root {
+  --verde: #1a3a2a;
+  --agua: #0a9da8;
+  --agua-light: #e0f7f8;
+  --arena: #f5ede0;
+  --gris: #f4f4f2;
+  --borde: #e2e2de;
+  --texto: #1c1c1c;
+  --subtexto: #777;
+  --error: #e53e3e;
+  --exito: #38a169;
+  --amarillo: #e8a000;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--gris);
+  color: var(--texto);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ─── HEADER ───────────────────────────────────────────── */
+.app-header {
+  background: var(--verde);
+  padding: 18px 20px 16px;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+}
+.app-logo {
+  font-size: 0.9rem; font-weight: 700;
+  color: white; letter-spacing: 0.05em;
+}
+.app-logo span { color: #7fe3e8; }
+.header-badge {
+  margin-left: auto;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  font-size: 0.68rem; font-weight: 600;
+  padding: 3px 10px; border-radius: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ─── VISTAS (pantallas) ───────────────────────────────── */
+.vista { display: none; }
+.vista.activa { display: block; }
+
+/* ─── VISTA: INICIO ────────────────────────────────────── */
+.inicio-wrap {
+  padding: 28px 20px 0;
+  max-width: 480px; margin: 0 auto;
+}
+.bienvenida-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--borde);
+}
+.bienvenida-card h1 {
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--verde); margin-bottom: 6px;
+}
+.bienvenida-card p {
+  font-size: 0.88rem; color: var(--subtexto);
+  line-height: 1.6;
+}
+.stats-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 20px;
+}
+.stat-card {
+  background: white; border-radius: 12px;
+  padding: 16px; border: 1px solid var(--borde);
+  text-align: center;
+}
+.stat-num {
+  font-size: 2rem; font-weight: 700;
+  color: var(--verde); line-height: 1;
+}
+.stat-label {
+  font-size: 0.75rem; color: var(--subtexto);
+  margin-top: 4px;
+}
+.btn-principal {
+  width: 100%; padding: 16px;
+  background: var(--agua); color: white;
+  border: none; border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  margin-bottom: 12px; display: flex;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.btn-principal:hover { background: #088a94; }
+.btn-principal.secundario {
+  background: white; color: var(--verde);
+  border: 1.5px solid var(--borde);
+}
+.btn-principal.secundario:hover { background: var(--gris); }
+.btn-principal.peligro {
+  background: white; color: var(--error);
+  border: 1.5px solid #fed7d7;
+}
+
+/* ─── LISTA DE TOURS ───────────────────────────────────── */
+.tours-lista { padding: 0 20px; max-width: 480px; margin: 0 auto; }
+.tours-lista-titulo {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--subtexto); margin: 20px 0 10px;
+}
+.tour-item {
+  background: white; border-radius: 12px;
+  padding: 16px; margin-bottom: 10px;
+  border: 1px solid var(--borde);
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all 0.2s;
+}
+.tour-item:hover { border-color: var(--agua); }
+.tour-item-icon {
+  width: 44px; height: 44px;
+  background: var(--agua-light); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.tour-item-info { flex: 1; min-width: 0; }
+.tour-item-nombre {
+  font-weight: 600; font-size: 0.95rem;
+  color: var(--verde); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.tour-item-meta {
+  font-size: 0.78rem; color: var(--subtexto); margin-top: 2px;
+}
+.tour-item-status {
+  font-size: 0.68rem; font-weight: 700;
+  padding: 3px 8px; border-radius: 8px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.status-completo { background: #c6f6d5; color: #276749; }
+.status-borrador { background: #feebc8; color: #c05621; }
+.tour-item-arrow { color: #ccc; font-size: 1rem; flex-shrink: 0; }
+
+/* ─── FORMULARIO PASO A PASO ───────────────────────────── */
+.form-wrap {
+  max-width: 480px; margin: 0 auto; padding: 0 20px;
+}
+
+/* Progress bar */
+.progress-bar-wrap {
+  background: white; padding: 16px 20px 0;
+  position: sticky; top: 56px; z-index: 90;
+  border-bottom: 1px solid var(--borde);
+}
+.progress-steps {
+  display: flex; gap: 4px; margin-bottom: 10px;
+}
+.progress-step {
+  flex: 1; height: 4px; border-radius: 2px;
+  background: var(--borde); transition: background 0.3s;
+}
+.progress-step.done { background: var(--exito); }
+.progress-step.active { background: var(--agua); }
+.progress-label {
+  font-size: 0.72rem; color: var(--subtexto);
+  padding-bottom: 10px;
+}
+.progress-label strong { color: var(--verde); }
+
+/* Paso individual */
+.paso { display: none; padding-top: 20px; }
+.paso.activo { display: block; }
+.paso-titulo {
+  font-size: 1.15rem; font-weight: 700;
+  color: var(--verde); margin-bottom: 4px;
+}
+.paso-sub {
+  font-size: 0.82rem; color: var(--subtexto);
+  margin-bottom: 20px; line-height: 1.5;
+}
+
+/* Campos */
+.campo { margin-bottom: 16px; }
+.campo label {
+  display: block; font-size: 0.8rem; font-weight: 600;
+  color: var(--verde); margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+.campo label .opcional {
+  font-weight: 400; color: var(--subtexto); margin-left: 4px;
+}
+.campo input,
+.campo textarea,
+.campo select {
+  width: 100%; padding: 13px 14px;
+  border: 1.5px solid var(--borde);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem; color: var(--texto);
+  background: white; outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus { border-color: var(--agua); }
+.campo input.error,
+.campo textarea.error { border-color: var(--error); }
+.campo .error-msg {
+  font-size: 0.75rem; color: var(--error);
+  margin-top: 4px; display: none;
+}
+.campo .error-msg.visible { display: block; }
+.campo textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+.campo-hint {
+  font-size: 0.75rem; color: var(--subtexto);
+  margin-top: 4px; line-height: 1.4;
+}
+
+/* Fila doble */
+.campo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Precio toggle */
+.precio-toggle {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin-bottom: 12px;
+}
+.precio-toggle-btn {
+  padding: 11px; border-radius: 10px;
+  border: 1.5px solid var(--borde);
+  background: white; font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; transition: all 0.2s;
+  text-align: center; color: var(--subtexto);
+}
+.precio-toggle-btn.activo {
+  border-color: var(--agua);
+  background: var(--agua-light);
+  color: var(--verde); font-weight: 600;
+}
+
+/* Checklist incluidos */
+.checklist-wrap {
+  border: 1.5px solid var(--borde);
+  border-radius: 10px; overflow: hidden;
+  background: white;
+}
+.checklist-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; cursor: pointer;
+  border-bottom: 1px solid var(--borde);
+  transition: background 0.15s;
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item:hover { background: var(--gris); }
+.check-box {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 1.5px solid var(--borde);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.15s;
+  font-size: 0.7rem; color: white;
+}
+.checklist-item.marcado .check-box {
+  background: var(--agua); border-color: var(--agua);
+}
+.checklist-item.marcado .check-box::after { content: '✓'; }
+.checklist-label { font-size: 0.88rem; color: var(--texto); }
+
+/* Tag input para incluidos personalizados */
+.tags-wrap {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 10px 14px; border: 1.5px solid var(--borde);
+  border-radius: 10px; background: white; min-height: 48px;
+  margin-top: 8px; cursor: text;
+}
+.tag {
+  background: var(--agua-light); color: var(--verde);
+  font-size: 0.78rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 20px;
+  display: flex; align-items: center; gap: 5px;
+}
+.tag-x { cursor: pointer; color: var(--agua); font-size: 0.9rem; }
+.tags-input {
+  border: none; outline: none; font-size: 0.88rem;
+  font-family: 'Outfit', sans-serif; flex: 1; min-width: 120px;
+  background: transparent; padding: 2px 0;
+}
+
+/* Botones de opciones (días, dificultad, etc.) */
+.opciones-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.opciones-grid.dos { grid-template-columns: 1fr 1fr; }
+.opcion-btn {
+  padding: 10px 8px; border-radius: 10px;
+  border: 1.5px solid var(--borde);
+  background: white; font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem; cursor: pointer;
+  transition: all 0.2s; text-align: center;
+  color: var(--subtexto);
+}
+.opcion-btn.activo {
+  border-color: var(--agua);
+  background: var(--agua-light);
+  color: var(--verde); font-weight: 600;
+}
+
+/* Upload de fotos */
+.fotos-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.foto-slot {
+  aspect-ratio: 1; border-radius: 10px;
+  border: 1.5px dashed var(--borde);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+  overflow: hidden; position: relative;
+  background: white;
+}
+.foto-slot:hover { border-color: var(--agua); background: var(--agua-light); }
+.foto-slot.cargada { border-style: solid; border-color: var(--borde); }
+.foto-slot img {
+  width: 100%; height: 100%; object-fit: cover;
+  position: absolute; inset: 0;
+}
+.foto-slot-icon { font-size: 1.4rem; color: var(--borde); }
+.foto-slot-label { font-size: 0.68rem; color: var(--subtexto); margin-top: 4px; }
+.foto-delete {
+  position: absolute; top: 4px; right: 4px;
+  width: 22px; height: 22px;
+  background: rgba(229,62,62,0.85); color: white;
+  border-radius: 50%; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; z-index: 2;
+}
+
+/* Margen — campo privado */
+.campo-privado {
+  background: #fffbeb;
+  border: 1.5px solid #f6e05e;
+  border-radius: 10px; padding: 14px;
+}
+.campo-privado .privado-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; font-weight: 700;
+  color: #744210; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.campo-privado input {
+  border: 1.5px solid #f6e05e;
+  background: white;
+}
+
+/* Navegación de pasos */
+.paso-nav {
+  display: flex; gap: 10px;
+  padding: 16px 20px;
+  position: sticky; bottom: 0; z-index: 90;
+  background: white;
+  border-top: 1px solid var(--borde);
+  max-width: 480px; margin: 0 auto;
+}
+.btn-paso {
+  flex: 1; padding: 14px;
+  border-radius: 10px; border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn-atras {
+  background: var(--gris); color: var(--subtexto);
+  flex: 0.4;
+}
+.btn-siguiente { background: var(--agua); color: white; }
+.btn-siguiente:hover { background: #088a94; }
+.btn-guardar { background: var(--exito); color: white; }
+.btn-guardar:hover { background: #2d8a5a; }
+
+/* ─── RESUMEN ───────────────────────────────────────────── */
+.resumen-card {
+  background: white; border-radius: 14px;
+  border: 1px solid var(--borde); margin-bottom: 14px;
+  overflow: hidden;
+}
+.resumen-header {
+  background: var(--verde); padding: 16px 18px;
+}
+.resumen-nombre {
+  font-size: 1.05rem; font-weight: 700; color: white;
+}
+.resumen-destino { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.resumen-body { padding: 16px 18px; }
+.resumen-row {
+  display: flex; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid var(--gris);
+  font-size: 0.85rem;
+}
+.resumen-row:last-child { border-bottom: none; }
+.resumen-key { color: var(--subtexto); }
+.resumen-val { font-weight: 500; color: var(--verde); text-align: right; max-width: 55%; }
+.resumen-fotos-row {
+  display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap;
+}
+.resumen-foto-thumb {
+  width: 52px; height: 52px; object-fit: cover;
+  border-radius: 6px; border: 1px solid var(--borde);
+}
+
+/* ─── VISTA EXPORTAR ────────────────────────────────────── */
+.export-wrap {
+  padding: 24px 20px; max-width: 480px; margin: 0 auto;
+}
+.export-card {
+  background: white; border-radius: 14px;
+  border: 1px solid var(--borde); padding: 22px;
+  margin-bottom: 14px;
+}
+.export-card h3 {
+  font-size: 1rem; font-weight: 700;
+  color: var(--verde); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px;
+}
+.export-card p {
+  font-size: 0.82rem; color: var(--subtexto);
+  line-height: 1.6; margin-bottom: 14px;
+}
+
+/* ─── TOAST NOTIFICACIONES ──────────────────────────────── */
+.toast {
+  position: fixed; bottom: 80px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--verde); color: white;
+  padding: 12px 20px; border-radius: 25px;
+  font-size: 0.85rem; font-weight: 500;
+  opacity: 0; transition: all 0.3s;
+  z-index: 999; white-space: nowrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.toast.visible {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+.toast.exito { background: var(--exito); }
+.toast.error { background: var(--error); }
+
+/* ─── EMPTY STATE ───────────────────────────────────────── */
+.empty-state {
+  text-align: center; padding: 40px 20px;
+  color: var(--subtexto);
+}
+.empty-state-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.88rem; line-height: 1.6; }
+
+/* ─── SECCION DIVIDER ───────────────────────────────────── */
+.seccion-divider {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--subtexto); padding: 16px 0 8px;
+  border-bottom: 1px solid var(--borde); margin-bottom: 14px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="app-header">
+  <div class="app-logo">Cenotes <span>Homún</span></div>
+  <div class="header-badge">🔒 Panel privado</div>
+</header>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     VISTA: INICIO
+══════════════════════════════════════════════════════ -->
+<div class="vista activa" id="vista-inicio">
+  <div class="inicio-wrap">
+    <div class="bienvenida-card">
+      <h1>¡Hola! 👋</h1>
+      <p>Aquí puedes ir agregando todos tus tours y paquetes. Rellena uno por uno y al terminar se los compartimos a Jesús.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Tours guardados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-completos">0</div>
+        <div class="stat-label">Completos</div>
+      </div>
+    </div>
+
+    <button class="btn-principal" onclick="irAFormulario()">
+      ➕ Agregar nuevo tour
+    </button>
+    <button class="btn-principal secundario" onclick="irALista()" id="btn-ver-lista" style="display:none">
+      📋 Ver tours guardados
+    </button>
+    <button class="btn-principal secundario" onclick="irAExportar()" id="btn-exportar" style="display:none">
+      📤 Compartir catálogo
+    </button>
+  </div>
+
+  <div class="tours-lista" id="lista-inicio">
+    <!-- Tours aparecen aquí -->
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     VISTA: FORMULARIO
+══════════════════════════════════════════════════════ -->
+<div class="vista" id="vista-formulario">
+
+  <!-- Barra de progreso -->
+  <div class="progress-bar-wrap">
+    <div class="progress-steps">
+      <div class="progress-step" id="p0"></div>
+      <div class="progress-step" id="p1"></div>
+      <div class="progress-step" id="p2"></div>
+      <div class="progress-step" id="p3"></div>
+      <div class="progress-step" id="p4"></div>
+      <div class="progress-step" id="p5"></div>
+    </div>
+    <div class="progress-label">
+      Paso <strong id="paso-actual-num">1</strong> de 6
+    </div>
+  </div>
+
+  <div class="form-wrap">
+
+    <!-- ── PASO 1: Info básica ── -->
+    <div class="paso" id="paso-0">
+      <div class="paso-titulo">Información básica</div>
+      <div class="paso-sub">Lo más importante del tour — nombre, dónde va y cuánto dura.</div>
+
+      <div class="campo">
+        <label>Nombre del tour o paquete</label>
+        <input type="text" id="f-nombre" placeholder="Ej: Tour a Tulum + Cenotes" autocomplete="off">
+        <div class="error-msg" id="err-nombre">Por favor escribe el nombre del tour</div>
+      </div>
+
+      <div class="campo">
+        <label>Destino <span class="opcional">(¿A dónde va el tour?)</span></label>
+        <input type="text" id="f-destino" placeholder="Ej: Tulum, Quintana Roo" autocomplete="off">
+        <div class="error-msg" id="err-destino">Por favor escribe el destino</div>
+      </div>
+
+      <div class="campo">
+        <label>Lugar de salida <span class="opcional">(opcional)</span></label>
+        <input type="text" id="f-salida" placeholder="Ej: Hotel Zone, Cancún / No incluye traslado" autocomplete="off">
+        <div class="campo-hint">Si el tour no incluye traslado, puedes escribirlo aquí.</div>
+      </div>
+
+      <div class="campo-row">
+        <div class="campo">
+          <label>Duración</label>
+          <input type="text" id="f-duracion" placeholder="Ej: 8 horas / 2 días" autocomplete="off">
+          <div class="error-msg" id="err-duracion">Escribe la duración</div>
+        </div>
+        <div class="campo">
+          <label>Tipo de tour</label>
+          <select id="f-tipo">
+            <option value="">Selecciona</option>
+            <option value="Medio día">Medio día</option>
+            <option value="Día completo">Día completo</option>
+            <option value="Varios días">Varios días</option>
+            <option value="Privado">Tour privado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="campo-row">
+        <div class="campo">
+          <label>Mínimo de personas</label>
+          <input type="number" id="f-min" placeholder="2" min="1" max="100">
+          <div class="error-msg" id="err-min">Escribe el mínimo</div>
+        </div>
+        <div class="campo">
+          <label>Máximo de personas</label>
+          <input type="number" id="f-max" placeholder="15" min="1" max="200">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Idiomas disponibles</label>
+        <div class="opciones-grid dos" id="idiomas-opts">
+          <button class="opcion-btn" data-val="Español" onclick="toggleOpcion(this, 'idiomas')">🇲🇽 Español</button>
+          <button class="opcion-btn" data-val="Inglés" onclick="toggleOpcion(this, 'idiomas')">🇺🇸 Inglés</button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>¿Apto para niños?</label>
+        <div class="opciones-grid dos" id="ninos-opts">
+          <button class="opcion-btn" data-val="Sí" onclick="toggleOpcionUnico(this, 'ninos')">👶 Sí</button>
+          <button class="opcion-btn" data-val="No" onclick="toggleOpcionUnico(this, 'ninos')">🚫 No</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PASO 2: Precios ── -->
+    <div class="paso" id="paso-1">
+      <div class="paso-titulo">Precios</div>
+      <div class="paso-sub">Define cómo cobras este tour y tu margen de ganancia.</div>
+
+      <div class="campo">
+        <label>¿Cómo cobras este tour?</label>
+        <div class="precio-toggle">
+          <button class="precio-toggle-btn activo" id="toggle-persona" onclick="setPrecioTipo('persona')">
+            👤 Por persona
+          </button>
+          <button class="precio-toggle-btn" id="toggle-paquete" onclick="setPrecioTipo('paquete')">
+            👥 Por paquete
+          </button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label id="precio-label">Precio por persona (MXN)</label>
+        <input type="number" id="f-precio" placeholder="0.00" min="0" step="0.01">
+        <div class="error-msg" id="err-precio">Por favor escribe el precio</div>
+        <div class="campo-hint">Precio en pesos mexicanos (MXN). Si también tienes precio en dólares, lo puedes poner en la descripción.</div>
+      </div>
+
+      <div class="campo">
+        <label>¿Hay precio diferente para niños? <span class="opcional">(opcional)</span></label>
+        <input type="number" id="f-precio-nino" placeholder="Precio para menores de 12 años" min="0" step="0.01">
+      </div>
+
+      <div class="campo-privado">
+        <div class="privado-label">🔐 Solo para ti — no se publica</div>
+        <div class="campo">
+          <label>Tu margen de ganancia <span class="opcional">(% o monto fijo)</span></label>
+          <input type="text" id="f-margen" placeholder="Ej: 25% o $300 MXN por persona">
+          <div class="campo-hint">Esta información es privada. No aparece en el sitio web.</div>
+        </div>
+        <div class="campo">
+          <label>Precio de costo / lo que paga tu socio <span class="opcional">(opcional)</span></label>
+          <input type="number" id="f-costo" placeholder="Costo base del tour" min="0" step="0.01">
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PASO 3: Descripción ── -->
+    <div class="paso" id="paso-2">
+      <div class="paso-titulo">Descripción</div>
+      <div class="paso-sub">Cuéntanos de qué va el tour. Entre más detalle, mejor podemos promocionarlo.</div>
+
+      <div class="campo">
+        <label>Descripción del tour</label>
+        <textarea id="f-descripcion" placeholder="Describe el tour: qué va a ver el turista, qué hace, cuál es la experiencia, qué lo hace especial..." rows="6"></textarea>
+        <div class="error-msg" id="err-descripcion">Por favor escribe una descripción</div>
+        <div class="campo-hint">Mínimo 50 palabras. Piensa en qué le dirías a un turista en persona.</div>
+      </div>
+
+      <div class="campo">
+        <label>Punto de encuentro / instrucciones de llegada <span class="opcional">(opcional)</span></label>
+        <textarea id="f-encuentro" placeholder="Ej: Nos encontramos en la entrada principal de Chichén Itzá. El turista debe llegar a las 8:00am..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- ── PASO 4: Incluidos ── -->
+    <div class="paso" id="paso-3">
+      <div class="paso-titulo">¿Qué incluye?</div>
+      <div class="paso-sub">Marca lo que viene en el tour y agrega lo que no está en la lista.</div>
+
+      <div class="seccion-divider">✅ Incluye</div>
+      <div class="checklist-wrap" id="checklist-incluye">
+        <div class="checklist-item" data-val="Transporte" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🚐 Transporte</span>
+        </div>
+        <div class="checklist-item" data-val="Guía local" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🧭 Guía local</span>
+        </div>
+        <div class="checklist-item" data-val="Guía bilingüe" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🌐 Guía bilingüe (ES/EN)</span>
+        </div>
+        <div class="checklist-item" data-val="Entrada a sitios" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🎟 Entrada a sitios / zonas</span>
+        </div>
+        <div class="checklist-item" data-val="Comida" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🍽 Comida</span>
+        </div>
+        <div class="checklist-item" data-val="Bebidas / agua" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">💧 Bebidas / agua</span>
+        </div>
+        <div class="checklist-item" data-val="Equipo de snorkel" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🤿 Equipo de snorkel</span>
+        </div>
+        <div class="checklist-item" data-val="Chaleco salvavidas" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🦺 Chaleco salvavidas</span>
+        </div>
+        <div class="checklist-item" data-val="Seguro de viaje" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🛡 Seguro de viaje</span>
+        </div>
+        <div class="checklist-item" data-val="Fotos / video" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">📸 Fotos / video</span>
+        </div>
+      </div>
+
+      <div class="campo" style="margin-top:10px">
+        <label>¿Algo más que incluye? <span class="opcional">(escribe y presiona Enter)</span></label>
+        <div class="tags-wrap" id="incluye-extra" onclick="document.getElementById('incluye-input').focus()">
+          <input type="text" class="tags-input" id="incluye-input" placeholder="Ej: Kit de bienvenida...">
+        </div>
+      </div>
+
+      <div class="seccion-divider" style="margin-top:20px">❌ NO incluye</div>
+      <div class="campo">
+        <label>¿Qué no está incluido? <span class="opcional">(escribe y presiona Enter)</span></label>
+        <div class="tags-wrap" id="no-incluye-wrap" onclick="document.getElementById('no-incluye-input').focus()">
+          <input type="text" class="tags-input" id="no-incluye-input" placeholder="Ej: Propinas, comida extra...">
+        </div>
+        <div class="campo-hint">Esto le ayuda al turista a saber qué llevar o qué esperar.</div>
+      </div>
+    </div>
+
+    <!-- ── PASO 5: Detalles y disponibilidad ── -->
+    <div class="paso" id="paso-4">
+      <div class="paso-titulo">Detalles adicionales</div>
+      <div class="paso-sub">Días disponibles, dificultad y notas importantes para el turista.</div>
+
+      <div class="campo">
+        <label>Días disponibles</label>
+        <div class="opciones-grid" id="dias-opts">
+          <button class="opcion-btn" data-val="Lunes" onclick="toggleOpcion(this, 'dias')">Lun</button>
+          <button class="opcion-btn" data-val="Martes" onclick="toggleOpcion(this, 'dias')">Mar</button>
+          <button class="opcion-btn" data-val="Miércoles" onclick="toggleOpcion(this, 'dias')">Mié</button>
+          <button class="opcion-btn" data-val="Jueves" onclick="toggleOpcion(this, 'dias')">Jue</button>
+          <button class="opcion-btn" data-val="Viernes" onclick="toggleOpcion(this, 'dias')">Vie</button>
+          <button class="opcion-btn" data-val="Sábado" onclick="toggleOpcion(this, 'dias')">Sáb</button>
+          <button class="opcion-btn" data-val="Domingo" onclick="toggleOpcion(this, 'dias')">Dom</button>
+          <button class="opcion-btn" data-val="Todos los días" onclick="seleccionarTodosDias()" id="btn-todos">Todos</button>
+          <button class="opcion-btn" data-val="Previa reservación" onclick="toggleOpcion(this, 'dias')">Previa reserva</button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Nivel de dificultad</label>
+        <div class="opciones-grid dos" id="dificultad-opts">
+          <button class="opcion-btn" data-val="Fácil" onclick="toggleOpcionUnico(this, 'dificultad')">😊 Fácil</button>
+          <button class="opcion-btn" data-val="Moderado" onclick="toggleOpcionUnico(this, 'dificultad')">💪 Moderado</button>
+          <button class="opcion-btn" data-val="Activo" onclick="toggleOpcionUnico(this, 'dificultad')">🏃 Activo</button>
+          <button class="opcion-btn" data-val="Aventurero" onclick="toggleOpcionUnico(this, 'dificultad')">🧗 Aventurero</button>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Hora de salida <span class="opcional">(opcional)</span></label>
+        <input type="text" id="f-hora" placeholder="Ej: 8:00 AM / Varía según reserva">
+      </div>
+
+      <div class="campo">
+        <label>¿Qué debe llevar el turista? <span class="opcional">(opcional)</span></label>
+        <textarea id="f-llevar" placeholder="Ej: Ropa cómoda, protector solar, zapatos cerrados, dinero en efectivo..." rows="3"></textarea>
+      </div>
+
+      <div class="campo">
+        <label>Notas importantes <span class="opcional">(opcional)</span></label>
+        <textarea id="f-notas" placeholder="Política de cancelación, restricciones de edad, condiciones especiales, etc." rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- ── PASO 6: Fotos ── -->
+    <div class="paso" id="paso-5">
+      <div class="paso-titulo">Fotos del tour</div>
+      <div class="paso-sub">Agrega hasta 5 fotos. Una buena foto vale más que cualquier descripción.</div>
+
+      <div class="fotos-grid" id="fotos-grid">
+        <!-- Se genera dinámicamente -->
+      </div>
+
+      <div class="campo" style="margin-top:16px">
+        <label>Link de video o galería <span class="opcional">(opcional)</span></label>
+        <input type="url" id="f-video" placeholder="https://youtube.com/... o Google Drive">
+        <div class="campo-hint">Si tienes fotos en Google Drive, WhatsApp o YouTube, pega el link aquí.</div>
+      </div>
+
+      <input type="file" id="foto-input" accept="image/*" style="display:none" multiple>
+    </div>
+
+  </div><!-- /form-wrap -->
+
+  <!-- Navegación de pasos (sticky bottom) -->
+  <div class="paso-nav">
+    <button class="btn-paso btn-atras" id="btn-atras" onclick="pasoAnterior()">← Atrás</button>
+    <button class="btn-paso btn-siguiente" id="btn-siguiente" onclick="pasoSiguiente()">Siguiente →</button>
+    <button class="btn-paso btn-guardar" id="btn-guardar" style="display:none" onclick="guardarTour()">✓ Guardar tour</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     VISTA: EXPORTAR
+══════════════════════════════════════════════════════ -->
+<div class="vista" id="vista-exportar">
+  <div class="export-wrap">
+    <div style="padding: 8px 0 20px; display:flex; align-items:center; gap:10px;">
+      <button onclick="irAInicio()" style="background:none;border:none;font-size:1.2rem;cursor:pointer;">←</button>
+      <span style="font-weight:700; font-size:1rem;">Compartir catálogo</span>
+    </div>
+
+    <div class="export-card">
+      <h3>📄 Descargar como archivo</h3>
+      <p>Genera un archivo con todos tus tours guardados. Puedes mandarlo por WhatsApp directamente.</p>
+      <button class="btn-principal" onclick="exportarJSON()" style="margin-bottom:0">
+        Descargar archivo JSON
+      </button>
+    </div>
+
+    <div class="export-card">
+      <h3>📧 Enviar por correo</h3>
+      <p>Manda todo el catálogo por email. Llegará organizado y listo para usar.</p>
+      <button class="btn-principal" onclick="enviarPorEmail()" style="margin-bottom:0">
+        Enviar catálogo por correo
+      </button>
+    </div>
+
+    <div class="export-card">
+      <h3>👁 Resumen del catálogo</h3>
+      <p id="resumen-count">Cargando...</p>
+      <div id="resumen-tours"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════ -->
+<script>
+/* ── ESTADO GLOBAL ─────────────────────────────────────── */
+const KEY = 'ch_tours';
+const KEY_DRAFT = 'ch_draft';
+let tours = cargarTours();
+let draftId = null;
+let pasoActual = 0;
+const TOTAL_PASOS = 6;
+
+// Selecciones múltiples
+const selecciones = {
+  idiomas: [],
+  ninos: [],
+  dias: [],
+  dificultad: [],
+  incluye: [],
+};
+
+let fotosBase64 = [];
+let precioTipo = 'persona';
+
+/* ── STORAGE ────────────────────────────────────────────── */
+function cargarTours() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY)) || [];
+  } catch(e) { return []; }
+}
+function guardarTours() {
+  localStorage.setItem(KEY, JSON.stringify(tours));
+}
+function cargarDraft() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY_DRAFT)) || null;
+  } catch(e) { return null; }
+}
+function guardarDraft() {
+  localStorage.setItem(KEY_DRAFT, JSON.stringify(getDatosFormulario()));
+}
+
+/* ── NAVEGACIÓN DE VISTAS ───────────────────────────────── */
+function mostrarVista(id) {
+  document.querySelectorAll('.vista').forEach(v => v.classList.remove('activa'));
+  document.getElementById(id).classList.add('activa');
+  window.scrollTo(0, 0);
+}
+function irAInicio() {
+  actualizarInicio();
+  mostrarVista('vista-inicio');
+}
+function irAFormulario(id) {
+  resetFormulario();
+  if (id) {
+    // Editar tour existente
+    const tour = tours.find(t => t.id === id);
+    if (tour) { draftId = id; llenarFormulario(tour); }
+  } else {
+    draftId = null;
+  }
+  irAPaso(0);
+  mostrarVista('vista-formulario');
+}
+function irALista() { irAInicio(); }
+function irAExportar() {
+  renderResumen();
+  mostrarVista('vista-exportar');
+}
+
+/* ── FORMULARIO: PASOS ──────────────────────────────────── */
+function irAPaso(n) {
+  pasoActual = n;
+  document.querySelectorAll('.paso').forEach((p, i) => {
+    p.classList.toggle('activo', i === n);
+  });
+  // Progress bar
+  for (let i = 0; i < TOTAL_PASOS; i++) {
+    const el = document.getElementById('p' + i);
+    el.className = 'progress-step' +
+      (i < n ? ' done' : i === n ? ' active' : '');
+  }
+  document.getElementById('paso-actual-num').textContent = n + 1;
+  // Botones
+  document.getElementById('btn-atras').style.display = n === 0 ? 'none' : '';
+  document.getElementById('btn-siguiente').style.display = n < TOTAL_PASOS - 1 ? '' : 'none';
+  document.getElementById('btn-guardar').style.display = n === TOTAL_PASOS - 1 ? '' : 'none';
+  // Init fotos en último paso
+  if (n === TOTAL_PASOS - 1) initFotosGrid();
+  window.scrollTo(0, 0);
+  guardarDraft();
+}
+function pasoSiguiente() {
+  if (!validarPaso(pasoActual)) return;
+  if (pasoActual < TOTAL_PASOS - 1) irAPaso(pasoActual + 1);
+}
+function pasoAnterior() {
+  if (pasoActual > 0) irAPaso(pasoActual - 1);
+}
+
+/* ── VALIDACIÓN ─────────────────────────────────────────── */
+function validarPaso(paso) {
+  let ok = true;
+  const show = (id, show) => {
+    document.getElementById(id).classList.toggle('visible', show);
+    if (show) document.getElementById(id.replace('err-','f-')).classList.add('error');
+    else document.getElementById(id.replace('err-','f-')).classList.remove('error');
+  };
+  if (paso === 0) {
+    if (!v('f-nombre')) { show('err-nombre', true); ok = false; } else show('err-nombre', false);
+    if (!v('f-destino')) { show('err-destino', true); ok = false; } else show('err-destino', false);
+    if (!v('f-duracion')) { show('err-duracion', true); ok = false; } else show('err-duracion', false);
+    if (!v('f-min')) { show('err-min', true); ok = false; } else show('err-min', false);
+  }
+  if (paso === 1) {
+    if (!v('f-precio')) { show('err-precio', true); ok = false; } else show('err-precio', false);
+  }
+  if (paso === 2) {
+    const desc = document.getElementById('f-descripcion').value.trim();
+    if (desc.length < 20) {
+      document.getElementById('err-descripcion').classList.add('visible');
+      document.getElementById('f-descripcion').classList.add('error');
+      ok = false;
+    } else {
+      document.getElementById('err-descripcion').classList.remove('visible');
+      document.getElementById('f-descripcion').classList.remove('error');
+    }
+  }
+  if (!ok) mostrarToast('Por favor completa los campos requeridos', 'error');
+  return ok;
+}
+function v(id) {
+  return document.getElementById(id).value.trim() !== '';
+}
+
+/* ── OPCIONES (toggle) ──────────────────────────────────── */
+function toggleOpcion(btn, key) {
+  btn.classList.toggle('activo');
+  const val = btn.dataset.val;
+  const idx = selecciones[key].indexOf(val);
+  if (idx === -1) selecciones[key].push(val);
+  else selecciones[key].splice(idx, 1);
+}
+function toggleOpcionUnico(btn, key) {
+  document.querySelectorAll(`#${key}-opts .opcion-btn`).forEach(b => b.classList.remove('activo'));
+  btn.classList.add('activo');
+  selecciones[key] = [btn.dataset.val];
+}
+function seleccionarTodosDias() {
+  const dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+  selecciones.dias = [...dias];
+  document.querySelectorAll('#dias-opts .opcion-btn').forEach(b => {
+    if (dias.includes(b.dataset.val)) b.classList.add('activo');
+  });
+}
+function setPrecioTipo(tipo) {
+  precioTipo = tipo;
+  document.getElementById('toggle-persona').classList.toggle('activo', tipo === 'persona');
+  document.getElementById('toggle-paquete').classList.toggle('activo', tipo === 'paquete');
+  document.getElementById('precio-label').textContent =
+    tipo === 'persona' ? 'Precio por persona (MXN)' : 'Precio por paquete completo (MXN)';
+}
+
+/* ── CHECKLIST INCLUYE / NO INCLUYE ─────────────────────── */
+function toggleCheck(item, key) {
+  item.classList.toggle('marcado');
+  const val = item.dataset.val;
+  const idx = selecciones[key].indexOf(val);
+  if (idx === -1) selecciones[key].push(val);
+  else selecciones[key].splice(idx, 1);
+}
+
+/* ── TAG INPUT ──────────────────────────────────────────── */
+const tagData = { 'incluye-extra': [], 'no-incluye-wrap': [] };
+
+function initTagInput(wrapId, inputId) {
+  const input = document.getElementById(inputId);
+  input.addEventListener('keydown', function(e) {
+    if ((e.key === 'Enter' || e.key === ',') && this.value.trim()) {
+      e.preventDefault();
+      addTag(wrapId, this.value.trim(), inputId);
+      this.value = '';
+    }
+  });
+}
+function addTag(wrapId, text, inputId) {
+  if (!tagData[wrapId]) tagData[wrapId] = [];
+  tagData[wrapId].push(text);
+  renderTags(wrapId, inputId);
+}
+function removeTag(wrapId, idx, inputId) {
+  tagData[wrapId].splice(idx, 1);
+  renderTags(wrapId, inputId);
+}
+function renderTags(wrapId, inputId) {
+  const wrap = document.getElementById(wrapId);
+  const input = document.getElementById(inputId);
+  // Quitar tags viejos
+  wrap.querySelectorAll('.tag').forEach(t => t.remove());
+  // Agregar nuevos antes del input
+  tagData[wrapId].forEach((text, i) => {
+    const tag = document.createElement('div');
+    tag.className = 'tag';
+    tag.innerHTML = `${text} <span class="tag-x" onclick="removeTag('${wrapId}',${i},'${inputId}')">×</span>`;
+    wrap.insertBefore(tag, input);
+  });
+}
+
+/* ── FOTOS ──────────────────────────────────────────────── */
+const MAX_FOTOS = 5;
+function initFotosGrid() {
+  const grid = document.getElementById('fotos-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i < MAX_FOTOS; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'foto-slot' + (fotosBase64[i] ? ' cargada' : '');
+    slot.id = 'foto-slot-' + i;
+    if (fotosBase64[i]) {
+      slot.innerHTML = `<img src="${fotosBase64[i]}">
+        <button class="foto-delete" onclick="deleteFoto(${i})">✕</button>`;
+    } else {
+      slot.innerHTML = `<div class="foto-slot-icon">📷</div>
+        <div class="foto-slot-label">Agregar foto</div>`;
+      slot.onclick = () => {
+        document.getElementById('foto-input').setAttribute('data-slot', i);
+        document.getElementById('foto-input').click();
+      };
+    }
+    grid.appendChild(slot);
+  }
+}
+function deleteFoto(i) {
+  fotosBase64.splice(i, 1);
+  initFotosGrid();
+}
+document.getElementById('foto-input').addEventListener('change', function() {
+  const files = Array.from(this.files);
+  let processed = 0;
+  files.forEach(file => {
+    if (fotosBase64.length >= MAX_FOTOS) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // Comprimir si es muy grande
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        const MAX = 800;
+        let w = img.width, h = img.height;
+        if (w > MAX) { h = h * MAX / w; w = MAX; }
+        if (h > MAX) { w = w * MAX / h; h = MAX; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        fotosBase64.push(canvas.toDataURL('image/jpeg', 0.75));
+        processed++;
+        if (processed === Math.min(files.length, MAX_FOTOS - fotosBase64.length + processed))
+          initFotosGrid();
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  this.value = '';
+});
+
+/* ── OBTENER DATOS DEL FORMULARIO ───────────────────────── */
+function getDatosFormulario() {
+  return {
+    id: draftId || 'tour_' + Date.now(),
+    creado: new Date().toISOString(),
+    nombre: gv('f-nombre'),
+    destino: gv('f-destino'),
+    salida: gv('f-salida'),
+    duracion: gv('f-duracion'),
+    tipo: gv('f-tipo'),
+    min_personas: parseInt(gv('f-min')) || 1,
+    max_personas: parseInt(gv('f-max')) || null,
+    idiomas: [...selecciones.idiomas],
+    apto_ninos: selecciones.ninos[0] || null,
+    precio_tipo: precioTipo,
+    precio: parseFloat(gv('f-precio')) || 0,
+    precio_nino: parseFloat(gv('f-precio-nino')) || null,
+    _margen: gv('f-margen'),    // privado
+    _costo: parseFloat(gv('f-costo')) || null, // privado
+    descripcion: gv('f-descripcion'),
+    punto_encuentro: gv('f-encuentro'),
+    incluye: [
+      ...selecciones.incluye,
+      ...(tagData['incluye-extra'] || [])
+    ],
+    no_incluye: [...(tagData['no-incluye-wrap'] || [])],
+    dias: [...selecciones.dias],
+    dificultad: selecciones.dificultad[0] || null,
+    hora_salida: gv('f-hora'),
+    que_llevar: gv('f-llevar'),
+    notas: gv('f-notas'),
+    fotos: [...fotosBase64],
+    video_link: gv('f-video'),
+    completo: true,
+  };
+}
+function gv(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+/* ── GUARDAR TOUR ───────────────────────────────────────── */
+function guardarTour() {
+  if (!validarPaso(pasoActual)) return;
+  const datos = getDatosFormulario();
+
+  if (draftId) {
+    const idx = tours.findIndex(t => t.id === draftId);
+    if (idx !== -1) tours[idx] = datos;
+    else tours.push(datos);
+  } else {
+    tours.push(datos);
+  }
+
+  guardarTours();
+  localStorage.removeItem(KEY_DRAFT);
+  mostrarToast('✓ Tour guardado correctamente', 'exito');
+
+  // Enviar a Formspree (sin fotos para no exceder límite)
+  const datosSinFotos = {...datos};
+  datosSinFotos.fotos = datos.fotos.length + ' foto(s) incluidas';
+  enviarAFormspree(datosSinFotos);
+
+  setTimeout(() => irAInicio(), 800);
+}
+
+/* ── FORMSPREE ──────────────────────────────────────────── */
+function enviarAFormspree(datos) {
+  const texto = Object.entries(datos)
+    .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
+    .join('\n');
+
+  const fd = new FormData();
+  fd.append('_subject', 'Nuevo tour: ' + datos.nombre);
+  fd.append('tour', texto);
+  fd.append('_gotcha', '');
+
+  fetch('https://formspree.io/f/xbdqngpj', {
+    method: 'POST', body: fd,
+    headers: { 'Accept': 'application/json' }
+  }).catch(() => {}); // silencioso si falla
+}
+
+/* ── RESET FORMULARIO ───────────────────────────────────── */
+function resetFormulario() {
+  ['f-nombre','f-destino','f-salida','f-duracion','f-min','f-max',
+   'f-precio','f-precio-nino','f-margen','f-costo','f-descripcion',
+   'f-encuentro','f-hora','f-llevar','f-notas','f-video','f-tipo']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+
+  // Reset selecciones
+  Object.keys(selecciones).forEach(k => selecciones[k] = []);
+  document.querySelectorAll('.opcion-btn.activo, .checklist-item.marcado, .precio-toggle-btn.activo')
+    .forEach(el => el.classList.remove('activo', 'marcado'));
+  document.getElementById('toggle-persona').classList.add('activo');
+  precioTipo = 'persona';
+
+  // Reset tags
+  tagData['incluye-extra'] = [];
+  tagData['no-incluye-wrap'] = [];
+  renderTags('incluye-extra', 'incluye-input');
+  renderTags('no-incluye-wrap', 'no-incluye-input');
+
+  // Reset fotos
+  fotosBase64 = [];
+
+  // Reset errores
+  document.querySelectorAll('.error-msg.visible').forEach(e => e.classList.remove('visible'));
+  document.querySelectorAll('.error').forEach(e => e.classList.remove('error'));
+}
+
+/* ── LLENAR FORMULARIO (editar) ─────────────────────────── */
+function llenarFormulario(t) {
+  sv('f-nombre', t.nombre);
+  sv('f-destino', t.destino);
+  sv('f-salida', t.salida);
+  sv('f-duracion', t.duracion);
+  sv('f-tipo', t.tipo);
+  sv('f-min', t.min_personas);
+  sv('f-max', t.max_personas);
+  sv('f-precio', t.precio);
+  sv('f-precio-nino', t.precio_nino);
+  sv('f-margen', t._margen);
+  sv('f-costo', t._costo);
+  sv('f-descripcion', t.descripcion);
+  sv('f-encuentro', t.punto_encuentro);
+  sv('f-hora', t.hora_salida);
+  sv('f-llevar', t.que_llevar);
+  sv('f-notas', t.notas);
+  sv('f-video', t.video_link);
+  setPrecioTipo(t.precio_tipo || 'persona');
+
+  // Restaurar selecciones múltiples
+  if (t.idiomas) {
+    selecciones.idiomas = [...t.idiomas];
+    document.querySelectorAll('#idiomas-opts .opcion-btn').forEach(b => {
+      if (t.idiomas.includes(b.dataset.val)) b.classList.add('activo');
+    });
+  }
+  if (t.apto_ninos) {
+    selecciones.ninos = [t.apto_ninos];
+    document.querySelectorAll('#ninos-opts .opcion-btn').forEach(b => {
+      if (b.dataset.val === t.apto_ninos) b.classList.add('activo');
+    });
+  }
+  if (t.dias) {
+    selecciones.dias = [...t.dias];
+    document.querySelectorAll('#dias-opts .opcion-btn').forEach(b => {
+      if (t.dias.includes(b.dataset.val)) b.classList.add('activo');
+    });
+  }
+  if (t.dificultad) {
+    selecciones.dificultad = [t.dificultad];
+    document.querySelectorAll('#dificultad-opts .opcion-btn').forEach(b => {
+      if (b.dataset.val === t.dificultad) b.classList.add('activo');
+    });
+  }
+
+  // Incluye
+  const CHECKS = ['Transporte','Guía local','Guía bilingüe','Entrada a sitios',
+    'Comida','Bebidas / agua','Equipo de snorkel','Chaleco salvavidas','Seguro de viaje','Fotos / video'];
+  const incluye = t.incluye || [];
+  selecciones.incluye = incluye.filter(v => CHECKS.includes(v));
+  document.querySelectorAll('#checklist-incluye .checklist-item').forEach(item => {
+    if (selecciones.incluye.includes(item.dataset.val)) item.classList.add('marcado');
+  });
+  tagData['incluye-extra'] = incluye.filter(v => !CHECKS.includes(v));
+  renderTags('incluye-extra', 'incluye-input');
+
+  // No incluye
+  tagData['no-incluye-wrap'] = t.no_incluye || [];
+  renderTags('no-incluye-wrap', 'no-incluye-input');
+
+  // Fotos
+  fotosBase64 = [...(t.fotos || [])];
+}
+function sv(id, val) {
+  const el = document.getElementById(id);
+  if (el && val !== undefined && val !== null) el.value = val;
+}
+
+/* ── VISTA INICIO: actualizar ────────────────────────────── */
+function actualizarInicio() {
+  tours = cargarTours();
+  const total = tours.length;
+  const completos = tours.filter(t => t.completo).length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-completos').textContent = completos;
+  document.getElementById('btn-ver-lista').style.display = total > 0 ? '' : 'none';
+  document.getElementById('btn-exportar').style.display = total > 0 ? '' : 'none';
+
+  // Lista de tours
+  const lista = document.getElementById('lista-inicio');
+  if (total === 0) {
+    lista.innerHTML = `<div class="empty-state">
+      <div class="empty-state-icon">🗺️</div>
+      <p>Aún no hay tours guardados.<br>¡Presiona "Agregar nuevo tour" para empezar!</p>
+    </div>`;
+    return;
+  }
+
+  lista.innerHTML = '<div class="tours-lista-titulo">Tours guardados</div>';
+  tours.forEach(tour => {
+    const item = document.createElement('div');
+    item.className = 'tour-item';
+    item.innerHTML = `
+      <div class="tour-item-icon">${getIconDestino(tour.destino)}</div>
+      <div class="tour-item-info">
+        <div class="tour-item-nombre">${tour.nombre || 'Sin nombre'}</div>
+        <div class="tour-item-meta">${tour.destino || ''} · ${tour.duracion || ''}</div>
+      </div>
+      <span class="tour-item-status ${tour.completo ? 'status-completo' : 'status-borrador'}">
+        ${tour.completo ? 'Listo' : 'Borrador'}
+      </span>
+      <span class="tour-item-arrow">›</span>`;
+    item.onclick = () => irAFormulario(tour.id);
+    lista.appendChild(item);
+  });
+
+  // Botón borrar todo (solo si hay tours)
+  const btnBorrar = document.createElement('button');
+  btnBorrar.className = 'btn-principal peligro';
+  btnBorrar.style.marginTop = '16px';
+  btnBorrar.textContent = '🗑 Borrar todos los tours';
+  btnBorrar.onclick = () => {
+    if (confirm('¿Borrar TODOS los tours guardados? Esta acción no se puede deshacer.')) {
+      tours = [];
+      guardarTours();
+      actualizarInicio();
+    }
+  };
+  lista.appendChild(btnBorrar);
+}
+
+/* ── EXPORTAR ────────────────────────────────────────────── */
+function exportarJSON() {
+  if (tours.length === 0) { mostrarToast('No hay tours guardados', 'error'); return; }
+  const data = JSON.stringify(tours, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'catalogo-tours-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  mostrarToast('✓ Archivo descargado', 'exito');
+}
+
+function enviarPorEmail() {
+  if (tours.length === 0) { mostrarToast('No hay tours para enviar', 'error'); return; }
+  const fd = new FormData();
+  fd.append('_subject', 'Catálogo completo — ' + tours.length + ' tours');
+  fd.append('_gotcha', '');
+  tours.forEach((tour, i) => {
+    const t = {...tour};
+    t.fotos = (t.fotos || []).length + ' foto(s)';
+    fd.append('tour_' + (i+1) + '_' + (tour.nombre || 'sin-nombre'),
+      JSON.stringify(t, null, 2));
+  });
+  mostrarToast('Enviando...', '');
+  fetch('https://formspree.io/f/xbdqngpj', {
+    method: 'POST', body: fd,
+    headers: { 'Accept': 'application/json' }
+  }).then(r => {
+    if (r.ok) mostrarToast('✓ Catálogo enviado por correo', 'exito');
+    else mostrarToast('Error al enviar. Usa el archivo JSON.', 'error');
+  }).catch(() => mostrarToast('Error de conexión', 'error'));
+}
+
+function renderResumen() {
+  const count = tours.length;
+  document.getElementById('resumen-count').textContent =
+    count === 0 ? 'No hay tours guardados aún.' :
+    `Tienes ${count} tour${count > 1 ? 's' : ''} guardado${count > 1 ? 's' : ''}.`;
+
+  const wrap = document.getElementById('resumen-tours');
+  wrap.innerHTML = '';
+  tours.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'resumen-card';
+    const precio = t.precio
+      ? `$${t.precio.toLocaleString('es-MX')} MXN ${t.precio_tipo === 'persona' ? '/ persona' : '/ paquete'}`
+      : 'No definido';
+    card.innerHTML = `
+      <div class="resumen-header">
+        <div class="resumen-nombre">${t.nombre || 'Sin nombre'}</div>
+        <div class="resumen-destino">📍 ${t.destino || '—'}</div>
+      </div>
+      <div class="resumen-body">
+        <div class="resumen-row"><span class="resumen-key">Duración</span><span class="resumen-val">${t.duracion || '—'}</span></div>
+        <div class="resumen-row"><span class="resumen-key">Personas</span><span class="resumen-val">${t.min_personas || '—'} – ${t.max_personas || '—'}</span></div>
+        <div class="resumen-row"><span class="resumen-key">Precio</span><span class="resumen-val">${precio}</span></div>
+        <div class="resumen-row"><span class="resumen-key">Incluye</span><span class="resumen-val">${(t.incluye || []).slice(0,3).join(', ')}</span></div>
+        ${t.fotos && t.fotos.length > 0 ? `
+        <div class="resumen-fotos-row">
+          ${t.fotos.map(f => `<img class="resumen-foto-thumb" src="${f}">`).join('')}
+        </div>` : ''}
+      </div>`;
+    wrap.appendChild(card);
+  });
+}
+
+/* ── HELPERS ────────────────────────────────────────────── */
+function getIconDestino(destino = '') {
+  const d = destino.toLowerCase();
+  if (d.includes('cancún') || d.includes('cancun')) return '🏖';
+  if (d.includes('cenote') || d.includes('homún') || d.includes('homun')) return '💧';
+  if (d.includes('tulum')) return '🏛';
+  if (d.includes('mérida') || d.includes('merida') || d.includes('yucatán')) return '🌿';
+  return '🗺️';
+}
+
+function mostrarToast(msg, tipo) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (tipo ? ' ' + tipo : '') + ' visible';
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+/* ── INIT ───────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+  actualizarInicio();
+  initTagInput('incluye-extra', 'incluye-input');
+  initTagInput('no-incluye-wrap', 'no-incluye-input');
+  irAPaso(0);
+});
+</script>
+</body>
+</html>
