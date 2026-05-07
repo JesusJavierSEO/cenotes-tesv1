@@ -827,10 +827,10 @@ body {
     </div>
 
     <div class="export-card">
-      <h3>📧 Enviar por correo</h3>
-      <p>Manda todo el catálogo por email. Llegará organizado y listo para usar.</p>
-      <button class="btn-principal" onclick="enviarPorEmail()" style="margin-bottom:0">
-        Enviar catálogo por correo
+      <h3>🔄 Sincronizar con Google Sheets</h3>
+      <p>Envía todos los tours guardados a la hoja de cálculo. Úsalo si agregaste tours sin conexión o para asegurarte de que todo esté guardado.</p>
+      <button class="btn-principal" onclick="sincronizarTodosASheets()" style="margin-bottom:0">
+        Sincronizar todos los tours
       </button>
     </div>
 
@@ -846,6 +846,9 @@ body {
      JAVASCRIPT
 ══════════════════════════════════════════════════════ -->
 <script>
+/* ── CONFIGURACIÓN ─────────────────────────────────────── */
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzOZXFyHoZCjMQYKPwLBhyOdGXFtuHN-1Yh4_P6nuacOmYV1IUKE5BgD5ZSPJYXyYoy/exec';
+
 /* ── ESTADO GLOBAL ─────────────────────────────────────── */
 const KEY = 'ch_tours';
 const KEY_DRAFT = 'ch_draft';
@@ -1174,29 +1177,43 @@ function guardarTour() {
   localStorage.removeItem(KEY_DRAFT);
   mostrarToast('✓ Tour guardado correctamente', 'exito');
 
-  // Enviar a Formspree (sin fotos para no exceder límite)
-  const datosSinFotos = {...datos};
-  datosSinFotos.fotos = datos.fotos.length + ' foto(s) incluidas';
-  enviarAFormspree(datosSinFotos);
+  // Enviar a Google Sheets
+  enviarASheets(datos);
 
   setTimeout(() => irAInicio(), 800);
 }
 
-/* ── FORMSPREE ──────────────────────────────────────────── */
-function enviarAFormspree(datos) {
-  const texto = Object.entries(datos)
-    .map(([k, v]) => `${k}: ${JSON.stringify(v)}`)
-    .join('\n');
+/* ── GOOGLE SHEETS ──────────────────────────────────────── */
+function enviarASheets(datos) {
+  // Preparar datos sin fotos en base64 (muy pesadas para Sheets)
+  const payload = Object.assign({}, datos);
+  payload.fotos = (datos.fotos || []).length; // Solo el número de fotos
 
-  const fd = new FormData();
-  fd.append('_subject', 'Nuevo tour: ' + datos.nombre);
-  fd.append('tour', texto);
-  fd.append('_gotcha', '');
-
-  fetch('https://formspree.io/f/xbdqngpj', {
-    method: 'POST', body: fd,
-    headers: { 'Accept': 'application/json' }
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors', // Apps Script requiere no-cors
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
   }).catch(() => {}); // silencioso si falla
+}
+
+/* ── EXPORTAR REGISTROS EXISTENTES A SHEETS ─────────────── */
+function sincronizarTodosASheets() {
+  if (tours.length === 0) {
+    mostrarToast('No hay tours para sincronizar', 'error');
+    return;
+  }
+  let enviados = 0;
+  tours.forEach((tour, i) => {
+    setTimeout(() => {
+      enviarASheets(tour);
+      enviados++;
+      if (enviados === tours.length) {
+        mostrarToast('✓ ' + tours.length + ' tours sincronizados a Google Sheets', 'exito');
+      }
+    }, i * 600); // 600ms entre cada envío para no saturar
+  });
+  mostrarToast('Sincronizando ' + tours.length + ' tours...', '');
 }
 
 /* ── RESET FORMULARIO ───────────────────────────────────── */
@@ -1365,24 +1382,7 @@ function exportarJSON() {
 }
 
 function enviarPorEmail() {
-  if (tours.length === 0) { mostrarToast('No hay tours para enviar', 'error'); return; }
-  const fd = new FormData();
-  fd.append('_subject', 'Catálogo completo — ' + tours.length + ' tours');
-  fd.append('_gotcha', '');
-  tours.forEach((tour, i) => {
-    const t = {...tour};
-    t.fotos = (t.fotos || []).length + ' foto(s)';
-    fd.append('tour_' + (i+1) + '_' + (tour.nombre || 'sin-nombre'),
-      JSON.stringify(t, null, 2));
-  });
-  mostrarToast('Enviando...', '');
-  fetch('https://formspree.io/f/xbdqngpj', {
-    method: 'POST', body: fd,
-    headers: { 'Accept': 'application/json' }
-  }).then(r => {
-    if (r.ok) mostrarToast('✓ Catálogo enviado por correo', 'exito');
-    else mostrarToast('Error al enviar. Usa el archivo JSON.', 'error');
-  }).catch(() => mostrarToast('Error de conexión', 'error'));
+  sincronizarTodosASheets();
 }
 
 function renderResumen() {
