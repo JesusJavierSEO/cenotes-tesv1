@@ -110,21 +110,34 @@
     return document.documentElement.lang === "en" ? "en" : "es";
   }
 
-  // Detecta si el nav debe ser dark (hero) o light (páginas internas)
+  // Detecta si el nav debe ser dark (hero oscuro) o light (artículos)
+  // Dark: landings, destinos, tours — todos tienen page-hero oscuro
+  // Light: guía, FAQ, cómo llegar — son páginas de artículo con fondo blanco
   function isDarkNav() {
     const path = window.location.pathname;
-    return CONFIG.darkNavPages.includes(path) ||
-           path === "/index.html" || path === "/";
+    const lightPages = [
+      "/guia-cenotes-homun.html",
+      "/cenotes-guide-homun.html",
+      "/faq.html",
+      "/como-llegar.html",
+    ];
+    // Si es una página de artículo → nav light
+    if (lightPages.includes(path)) return false;
+    // Todo lo demás (inicio, destinos, tours, cancún, etc.) → nav dark
+    return true;
   }
 
-  // Detecta página activa para rutas absolutas
+  // Detecta página activa — compara la ruta actual con el href del link
   function isActive(href) {
     const path = window.location.pathname;
-    // Normalizar: / y /index.html son lo mismo
-    const normalize = p => p === "/" ? "/index.html" : p;
-    return normalize(path) === normalize(href) ||
-           path === href ||
-           (href === "/" && (path === "/index.html" || path === "/"));
+    if (!href || href === "#") return false;
+    // Quitar el hash del href para comparar solo la ruta
+    const hrefPath = href.split("#")[0];
+    if (!hrefPath) return false;
+    // / e /index.html son la misma página
+    if ((hrefPath === "/" || hrefPath === "/index.html") &&
+        (path === "/" || path === "/index.html")) return true;
+    return path === hrefPath;
   }
 
   // Helper para crear lista de links de footer
