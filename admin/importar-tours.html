@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Importar Tours — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --verde: #1a3a2a; --agua: #0a9da8; --exito: #38a169; --error: #e53e3e; --gris: #f4f4f2; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Outfit', sans-serif; background: var(--gris); min-height: 100vh; padding: 24px 20px; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  .header { background: var(--verde); color: white; border-radius: 16px 16px 0 0; padding: 20px 24px; }
+  .header h1 { font-size: 1.1rem; }
+  .header p { font-size: 0.8rem; opacity: 0.6; margin-top: 4px; }
+  .body { background: white; border-radius: 0 0 16px 16px; border: 1px solid #e2e2de; border-top: none; padding: 24px; }
+  .tour-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--gris); }
+  .tour-row:last-of-type { border-bottom: none; }
+  .tour-icon { width: 36px; height: 36px; background: #e0f7f8; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .tour-nombre { font-size: 0.9rem; font-weight: 600; color: var(--verde); }
+  .tour-precio { font-size: 0.78rem; color: #888; }
+  .status { margin-left: auto; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 8px; background: #e2e2de; color: #888; flex-shrink: 0; }
+  .status.ok { background: #c6f6d5; color: #276749; }
+  .status.error { background: #fed7d7; color: #c53030; }
+  .btn { width: 100%; padding: 15px; background: var(--agua); color: white; border: none; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 20px; transition: background 0.2s; }
+  .btn:hover { background: #088a94; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .btn.done { background: var(--exito); }
+  .log { margin-top: 16px; font-size: 0.8rem; color: #666; line-height: 1.8; background: var(--gris); border-radius: 8px; padding: 12px; display: none; }
+  .log.visible { display: block; }
+  .nota { font-size: 0.78rem; color: #888; text-align: center; margin-top: 16px; line-height: 1.5; }
+  .link { color: var(--agua); text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>📥 Importar tours desde Formspree</h1>
+    <p>5 tours listos para guardar en localStorage y Google Sheets</p>
+  </div>
+  <div class="body">
+    <div id="lista-tours">
+      <div class="tour-row"><div class="tour-icon">💧</div><div><div class="tour-nombre">Cenote santa cruz</div><div class="tour-precio">$900 MXN / persona</div></div><span class="status" id="s0">Pendiente</span></div>
+      <div class="tour-row"><div class="tour-icon">🐢</div><div><div class="tour-nombre">Cenotes casa tortuga</div><div class="tour-precio">$750 MXN / persona · Tulum</div></div><span class="status" id="s1">Pendiente</span></div>
+      <div class="tour-row"><div class="tour-icon">🌿</div><div><div class="tour-nombre">Cenotes santa cruz</div><div class="tour-precio">$600 MXN / persona</div></div><span class="status" id="s2">Pendiente</span></div>
+      <div class="tour-row"><div class="tour-icon">🌸</div><div><div class="tour-nombre">Cenote santa Rosa</div><div class="tour-precio">$315 MXN / persona</div></div><span class="status" id="s3">Pendiente</span></div>
+      <div class="tour-row"><div class="tour-icon">⛪</div><div><div class="tour-nombre">Cenote santa Barbara basico</div><div class="tour-precio">$575 MXN / persona</div></div><span class="status" id="s4">Pendiente</span></div>
+    </div>
+
+    <button class="btn" id="btn-importar" onclick="importar()">
+      ✓ Importar y sincronizar con Google Sheets
+    </button>
+
+    <div class="log" id="log"></div>
+
+    <p class="nota">
+      Después de importar, ve a la
+      <a class="link" href="captura-tours.html">app de captura</a>
+      para ver todos los tours.
+    </p>
+  </div>
+</div>
+
+<script>
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzOZXFyHoZCjMQYKPwLBhyOdGXFtuHN-1Yh4_P6nuacOmYV1IUKE5BgD5ZSPJYXyYoy/exec';
+const KEY = 'ch_tours';
+
+const tours = [
+  {
+    id:"tour_1778108225721", creado:"2026-05-06T22:57:05.721Z",
+    nombre:"Cenote santa cruz", destino:"Homun Yucatán", salida:"Homun Yucatán",
+    duracion:"8 horas", tipo:"Día completo", min_personas:1, max_personas:100,
+    idiomas:["Español","Inglés"], apto_ninos:"Sí",
+    precio_tipo:"persona", precio:900, precio_nino:900,
+    _margen:"350", _costo:550,
+    descripcion:"Paquete hacienda / Cuatrimotos\nCUATRIMOTO COMPARTIDA (2PAX)\n4 cenotes\n2 albercas\nTirolesas\nPuente colgante\nCOMIDA BUFFET\nvisita a la hacienda kampepem\nTour en cuatrimotos\nLocker",
+    punto_encuentro:"Homun Yucatán a la salida del pueblo",
+    incluye:["Guía local","Guía bilingüe","Entrada a sitios","Comida","Equipo de snorkel","Chaleco salvavidas","Seguro de viaje"],
+    no_incluye:[], dias:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    dificultad:"Fácil", hora_salida:"6 pm",
+    que_llevar:"Ropa comoda, traje de baño, tenis, extra cash",
+    notas:"Cancelaciones en menos de 4 horas debido a la reserva de la cuatrimoto",
+    fotos:[], video_link:"", completo:true
+  },
+  {
+    id:"tour_1778107826452", creado:"2026-05-06T22:50:26.452Z",
+    nombre:"Cenotes casa tortuga", destino:"Tulum, Quintana Roo", salida:"Tulum Quintana Roo",
+    duracion:"8 horas", tipo:"Día completo", min_personas:1, max_personas:100,
+    idiomas:["Español","Inglés"], apto_ninos:"Sí",
+    precio_tipo:"persona", precio:750, precio_nino:750,
+    _margen:"500", _costo:250,
+    descripcion:"Cenotes casa tortuga Básico\n5 cenotes\n2 subterráneos\n3 abiertos (1 estilo rio)\nChalecos\nGuia\nEstacionamiento\nÁreas comunes",
+    punto_encuentro:"Tulum, Quintana Roo a la entrada del pueblo",
+    incluye:["Guía local","Guía bilingüe","Entrada a sitios","Equipo de snorkel","Chaleco salvavidas","Seguro de viaje"],
+    no_incluye:[], dias:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    dificultad:"Fácil", hora_salida:"5 pm",
+    que_llevar:"Ropa comoda y extra cash",
+    notas:"Cancelaciones en menos de 6 horas de su compra",
+    fotos:[], video_link:"", completo:true
+  },
+  {
+    id:"tour_1778107529830", creado:"2026-05-06T22:45:29.830Z",
+    nombre:"Cenotes santa cruz", destino:"Homun Yucatán", salida:"Homun Yucatán",
+    duracion:"8 horas", tipo:"Día completo", min_personas:1, max_personas:100,
+    idiomas:["Español","Inglés"], apto_ninos:"Sí",
+    precio_tipo:"persona", precio:600, precio_nino:450,
+    _margen:"250", _costo:350,
+    descripcion:"Paquete hacienda\n4 cenotes\nVisita a la hacienda kampepem\nTransporte a los cenotes\nChalecos salvavidas\n2 albercas de agua de cenote\nComida buffet\nTirolesa\nPuentes colgantes\nEscenarios para fotografía",
+    punto_encuentro:"A la salida de Homun Yucatán",
+    incluye:["Guía local","Guía bilingüe","Entrada a sitios","Comida","Equipo de snorkel","Chaleco salvavidas","Seguro de viaje"],
+    no_incluye:[], dias:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    dificultad:"Fácil", hora_salida:"9 am",
+    que_llevar:"Ropa comoda, extra cash para sus bebidas",
+    notas:"", fotos:[], video_link:"", completo:true
+  },
+  {
+    id:"tour_1778107175281", creado:"2026-05-06T22:39:35.281Z",
+    nombre:"Cenote santa Rosa", destino:"Homun Yucatán", salida:"Homun Yucatán",
+    duracion:"8 horas", tipo:"Día completo", min_personas:1, max_personas:100,
+    idiomas:["Español","Inglés"], apto_ninos:"Sí",
+    precio_tipo:"persona", precio:315, precio_nino:315,
+    _margen:"135mxn", _costo:180,
+    descripcion:"Parque ecoturístico donde podrás nadar en dos cenotes\n1 cenote abierto con aguas cristalinas\n1 cenote subterráneo a más de 6 mts de profundidad\nÁreas recreativas\nBicicletas\nEscenarios instagrameables",
+    punto_encuentro:"Homun Yucatán de la entrada principal 1 cuadra a su derecha",
+    incluye:["Guía local","Entrada a sitios","Guía bilingüe","Equipo de snorkel","Chaleco salvavidas","Seguro de viaje"],
+    no_incluye:[], dias:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    dificultad:"Fácil", hora_salida:"9 am",
+    que_llevar:"Ropa comoda, traje de baño",
+    notas:"", fotos:[], video_link:"", completo:true
+  },
+  {
+    id:"tour_1778106212106", creado:"2026-05-06T22:23:32.106Z",
+    nombre:"Cenote santa Barbara basico", destino:"Homun Yucatán", salida:"No incluye traslado",
+    duracion:"8 horas", tipo:"Día completo", min_personas:1, max_personas:100,
+    idiomas:[], apto_ninos:"Sí",
+    precio_tipo:"persona", precio:575, precio_nino:490,
+    _margen:"125mxn", _costo:450,
+    descripcion:"Parque ecoturístico, 4 cenotes, alberca, bicicleta o tren para moverse entre cenotes, comida a la carta, estacionamiento y locker",
+    punto_encuentro:"Nos encontramos en la entrada del municipio de Homun Yucatán, al llegar muestra su reserva y le colocan sus brazaletes",
+    incluye:["Entrada a sitios","Comida","Chaleco salvavidas","Seguro de viaje"],
+    no_incluye:[], dias:["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"],
+    dificultad:"Activo", hora_salida:"9 am",
+    que_llevar:"Ropa comoda, toalla y extra cash",
+    notas:"Este cenote es apto para personas de la 3 edad o con discapacidad motora, porque el cenote cuenta con elevador",
+    fotos:[], video_link:"", completo:true
+  }
+];
+
+function log(msg) {
+  const el = document.getElementById('log');
+  el.classList.add('visible');
+  el.innerHTML += msg + '<br>';
+}
+
+function setStatus(i, tipo, texto) {
+  const el = document.getElementById('s' + i);
+  el.textContent = texto;
+  el.className = 'status ' + tipo;
+}
+
+async function enviarASheets(tour, idx) {
+  const payload = Object.assign({}, tour);
+  payload.fotos = tour.fotos.length;
+  try {
+    await fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    setStatus(idx, 'ok', '✓ Sheets');
+    log('✓ ' + tour.nombre + ' → Google Sheets');
+    return true;
+  } catch(e) {
+    setStatus(idx, 'error', 'Error');
+    log('✗ ' + tour.nombre + ' → ' + e.message);
+    return false;
+  }
+}
+
+async function importar() {
+  const btn = document.getElementById('btn-importar');
+  btn.disabled = true;
+  btn.textContent = 'Importando...';
+
+  // 1. Guardar en localStorage (merge con tours existentes)
+  let existing = [];
+  try { existing = JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) {}
+  const existingIds = existing.map(t => t.id);
+  let nuevos = 0;
+  tours.forEach(t => {
+    if (!existingIds.includes(t.id)) { existing.push(t); nuevos++; }
+  });
+  localStorage.setItem(KEY, JSON.stringify(existing));
+  log('📦 ' + nuevos + ' tour(s) nuevos guardados en localStorage');
+
+  // 2. Enviar a Google Sheets uno por uno
+  log('🔄 Sincronizando con Google Sheets...');
+  for (let i = 0; i < tours.length; i++) {
+    setStatus(i, '', 'Enviando...');
+    await enviarASheets(tours[i], i);
+    await new Promise(r => setTimeout(r, 800));
+  }
+
+  btn.textContent = '✅ ¡Listo! Importación completada';
+  btn.classList.add('done');
+  btn.disabled = false;
+  log('');
+  log('✅ Abre la app de captura para ver todos los tours.');
+}
+</script>
+</body>
+</html>
