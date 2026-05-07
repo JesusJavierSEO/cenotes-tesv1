@@ -47,58 +47,58 @@
     whatsapp: "529988968407", // ← Reemplaza con tu número real (con código de país, sin +)
     siteName: "Cenotes Homún",
 
-    // Detecta si la página es dark (hero) o light (páginas internas)
-    // Las páginas en este array usan nav oscuro sobre hero
-    darkNavPages: ["index.html", "en.html", ""],
+    // Páginas con nav oscuro (hero background)
+    // Detecta por pathname — rutas absolutas desde la raíz
+    darkNavPages: ["/", "/index.html", "/en.html"],
 
-    // Menú en español — agrega / quita / reordena aquí
+    // Menú en español — RUTAS ABSOLUTAS (funcionan desde cualquier subcarpeta)
     navES: [
-      { label: "Inicio",       href: "index.html" },
-      { label: "Homún",        href: "destinos/homun.html" },
-      { label: "Tulum",        href: "destinos/tulum.html" },
-      { label: "Guía",         href: "guia-cenotes-homun.html" },
-      { label: "FAQ",          href: "faq.html" },
+      { label: "Inicio",   href: "/" },
+      { label: "Homún",    href: "/destinos/homun.html" },
+      { label: "Tulum",    href: "/destinos/tulum.html" },
+      { label: "Guía",     href: "/guia-cenotes-homun.html" },
+      { label: "FAQ",      href: "/faq.html" },
     ],
-    navCtaES: { label: "Ver Paquetes", href: "index.html#paquetes" },
+    navCtaES: { label: "Ver Paquetes", href: "/#paquetes" },
 
-    // Menú en inglés — agrega / quita / reordena aquí
+    // Menú en inglés — RUTAS ABSOLUTAS
     navEN: [
-      { label: "Home",         href: "en.html" },
-      { label: "Homún",        href: "destinos/homun.html" },
-      { label: "Tulum",        href: "destinos/tulum.html" },
-      { label: "Guide",        href: "cenotes-guide-homun.html" },
-      { label: "FAQ",          href: "faq.html" },
+      { label: "Home",         href: "/en.html" },
+      { label: "Homún",        href: "/destinos/homun.html" },
+      { label: "Tulum",        href: "/destinos/tulum.html" },
+      { label: "Guide",        href: "/cenotes-guide-homun.html" },
+      { label: "FAQ",          href: "/faq.html" },
     ],
-    navCtaEN: { label: "See Packages", href: "en.html#packages" },
+    navCtaEN: { label: "See Packages", href: "/en.html#packages" },
 
-    // Footer — columna de paquetes ES
+    // Footer — columna de destinos/tours ES
     footerPackagesES: [
-      { label: "Tour Explorador",  href: "index.html#paquetes" },
-      { label: "Tour Aventurero",  href: "index.html#paquetes" },
-      { label: "Tour Premium",     href: "index.html#paquetes" },
-      { label: "Grupos y familias",href: "index.html#paquetes" },
-      { label: "Tours Cancún",     href: "tours-cancun.html" },
+      { label: "Tours en Homún",   href: "/destinos/homun.html" },
+      { label: "Tours en Tulum",   href: "/destinos/tulum.html" },
+      { label: "Cenote Santa Bárbara", href: "/tours/cenote-santa-barbara.html" },
+      { label: "Cenote Santa Rosa",    href: "/tours/cenote-santa-rosa.html" },
+      { label: "Tours Cancún",         href: "/tours-cancun.html" },
     ],
     // Footer — columna de info ES
     footerInfoES: [
-      { label: "Los cenotes",  href: "index.html#cenotes" },
-      { label: "Guía de viaje",href: "guia-cenotes-homun.html" },
-      { label: "Cómo llegar",  href: "como-llegar.html" },
-      { label: "FAQ",          href: "faq.html" },
+      { label: "Guía de cenotes", href: "/guia-cenotes-homun.html" },
+      { label: "Cómo llegar",     href: "/como-llegar.html" },
+      { label: "FAQ",             href: "/faq.html" },
+      { label: "Inicio",          href: "/" },
     ],
-    // Footer — columna de info EN
+    // Footer — columna de destinos EN
     footerPackagesEN: [
-      { label: "Explorer Tour",    href: "en.html#packages" },
-      { label: "Adventurer Tour",  href: "en.html#packages" },
-      { label: "Premium Tour",     href: "en.html#packages" },
-      { label: "Groups & Families",href: "en.html#packages" },
-      { label: "Cancún Tours",     href: "tours-cancun.html" },
+      { label: "Homún Tours",      href: "/destinos/homun.html" },
+      { label: "Tulum Tours",      href: "/destinos/tulum.html" },
+      { label: "Cenote Santa Bárbara", href: "/tours/cenote-santa-barbara.html" },
+      { label: "Cenote Santa Rosa",    href: "/tours/cenote-santa-rosa.html" },
+      { label: "Cancún Tours",         href: "/tours-cancun.html" },
     ],
     footerInfoEN: [
-      { label: "The cenotes",  href: "en.html#cenotes" },
-      { label: "Travel guide", href: "cenotes-guide-homun.html" },
-      { label: "Getting there",href: "como-llegar.html" },
-      { label: "FAQ",          href: "faq.html" },
+      { label: "Cenotes guide",   href: "/cenotes-guide-homun.html" },
+      { label: "Getting there",   href: "/como-llegar.html" },
+      { label: "FAQ",             href: "/faq.html" },
+      { label: "Home",            href: "/en.html" },
     ],
   };
 
@@ -110,16 +110,21 @@
     return document.documentElement.lang === "en" ? "en" : "es";
   }
 
-  // Detecta si el nav debe ser dark u oscuro
+  // Detecta si el nav debe ser dark (hero) o light (páginas internas)
   function isDarkNav() {
-    const page = window.location.pathname.split("/").pop() || "index.html";
-    return CONFIG.darkNavPages.includes(page);
+    const path = window.location.pathname;
+    return CONFIG.darkNavPages.includes(path) ||
+           path === "/index.html" || path === "/";
   }
 
-  // Detecta página activa para resaltar en el menú
+  // Detecta página activa para rutas absolutas
   function isActive(href) {
-    const page = window.location.pathname.split("/").pop() || "index.html";
-    return page === href || (href === "index.html" && page === "");
+    const path = window.location.pathname;
+    // Normalizar: / y /index.html son lo mismo
+    const normalize = p => p === "/" ? "/index.html" : p;
+    return normalize(path) === normalize(href) ||
+           path === href ||
+           (href === "/" && (path === "/index.html" || path === "/"));
   }
 
   // Helper para crear lista de links de footer
@@ -136,8 +141,8 @@
     const navClass = dark ? "nav-dark" : "nav-light";
     const links = lang === "en" ? CONFIG.navEN : CONFIG.navES;
     const cta   = lang === "en" ? CONFIG.navCtaEN : CONFIG.navCtaES;
-    const homeES = "index.html";
-    const homeEN = "en.html";
+    const homeES = "/";
+    const homeEN = "/en.html";
 
     const linksHTML = links.map(l => {
       const active = isActive(l.href) ? " active" : "";
@@ -157,7 +162,7 @@
 
     const navHTML = `
 <nav id="site-nav" class="${navClass}" role="navigation" aria-label="Menú principal">
-  <a href="${lang === "en" ? homeEN : homeES}" class="nav-logo">
+  <a href="${lang === "en" ? "/en.html" : "/"}" class="nav-logo">
     Cenotes <span>Homún</span>
   </a>
   <div class="nav-links">
