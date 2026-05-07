@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
+  <!-- LANDINGS PRINCIPALES -->
   <url>
     <loc>https://cenoteshomun.com/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/>
@@ -9,37 +10,78 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://cenoteshomun.com/en.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/en.html"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
+  <!-- DESTINOS -->
+  <url>
+    <loc>https://cenoteshomun.com/destinos/homun.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/destinos/tulum.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- TOURS HOMÚN -->
+  <url>
+    <loc>https://cenoteshomun.com/tours/cenote-santa-barbara.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/tours/cenote-santa-rosa.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/tours/cenotes-santa-cruz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- TOURS TULUM -->
+  <url>
+    <loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- GUÍAS Y CONTENIDO -->
   <url>
     <loc>https://cenoteshomun.com/guia-cenotes-homun.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://cenoteshomun.com/cenotes-guide-homun.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://cenoteshomun.com/faq.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://cenoteshomun.com/como-llegar.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/tours-cancun.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
 </urlset>

@@ -44,7 +44,7 @@
      CONFIGURACIÓN — edita solo esta sección
   ───────────────────────────────────────────────────────── */
   const CONFIG = {
-    whatsapp: "5219999999999", // ← Reemplaza con tu número real (con código de país, sin +)
+    whatsapp: "529988968407", // ← Reemplaza con tu número real (con código de país, sin +)
     siteName: "Cenotes Homún",
 
     // Detecta si la página es dark (hero) o light (páginas internas)
@@ -54,20 +54,20 @@
     // Menú en español — agrega / quita / reordena aquí
     navES: [
       { label: "Inicio",       href: "index.html" },
+      { label: "Homún",        href: "destinos/homun.html" },
+      { label: "Tulum",        href: "destinos/tulum.html" },
       { label: "Guía",         href: "guia-cenotes-homun.html" },
-      { label: "Tours Cancún", href: "tours-cancun.html" },
       { label: "FAQ",          href: "faq.html" },
-      { label: "Cómo llegar",  href: "como-llegar.html" },
     ],
     navCtaES: { label: "Ver Paquetes", href: "index.html#paquetes" },
 
     // Menú en inglés — agrega / quita / reordena aquí
     navEN: [
       { label: "Home",         href: "en.html" },
+      { label: "Homún",        href: "destinos/homun.html" },
+      { label: "Tulum",        href: "destinos/tulum.html" },
       { label: "Guide",        href: "cenotes-guide-homun.html" },
-      { label: "Cancún Tours", href: "tours-cancun.html" },
       { label: "FAQ",          href: "faq.html" },
-      { label: "Getting there",href: "como-llegar.html" },
     ],
     navCtaEN: { label: "See Packages", href: "en.html#packages" },
 

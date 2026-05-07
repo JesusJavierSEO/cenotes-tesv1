@@ -1,0 +1,456 @@
+/* ═══════════════════════════════════════════════════════════
+   Cenotes Homún — tours.css
+   CSS compartido para páginas de destino y tour individual
+═══════════════════════════════════════════════════════════ */
+
+/* ─── PAGE HERO (destinos y tours) ─────────────────────── */
+.page-hero {
+  background: var(--selva);
+  padding: 100px 48px 72px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(10,157,168,0.15), transparent 70%);
+}
+.page-hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.breadcrumb a {
+  color: rgba(245,237,224,0.5);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--agua-light); }
+.breadcrumb span { color: rgba(245,237,224,0.3); font-size: 0.8rem; }
+.breadcrumb .current { color: rgba(245,237,224,0.7); font-size: 0.8rem; }
+
+.page-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10,157,168,0.18);
+  border: 1px solid rgba(127,227,232,0.2);
+  color: var(--agua-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 18px;
+}
+.page-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  color: var(--arena);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.page-hero-title em { font-style: italic; color: var(--agua-light); }
+.page-hero-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(245,237,224,0.7);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.page-hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.meta-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: rgba(245,237,224,0.55);
+}
+
+/* ─── LAYOUT PRINCIPAL ──────────────────────────────────── */
+.page-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 56px;
+  align-items: start;
+}
+.page-main {}
+.page-sidebar { position: sticky; top: 90px; }
+
+/* ─── TOUR CARDS (en página de destino) ─────────────────── */
+.tours-section { padding: 64px 48px; max-width: 1100px; margin: 0 auto; }
+.tours-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--selva);
+  margin-bottom: 8px;
+}
+.tours-section-sub {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 36px;
+}
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.tour-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.07);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+.tour-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(26,58,42,0.1);
+}
+.tour-card-header {
+  background: linear-gradient(135deg, var(--selva), #0a4a52);
+  padding: 24px;
+  position: relative;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.tour-card-icon {
+  font-size: 2rem;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  opacity: 0.6;
+}
+.tour-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--arena);
+  line-height: 1.3;
+}
+.tour-card-dest {
+  font-size: 0.75rem;
+  color: var(--agua-light);
+  margin-top: 4px;
+}
+.tour-card-body { padding: 20px; flex: 1; }
+.tour-card-desc {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.65;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.tour-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.tour-tag {
+  font-size: 0.72rem;
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: var(--gris, #f0f0ee);
+  color: #666;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.tour-card-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tour-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--selva);
+  font-weight: 700;
+}
+.tour-price-label {
+  font-size: 0.72rem;
+  color: #aaa;
+  display: block;
+  margin-top: -2px;
+}
+.tour-card-cta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--agua);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.2s;
+}
+.tour-card:hover .tour-card-cta { gap: 8px; }
+
+/* ─── TOUR DETAIL (página individual) ──────────────────── */
+.tour-gallery {
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--selva), #0a4a52);
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.tour-gallery-placeholder {
+  text-align: center;
+  color: rgba(245,237,224,0.4);
+  font-size: 0.85rem;
+}
+.tour-gallery-placeholder .icon { font-size: 3rem; margin-bottom: 8px; display: block; }
+
+.tour-section { margin-bottom: 36px; }
+.tour-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--agua);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(10,157,168,0.15);
+}
+.tour-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.85;
+  white-space: pre-line;
+}
+
+/* Incluye / No incluye */
+.incluye-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.incluye-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #444;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(56,161,105,0.06);
+  border: 1px solid rgba(56,161,105,0.12);
+}
+.incluye-item::before {
+  content: '✓';
+  color: var(--exito, #38a169);
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.no-incluye-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #777;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.no-incluye-item::before {
+  content: '✕';
+  color: #ccc;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+/* Info grid (duración, personas, etc.) */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.info-card {
+  background: var(--gris, #f0f0ee);
+  border-radius: 10px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.info-card-icon { font-size: 1.2rem; margin-bottom: 6px; }
+.info-card-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #aaa;
+  margin-bottom: 3px;
+}
+.info-card-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--selva);
+}
+
+/* Días disponibles */
+.dias-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.dia-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(10,157,168,0.08);
+  color: var(--agua-deep);
+  border: 1px solid rgba(10,157,168,0.15);
+}
+
+/* ─── SIDEBAR RESERVA ───────────────────────────────────── */
+.reserve-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.reserve-card-header {
+  background: var(--selva);
+  padding: 22px 24px;
+}
+.reserve-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--arena);
+  line-height: 1;
+}
+.reserve-price-label {
+  font-size: 0.8rem;
+  color: rgba(245,237,224,0.5);
+  margin-top: 4px;
+}
+.reserve-price-nino {
+  font-size: 0.82rem;
+  color: rgba(245,237,224,0.45);
+  margin-top: 6px;
+}
+.reserve-card-body { padding: 22px 24px; }
+.reserve-form { display: flex; flex-direction: column; gap: 12px; }
+.reserve-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e2de;
+  border-radius: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.reserve-input:focus { border-color: var(--agua); }
+.reserve-input::placeholder { color: #bbb; }
+.reserve-btn-wa {
+  width: 100%;
+  padding: 14px;
+  background: #25D366;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.reserve-btn-wa:hover {
+  background: #1da851;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+.reserve-btn-form {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  color: var(--agua);
+  border: 1.5px solid var(--agua);
+  border-radius: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.reserve-btn-form:hover { background: var(--agua); color: white; }
+.reserve-garantias {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.reserve-garantia {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: #777;
+}
+
+/* ─── SEO / SCHEMA SECTIONS ─────────────────────────────── */
+.faq-section { margin-bottom: 36px; }
+.faq-item-tour {
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 14px 0;
+}
+.faq-item-tour:last-child { border-bottom: none; }
+.faq-q {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--selva);
+  margin-bottom: 6px;
+}
+.faq-a {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.65;
+}
+
+/* ─── DESTINOS RELATED ──────────────────────────────────── */
+.related-section {
+  background: var(--gris, #f0f0ee);
+  padding: 64px 48px;
+}
+.related-inner { max-width: 1100px; margin: 0 auto; }
+
+/* ─── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .page-hero { padding: 80px 24px 56px; }
+  .page-layout { grid-template-columns: 1fr; padding: 40px 24px; gap: 32px; }
+  .page-sidebar { position: static; }
+  .tours-section { padding: 48px 24px; }
+  .tours-grid { grid-template-columns: 1fr; }
+  .related-section { padding: 48px 24px; }
+  .incluye-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr 1fr; }
+}
