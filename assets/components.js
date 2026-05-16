@@ -56,8 +56,8 @@
       { label: "Inicio",   href: "/" },
       { label: "Homún",    href: "/destinos/homun.html" },
       { label: "Tulum",    href: "/destinos/tulum.html" },
+      { label: "Cancún",   href: "/tours-cancun.html" },
       { label: "Guía",     href: "/guia-cenotes-homun.html" },
-      { label: "FAQ",      href: "/faq.html" },
     ],
     navCtaES: { label: "Reservar", href: "/#paquetes" },
 
@@ -66,8 +66,8 @@
       { label: "Home",         href: "/en.html" },
       { label: "Homún",        href: "/destinos/homun-en.html" },
       { label: "Tulum",        href: "/destinos/tulum-en.html" },
+      { label: "Cancún",       href: "/tours-cancun.html" },
       { label: "Guide",        href: "/cenotes-guide-homun.html" },
-      { label: "FAQ",          href: "/faq.html" },
     ],
     navCtaEN: { label: "Book Now", href: "/en.html#packages" },
 
@@ -168,8 +168,12 @@
     "/getting-there.html":        "/como-llegar.html",
     // FAQ bilingüe (misma página)
     "/faq.html":                  "/faq.html",
-    // Cancún
-    "/tours-cancun.html":         "/tours-cancun.html",
+    // Cancún y nuevos destinos
+    "/tours-cancun.html":             "/tours-cancun.html",
+    "/destinos/isla-mujeres.html":    "/destinos/isla-mujeres-en.html",
+    "/destinos/isla-mujeres-en.html": "/destinos/isla-mujeres.html",
+    "/destinos/puerto-morelos.html":  "/destinos/puerto-morelos-en.html",
+    "/destinos/puerto-morelos-en.html":"/destinos/puerto-morelos.html",
   };
 
   // Obtiene la URL equivalente en el otro idioma

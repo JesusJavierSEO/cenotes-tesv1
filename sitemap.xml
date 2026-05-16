@@ -3,67 +3,55 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <!-- LANDINGS -->
-  <url>
-    <loc>https://cenoteshomun.com/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/en.html"/>
-    <changefreq>weekly</changefreq><priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://cenoteshomun.com/en.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/en.html"/>
-    <changefreq>weekly</changefreq><priority>1.0</priority>
-  </url>
+  <url><loc>https://cenoteshomun.com/</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/en.html"/><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://cenoteshomun.com/en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/en.html"/><changefreq>weekly</changefreq><priority>1.0</priority></url>
 
   <!-- DESTINOS ES -->
-  <url>
-    <loc>https://cenoteshomun.com/destinos/homun.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/homun.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/homun-en.html"/>
-    <changefreq>weekly</changefreq><priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://cenoteshomun.com/destinos/tulum.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/tulum.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/tulum-en.html"/>
-    <changefreq>weekly</changefreq><priority>0.9</priority>
-  </url>
+  <url><loc>https://cenoteshomun.com/destinos/homun.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/homun.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/homun-en.html"/><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/tulum.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/tulum.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/tulum-en.html"/><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/isla-mujeres.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/isla-mujeres.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/isla-mujeres-en.html"/><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/puerto-morelos.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/puerto-morelos.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/puerto-morelos-en.html"/><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
   <!-- DESTINOS EN -->
-  <url>
-    <loc>https://cenoteshomun.com/destinos/homun-en.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/homun.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/homun-en.html"/>
-    <changefreq>weekly</changefreq><priority>0.95</priority>
-  </url>
-  <url>
-    <loc>https://cenoteshomun.com/destinos/tulum-en.html</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/destinos/tulum.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/destinos/tulum-en.html"/>
-    <changefreq>weekly</changefreq><priority>0.9</priority>
-  </url>
+  <url><loc>https://cenoteshomun.com/destinos/homun-en.html</loc><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/tulum-en.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/isla-mujeres-en.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://cenoteshomun.com/destinos/puerto-morelos-en.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
-  <!-- TOURS ES -->
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-barbara.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-barbara.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-barbara-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-rosa.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-rosa.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-rosa-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenotes-santa-cruz.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenotes-santa-cruz.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenotes-santa-cruz-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenotes-casa-tortuga.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenotes-casa-tortuga-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <!-- TOURS HOMÚN -->
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-barbara.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-rosa.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenotes-santa-cruz.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- TOURS TULUM -->
+  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/casa-tortuga-silver.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga-gold.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/off-road-casa-tortugas.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- TOURS ISLA MUJERES -->
+  <url><loc>https://cenoteshomun.com/tours/isla-mujeres-catamaran.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- TOURS PUERTO MORELOS -->
+  <url><loc>https://cenoteshomun.com/tours/atvs-off-road-shared-puerto-morelos.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/atvs-off-road-single-caballos-puerto-morelos.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
   <!-- TOURS EN -->
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-barbara-en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-barbara.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-barbara-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-rosa-en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-rosa.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-rosa-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenotes-santa-cruz-en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenotes-santa-cruz.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenotes-santa-cruz-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos-en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
-  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga-en.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/tours/cenotes-casa-tortuga.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/tours/cenotes-casa-tortuga-en.html"/><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-barbara-en.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-rosa-en.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenotes-santa-cruz-en.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos-en.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga-en.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+  <!-- HUB CANCÚN -->
+  <url><loc>https://cenoteshomun.com/tours-cancun.html</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
 
   <!-- CONTENIDO -->
-  <url><loc>https://cenoteshomun.com/guia-cenotes-homun.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/guia-cenotes-homun.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/cenotes-guide-homun.html"/><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://cenoteshomun.com/cenotes-guide-homun.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/guia-cenotes-homun.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/cenotes-guide-homun.html"/><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/guia-cenotes-homun.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://cenoteshomun.com/cenotes-guide-homun.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://cenoteshomun.com/faq.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cenoteshomun.com/como-llegar.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/como-llegar.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/getting-there.html"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cenoteshomun.com/getting-there.html</loc><xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/como-llegar.html"/><xhtml:link rel="alternate" hreflang="en" href="https://cenoteshomun.com/getting-there.html"/><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://cenoteshomun.com/tours-cancun.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://cenoteshomun.com/como-llegar.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://cenoteshomun.com/getting-there.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
 </urlset>
