@@ -174,6 +174,19 @@
     "/destinos/isla-mujeres-en.html": "/destinos/isla-mujeres.html",
     "/destinos/puerto-morelos.html":  "/destinos/puerto-morelos-en.html",
     "/destinos/puerto-morelos-en.html":"/destinos/puerto-morelos.html",
+    // Tours nuevos ES <-> EN
+    "/tours/isla-mujeres-catamaran.html":          "/tours/isla-mujeres-catamaran-en.html",
+    "/tours/isla-mujeres-catamaran-en.html":       "/tours/isla-mujeres-catamaran.html",
+    "/tours/off-road-casa-tortugas.html":          "/tours/off-road-casa-tortugas-en.html",
+    "/tours/off-road-casa-tortugas-en.html":       "/tours/off-road-casa-tortugas.html",
+    "/tours/cenotes-casa-tortuga-gold.html":       "/tours/cenotes-casa-tortuga-gold-en.html",
+    "/tours/cenotes-casa-tortuga-gold-en.html":    "/tours/cenotes-casa-tortuga-gold.html",
+    "/tours/casa-tortuga-silver.html":             "/tours/casa-tortuga-silver-en.html",
+    "/tours/casa-tortuga-silver-en.html":          "/tours/casa-tortuga-silver.html",
+    "/tours/atvs-off-road-shared-puerto-morelos.html":    "/tours/atvs-off-road-shared-puerto-morelos-en.html",
+    "/tours/atvs-off-road-shared-puerto-morelos-en.html": "/tours/atvs-off-road-shared-puerto-morelos.html",
+    "/tours/atvs-off-road-single-caballos-puerto-morelos.html":    "/tours/atvs-off-road-single-caballos-puerto-morelos-en.html",
+    "/tours/atvs-off-road-single-caballos-puerto-morelos-en.html": "/tours/atvs-off-road-single-caballos-puerto-morelos.html",
   };
 
   // Obtiene la URL equivalente en el otro idioma
