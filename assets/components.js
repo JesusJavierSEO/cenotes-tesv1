@@ -59,17 +59,17 @@
       { label: "Guía",     href: "/guia-cenotes-homun.html" },
       { label: "FAQ",      href: "/faq.html" },
     ],
-    navCtaES: { label: "Ver Paquetes", href: "/#paquetes" },
+    navCtaES: { label: "Reservar", href: "/#paquetes" },
 
     // Menú en inglés — RUTAS ABSOLUTAS
     navEN: [
       { label: "Home",         href: "/en.html" },
-      { label: "Homún",        href: "/destinos/homun.html" },
-      { label: "Tulum",        href: "/destinos/tulum.html" },
+      { label: "Homún",        href: "/destinos/homun-en.html" },
+      { label: "Tulum",        href: "/destinos/tulum-en.html" },
       { label: "Guide",        href: "/cenotes-guide-homun.html" },
       { label: "FAQ",          href: "/faq.html" },
     ],
-    navCtaEN: { label: "See Packages", href: "/en.html#packages" },
+    navCtaEN: { label: "Book Now", href: "/en.html#packages" },
 
     // Footer — columna de destinos/tours ES
     footerPackagesES: [
@@ -88,15 +88,15 @@
     ],
     // Footer — columna de destinos EN
     footerPackagesEN: [
-      { label: "Homún Tours",      href: "/destinos/homun.html" },
-      { label: "Tulum Tours",      href: "/destinos/tulum.html" },
+      { label: "Homún Tours",      href: "/destinos/homun-en.html" },
+      { label: "Tulum Tours",      href: "/destinos/tulum-en.html" },
       { label: "Cenote Santa Bárbara", href: "/tours/cenote-santa-barbara.html" },
       { label: "Cenote Santa Rosa",    href: "/tours/cenote-santa-rosa.html" },
       { label: "Cancún Tours",         href: "/tours-cancun.html" },
     ],
     footerInfoEN: [
       { label: "Cenotes guide",   href: "/cenotes-guide-homun.html" },
-      { label: "Getting there",   href: "/como-llegar.html" },
+      { label: "Getting there",   href: "/getting-there.html" },
       { label: "FAQ",             href: "/faq.html" },
       { label: "Home",            href: "/en.html" },
     ],
@@ -131,13 +131,51 @@
   function isActive(href) {
     const path = window.location.pathname;
     if (!href || href === "#") return false;
-    // Quitar el hash del href para comparar solo la ruta
     const hrefPath = href.split("#")[0];
     if (!hrefPath) return false;
-    // / e /index.html son la misma página
     if ((hrefPath === "/" || hrefPath === "/index.html") &&
         (path === "/" || path === "/index.html")) return true;
     return path === hrefPath;
+  }
+
+  // Mapa de equivalencias ES ↔ EN para el toggle de idioma
+  const LANG_MAP = {
+    // Raíz
+    "/":                          "/en.html",
+    "/index.html":                "/en.html",
+    "/en.html":                   "/",
+    // Destinos
+    "/destinos/homun.html":       "/destinos/homun-en.html",
+    "/destinos/homun-en.html":    "/destinos/homun.html",
+    "/destinos/tulum.html":       "/destinos/tulum-en.html",
+    "/destinos/tulum-en.html":    "/destinos/tulum.html",
+    // Tours Homún
+    "/tours/cenote-santa-barbara.html":            "/tours/cenote-santa-barbara-en.html",
+    "/tours/cenote-santa-barbara-en.html":         "/tours/cenote-santa-barbara.html",
+    "/tours/cenote-santa-rosa.html":               "/tours/cenote-santa-rosa-en.html",
+    "/tours/cenote-santa-rosa-en.html":            "/tours/cenote-santa-rosa.html",
+    "/tours/cenotes-santa-cruz.html":              "/tours/cenotes-santa-cruz-en.html",
+    "/tours/cenotes-santa-cruz-en.html":           "/tours/cenotes-santa-cruz.html",
+    "/tours/cenote-santa-cruz-cuatrimotos.html":   "/tours/cenote-santa-cruz-cuatrimotos-en.html",
+    "/tours/cenote-santa-cruz-cuatrimotos-en.html":"/tours/cenote-santa-cruz-cuatrimotos.html",
+    "/tours/cenotes-casa-tortuga.html":            "/tours/cenotes-casa-tortuga-en.html",
+    "/tours/cenotes-casa-tortuga-en.html":         "/tours/cenotes-casa-tortuga.html",
+    // Guía
+    "/guia-cenotes-homun.html":   "/cenotes-guide-homun.html",
+    "/cenotes-guide-homun.html":  "/guia-cenotes-homun.html",
+    // Cómo llegar
+    "/como-llegar.html":          "/getting-there.html",
+    "/getting-there.html":        "/como-llegar.html",
+    // FAQ bilingüe (misma página)
+    "/faq.html":                  "/faq.html",
+    // Cancún
+    "/tours-cancun.html":         "/tours-cancun.html",
+  };
+
+  // Obtiene la URL equivalente en el otro idioma
+  function getAltLangUrl() {
+    const path = window.location.pathname;
+    return LANG_MAP[path] || null;
   }
 
   // Helper para crear lista de links de footer
@@ -164,8 +202,8 @@
 
     const langSwitch = `
       <div class="nav-lang">
-        <a href="${homeES}" class="lang-btn${lang === "es" ? " active" : ""}">ES</a>
-        <a href="${homeEN}" class="lang-btn${lang === "en" ? " active" : ""}">EN</a>
+        <a href="${lang === "es" ? window.location.pathname : (getAltLangUrl() || "/")}" class="lang-btn${lang === "es" ? " active" : ""}">ES</a>
+        <a href="${lang === "en" ? window.location.pathname : (getAltLangUrl() || "/en.html")}" class="lang-btn${lang === "en" ? " active" : ""}">EN</a>
       </div>`;
 
     // Mobile menu links
@@ -193,8 +231,8 @@
   ${mobileLinksHTML}
   <a href="${cta.href}" class="nav-mobile-link" style="color:var(--agua-light)">${cta.label}</a>
   <div class="nav-mobile-lang">
-    <a href="${homeES}" class="${lang === "es" ? "active" : ""}">ES</a>
-    <a href="${homeEN}" class="${lang === "en" ? "active" : ""}">EN</a>
+    <a href="${lang === "es" ? window.location.pathname : (getAltLangUrl() || "/")}" class="${lang === "es" ? "active" : ""}">ES</a>
+    <a href="${lang === "en" ? window.location.pathname : (getAltLangUrl() || "/en.html")}" class="${lang === "en" ? "active" : ""}">EN</a>
   </div>
 </div>`;
 
@@ -259,8 +297,8 @@
   <div class="footer-bottom">
     <span>© ${year} Cenotes Homún · ${isEN ? "All rights reserved" : "Todos los derechos reservados"}</span>
     <span>
-      <a href="index.html">Español</a> ·
-      <a href="en.html">English</a> ·
+      <a href="${getAltLangUrl() && lang === "en" ? getAltLangUrl() : "/"}">Español</a> ·
+      <a href="${getAltLangUrl() && lang === "es" ? getAltLangUrl() : "/en.html"}">English</a> ·
       <a href="faq.html">FAQ</a>
     </span>
   </div>
