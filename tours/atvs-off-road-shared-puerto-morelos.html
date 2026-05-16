@@ -43,26 +43,36 @@
 
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery" style="min-height:260px;cursor:default">
-      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a0a2a 0%,#0a0414 100%)"></div>
-      <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
-        <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
-        <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
-        <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
-        <polygon points="60,70 54,130 66,130" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="160,52 153,128 167,128" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="270,46 263,125 277,125" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="380,50 373,128 387,128" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="500,60 493,130 507,130" fill="rgba(13,42,28,0.9)"/>
-        <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
-        <line x1="300" y1="0" x2="296" y2="190" stroke="rgba(127,227,232,0.18)" stroke-width="2"/>
-        <circle cx="240" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
-        <circle cx="330" cy="182" r="4" fill="none" stroke="rgba(127,227,232,0.35)" stroke-width="1"/>
-        <circle cx="270" cy="175" r="3" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
-      </svg>
-      <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
-        <div style="font-size:2.4rem;margin-bottom:10px">🏍</div>
-        <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Fotos próximamente</p>
+    <div class="tour-gallery-wrap" data-tour="atvs-shared-puerto-morelos">
+      <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/atvs-shared-puerto-morelos-1.jpg -->
+      <div class="tour-gallery-grid" id="gallery-atvs-shared-puerto-morelos" style="display:none">
+        <div class="tg-main">
+          <img id="tg-main-img" src="" alt="atvs-shared-puerto-morelos foto principal" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+        </div>
+        <div class="tg-thumbs" id="tg-thumbs-atvs-shared-puerto-morelos"></div>
+      </div>
+      <!-- FALLBACK SVG cuando no hay fotos -->
+      <div class="tour-gallery" id="gallery-fallback-atvs-shared-puerto-morelos" style="min-height:260px;cursor:default">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a0a2a 0%,#0a0414 100%)"></div>
+        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
+          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
+          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
+          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
+          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="190,50 183,128 197,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="300,44 293,125 307,125" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="410,50 403,128 417,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="520,60 513,130 527,130" fill="rgba(13,42,28,0.9)"/>
+          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
+          <circle cx="250" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
+          <circle cx="340" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
+          <circle cx="290" cy="175" r="2.5" fill="none" stroke="rgba(127,227,232,0.25)" stroke-width="1"/>
+        </svg>
+        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
+          <div style="font-size:2.4rem;margin-bottom:10px">🏍</div>
+          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Fotos próximamente</p>
+        </div>
       </div>
     </div>
 

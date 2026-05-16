@@ -378,3 +378,66 @@
     init();
   }
 })();
+
+/* ─── GALERÍA INTELIGENTE DE FOTOS ─────────────────────── */
+(function() {
+  function initGalleries() {
+    document.querySelectorAll('.tour-gallery-wrap').forEach(function(wrap) {
+      var slug = wrap.dataset.tour;
+      if (!slug) return;
+      var imgs = [];
+      var checked = 0;
+      var MAX = 5;
+
+      function checkDone() {
+        checked++;
+        if (checked >= MAX) showGallery(imgs, wrap, slug);
+      }
+      function showGallery(imgs, wrap, slug) {
+        if (imgs.length === 0) return; // Sin fotos — queda el SVG
+        var grid = document.getElementById('gallery-' + slug);
+        var fallback = document.getElementById('gallery-fallback-' + slug);
+        if (!grid || !fallback) return;
+        fallback.style.display = 'none';
+        grid.style.display = 'grid';
+        // Imagen principal
+        var mainImg = grid.querySelector('img');
+        if (mainImg) mainImg.src = imgs[0];
+        // Miniaturas
+        var thumbsWrap = document.getElementById('tg-thumbs-' + slug);
+        if (!thumbsWrap) return;
+        imgs.forEach(function(src, i) {
+          var div = document.createElement('div');
+          div.className = 'tg-thumb' + (i === 0 ? ' active' : '');
+          var img = document.createElement('img');
+          img.src = src; img.alt = slug + ' foto ' + (i+1); img.loading = 'lazy';
+          div.appendChild(img);
+          div.addEventListener('click', function() {
+            if (mainImg) mainImg.src = src;
+            thumbsWrap.querySelectorAll('.tg-thumb').forEach(function(t){ t.classList.remove('active'); });
+            div.classList.add('active');
+          });
+          if (i < 4) thumbsWrap.appendChild(div);
+        });
+        if (imgs.length > 4) {
+          var count = document.createElement('div');
+          count.className = 'tg-count';
+          count.textContent = '+' + (imgs.length - 4);
+          thumbsWrap.lastChild.appendChild(count);
+        }
+      }
+
+      for (var i = 1; i <= MAX; i++) {
+        (function(num) {
+          var src = '/assets/img/tours/' + slug + '-' + num + '.jpg';
+          var img = new Image();
+          img.onload = function() { imgs.push(src); checkDone(); };
+          img.onerror = function() { checkDone(); };
+          img.src = src;
+        })(i);
+      }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGalleries);
+  else initGalleries();
+})();

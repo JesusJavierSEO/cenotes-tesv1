@@ -45,26 +45,45 @@
 
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery" style="min-height:260px;cursor:default;">
-      <div style="position:absolute;inset:0;background:linear-gradient(160deg,#0a4a3a 0%,#041510 100%);"></div>
-      <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.7" preserveAspectRatio="xMidYMid slice">
-        <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
-        <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
-        <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
-        <polygon points="60,70 54,130 66,130" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="160,52 153,128 167,128" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="270,46 263,125 277,125" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="380,50 373,128 387,128" fill="rgba(13,42,28,0.9)"/>
-        <polygon points="500,60 493,130 507,130" fill="rgba(13,42,28,0.9)"/>
-        <path d="M240 0 L225 190 L375 190 L360 0Z" fill="rgba(127,227,232,0.07)"/>
-        <line x1="300" y1="0" x2="296" y2="190" stroke="rgba(127,227,232,0.18)" stroke-width="2"/>
-        <circle cx="240" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
-        <circle cx="330" cy="182" r="4" fill="none" stroke="rgba(127,227,232,0.35)" stroke-width="1"/>
-      </svg>
-      <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto;">
-        <div style="font-size:2.4rem;margin-bottom:10px">⛪</div>
-        <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Photos coming soon</p>
+    <div class="tour-gallery-wrap" data-tour="santa-barbara">
+      <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/santa-barbara-1.jpg -->
+      <div class="tour-gallery-grid" id="gallery-santa-barbara" style="display:none">
+        <div class="tg-main">
+          <img id="tg-main-img" src="" alt="santa-barbara foto principal" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+        </div>
+        <div class="tg-thumbs" id="tg-thumbs-santa-barbara"></div>
       </div>
+      <!-- FALLBACK SVG cuando no hay fotos -->
+          <div class="tour-gallery-wrap" data-tour="santa-barbara">
+      <div class="tour-gallery-grid" id="gallery-santa-barbara" style="display:none">
+        <div class="tg-main">
+          <img id="tg-main-img-santa-barbara" src="" alt="santa-barbara" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+        </div>
+        <div class="tg-thumbs" id="tg-thumbs-santa-barbara"></div>
+      </div>
+      <div class="tour-gallery" id="gallery-fallback-santa-barbara" style="min-height:280px;cursor:default">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#0a4a3a 0%,#041510 100%)"></div>
+        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
+          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
+          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
+          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
+          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="200,48 193,128 207,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="310,43 303,125 317,125" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="420,50 413,128 427,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="530,60 523,130 537,130" fill="rgba(13,42,28,0.9)"/>
+          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
+          <circle cx="255" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
+          <circle cx="345" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
+        </svg>
+        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
+          <div style="font-size:2.4rem;margin-bottom:10px">⛪</div>
+          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Photos coming soon</p>
+        </div>
+      </div>
+    </div>
     </div>
 
     <div class="tour-section">
