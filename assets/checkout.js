@@ -7,10 +7,8 @@
 // ── CONFIGURACIÓN ──────────────────────────────────────────
 const CHECKOUT_CONFIG = {
   // URL del webhook de Pipedream — se actualiza cuando crees el workflow
-  pipedreamUrl: 'PIPEDREAM_URL_AQUI',
+  apiUrl: '/api/checkout',  // Endpoint del servidor Express en Hostinger
 
-  // Clave publicable de Stripe (segura en frontend)
-  stripePublicKey: 'pk_live_51TVv1jBQ45qWttXtswzYH58XgcQeljXezt4nY1pAubVHvrbfJRD6sOzAPgAYTzDoyls5ykbsD5BVTSQd4elogRhk00YXKohj0T',
 
   // URLs de retorno
   successUrl: 'https://cenoteshomun.com/gracias.html',
@@ -115,7 +113,7 @@ async function iniciarPago() {
   }
 
   try {
-    const response = await fetch(CHECKOUT_CONFIG.pipedreamUrl, {
+    const response = await fetch(CHECKOUT_CONFIG.apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
