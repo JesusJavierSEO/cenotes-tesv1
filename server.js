@@ -18,8 +18,15 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS'],
 }));
 
-// Servir archivos estáticos (todo el sitio HTML/CSS/JS/IMG)
-app.use(express.static(path.join(__dirname)));
+// Servir archivos estáticos — sin caché para JS/CSS
+app.use(express.static(path.join(__dirname), {
+  setHeaders: function(res, filePath) {
+    if (filePath.endsWith('.js') || filePath.endsWith('.css')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+    }
+  }
+}));
 
 // ── API: CREAR SESIÓN DE STRIPE CHECKOUT ─────────────────
 app.post('/api/checkout', async (req, res) => {
