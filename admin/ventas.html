@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Ventas — Cenotes Homún</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#1a3a2a;--agua:#0a9da8;--gris:#f4f4f2;--borde:#e2e2de;--exito:#38a169;--error:#e53e3e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--gris);min-height:100vh}
+.topbar{background:var(--verde);padding:14px 24px;display:flex;align-items:center;gap:10px}
+.topbar-logo{color:white;font-weight:700;font-size:1rem}
+.topbar-logo span{color:#7fe3e8}
+.topbar-badge{margin-left:auto;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:0.7rem;padding:3px 10px;border-radius:10px;letter-spacing:0.1em;text-transform:uppercase}
+.tabs{background:white;border-bottom:1px solid var(--borde);padding:0 24px;display:flex;gap:0}
+.tab{padding:14px 20px;font-size:0.88rem;font-weight:600;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s}
+.tab.active{color:var(--verde);border-color:var(--agua)}
+.content{max-width:560px;margin:0 auto;padding:24px 20px}
+.card{background:white;border-radius:14px;border:1px solid var(--borde);padding:22px;margin-bottom:16px}
+.card h3{font-size:0.9rem;font-weight:700;color:var(--verde);margin-bottom:16px;display:flex;align-items:center;gap:6px}
+.campo{margin-bottom:12px}
+.campo label{display:block;font-size:0.75rem;font-weight:600;color:var(--verde);margin-bottom:5px;letter-spacing:0.02em}
+.campo select,.campo input{width:100%;padding:10px 12px;border:1.5px solid var(--borde);border-radius:8px;font-family:'Outfit',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.2s;background:white}
+.campo select:focus,.campo input:focus{border-color:var(--agua)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{width:100%;padding:13px;border:none;border-radius:10px;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.2s;margin-top:4px}
+.btn-primary{background:var(--agua);color:white}
+.btn-primary:hover{background:#088a94}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:white;color:var(--verde);border:1.5px solid var(--borde)}
+.result-box{background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:14px;margin-top:12px;display:none}
+.result-box.error{background:#fef2f2;border-color:#fca5a5}
+.result-title{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--exito);margin-bottom:8px}
+.result-box.error .result-title{color:var(--error)}
+.result-link{font-size:0.85rem;color:var(--agua);word-break:break-all;margin-bottom:10px}
+.dist-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.dist-item{background:rgba(10,157,168,0.06);border-radius:8px;padding:10px;text-align:center;border:1px solid rgba(10,157,168,0.15)}
+.dist-label{font-size:0.68rem;color:#888;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px}
+.dist-value{font-size:1.1rem;font-weight:700;color:var(--verde)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.copy-btn{background:var(--verde);color:white;border:none;padding:8px 14px;border-radius:7px;font-size:0.78rem;font-weight:600;cursor:pointer;width:100%;margin-top:6px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--verde);color:white;padding:10px 20px;border-radius:20px;font-size:0.84rem;opacity:0;transition:all 0.3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">Cenotes <span>Homún</span></div>
+  <div class="topbar-badge">🔒 Panel Privado</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab('enlaces')">🔗 Generar enlace de pago</div>
+  <div class="tab" onclick="showTab('manual')">📝 Registrar venta manual</div>
+</div>
+
+<div class="content">
+
+  <!-- TAB: GENERAR ENLACE -->
+  <div class="tab-panel active" id="tab-enlaces">
+    <div class="card">
+      <h3>🔗 Generar enlace de pago con atribución</h3>
+
+      <div class="campo">
+        <label>Tour</label>
+        <select id="e-tour" onchange="actualizarPrecioEnlace()">
+          <option value="">Selecciona un tour...</option>
+          <option value="cenote-santa-barbara"     data-precio="575">Cenote Santa Bárbara — $575 MXN</option>
+          <option value="cenote-santa-rosa"         data-precio="315">Cenote Santa Rosa — $315 MXN</option>
+          <option value="cenotes-santa-cruz"        data-precio="600">Cenotes Santa Cruz Hacienda — $600 MXN</option>
+          <option value="cenote-santa-cruz-cuatrimotos" data-precio="900">Santa Cruz + Cuatrimotos — $900 MXN</option>
+          <option value="cenotes-casa-tortuga"      data-precio="750">Casa Tortuga Básico — $750 MXN</option>
+          <option value="casa-tortuga-silver"       data-precio="1000">Casa Tortuga Silver — $1,000 MXN</option>
+          <option value="cenotes-casa-tortuga-gold" data-precio="1650">Casa Tortuga GOLD — $1,650 MXN</option>
+          <option value="off-road-casa-tortugas"    data-precio="1750">Off Road Casa Tortugas — $1,750 MXN</option>
+          <option value="isla-mujeres-catamaran"    data-precio="1590">Isla Mujeres Catamarán — $1,590 MXN</option>
+        </select>
+      </div>
+
+      <div class="row2">
+        <div class="campo">
+          <label>Adultos</label>
+          <input type="number" id="e-adultos" value="1" min="1" max="50" oninput="actualizarPrecioEnlace()">
+        </div>
+        <div class="campo">
+          <label>Fecha del tour</label>
+          <input type="date" id="e-fecha">
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Vendedor (quien cierra la venta)</label>
+        <select id="e-vendedor">
+          <option value="enrique">Enrique Vidal</option>
+          <option value="jesus">Jesús Javier</option>
+        </select>
+      </div>
+
+      <div id="e-preview" style="display:none;background:var(--gris);border-radius:8px;padding:12px;margin-bottom:12px;font-size:0.84rem;color:#555">
+        Total a cobrar: <strong id="e-total" style="color:var(--verde)"></strong>
+      </div>
+
+      <button class="btn btn-primary" id="btn-generar" onclick="generarEnlace()">Generar enlace de pago</button>
+
+      <div class="result-box" id="enlace-result">
+        <div class="result-title">✓ Enlace generado</div>
+        <div class="result-link" id="enlace-url"></div>
+        <button class="copy-btn" onclick="copiarEnlace()">📋 Copiar enlace para WhatsApp</button>
+        <div style="margin-top:10px;font-size:0.75rem;color:#aaa">Manda este enlace al cliente. Cuando pague, la venta se registra automáticamente.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: VENTA MANUAL -->
+  <div class="tab-panel" id="tab-manual">
+    <div class="card">
+      <h3>📝 Registrar venta presencial o por WhatsApp</h3>
+      <p style="font-size:0.82rem;color:#888;margin-bottom:16px">Para ventas que se cobraron en efectivo o transferencia directa.</p>
+
+      <div class="campo">
+        <label>Tour</label>
+        <select id="m-tour" onchange="actualizarPreviewManual()">
+          <option value="">Selecciona un tour...</option>
+          <option value="cenote-santa-barbara"     data-precio="575"  data-costo="450">Cenote Santa Bárbara — $575 MXN</option>
+          <option value="cenote-santa-rosa"         data-precio="315"  data-costo="180">Cenote Santa Rosa — $315 MXN</option>
+          <option value="cenotes-santa-cruz"        data-precio="600"  data-costo="350">Cenotes Santa Cruz Hacienda — $600 MXN</option>
+          <option value="cenote-santa-cruz-cuatrimotos" data-precio="900"  data-costo="550">Santa Cruz + Cuatrimotos — $900 MXN</option>
+          <option value="cenotes-casa-tortuga"      data-precio="750"  data-costo="250">Casa Tortuga Básico — $750 MXN</option>
+          <option value="casa-tortuga-silver"       data-precio="1000" data-costo="650">Casa Tortuga Silver — $1,000 MXN</option>
+          <option value="cenotes-casa-tortuga-gold" data-precio="1650" data-costo="850">Casa Tortuga GOLD — $1,650 MXN</option>
+          <option value="off-road-casa-tortugas"    data-precio="1750" data-costo="900">Off Road Casa Tortugas — $1,750 MXN</option>
+          <option value="isla-mujeres-catamaran"    data-precio="1590" data-costo="800">Isla Mujeres Catamarán — $1,590 MXN</option>
+        </select>
+      </div>
+
+      <div class="row2">
+        <div class="campo">
+          <label>Adultos</label>
+          <input type="number" id="m-adultos" value="1" min="1" max="50" oninput="actualizarPreviewManual()">
+        </div>
+        <div class="campo">
+          <label>Fecha del tour</label>
+          <input type="date" id="m-fecha">
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="campo">
+          <label>Nombre del cliente</label>
+          <input type="text" id="m-cliente" placeholder="Nombre del cliente">
+        </div>
+        <div class="campo">
+          <label>Vendedor</label>
+          <select id="m-vendedor" onchange="actualizarPreviewManual()">
+            <option value="enrique">Enrique Vidal</option>
+            <option value="jesus">Jesús Javier</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Canal de venta</label>
+        <select id="m-canal">
+          <option value="presencial">Presencial</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="transferencia">Transferencia</option>
+        </select>
+      </div>
+
+      <!-- Preview distribución -->
+      <div id="m-preview" style="display:none;margin-bottom:12px">
+        <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#aaa;margin-bottom:6px">Distribución calculada</div>
+        <div class="dist-grid">
+          <div class="dist-item"><div class="dist-label">Ganancia neta</div><div class="dist-value" id="m-ganancia"></div></div>
+          <div class="dist-item"><div class="dist-label">Jesús recibe</div><div class="dist-value" id="m-jesus"></div></div>
+          <div class="dist-item"><div class="dist-label">Enrique recibe</div><div class="dist-value" id="m-enrique"></div></div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="btn-registrar" onclick="registrarManual()">Registrar venta</button>
+
+      <div class="result-box" id="manual-result">
+        <div class="result-title">✓ Venta registrada en Google Sheets</div>
+        <div style="font-size:0.82rem;color:#555">La venta quedó registrada en la hoja "ventas" de tu Google Sheets.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var CATALOGO = {
+  'cenote-santa-barbara':          {precio:575,  costo:450},
+  'cenote-santa-rosa':             {precio:315,  costo:180},
+  'cenotes-santa-cruz':            {precio:600,  costo:350},
+  'cenote-santa-cruz-cuatrimotos': {precio:900,  costo:550},
+  'cenotes-casa-tortuga':          {precio:750,  costo:250},
+  'casa-tortuga-silver':           {precio:1000, costo:650},
+  'cenotes-casa-tortuga-gold':     {precio:1650, costo:850},
+  'off-road-casa-tortugas':        {precio:1750, costo:900},
+  'isla-mujeres-catamaran':        {precio:1590, costo:800},
+};
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(function(t,i){ t.classList.toggle('active', i === (name==='enlaces'?0:1)); });
+  document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('tab-'+(name==='enlaces'?'enlaces':'manual')).classList.add('active');
+}
+
+function fmt(n){ return '$'+Math.round(n).toLocaleString('es-MX'); }
+
+function calcular(slug, adultos, vendedor){
+  var t = CATALOGO[slug];
+  if(!t) return null;
+  var venta = t.precio * adultos;
+  var costo = t.costo * adultos;
+  var neta  = venta - costo - 20;
+  var jesus   = neta * 0.35;
+  var enrique = neta * 0.40;
+  if(vendedor==='jesus')   jesus   += neta*0.25;
+  if(vendedor==='enrique') enrique += neta*0.25;
+  return {venta:venta,costo:costo,neta:Math.round(neta),jesus:Math.round(jesus),enrique:Math.round(enrique)};
+}
+
+// ── ENLACE ────────────────────────────────────────────────
+function actualizarPrecioEnlace(){
+  var slug    = document.getElementById('e-tour').value;
+  var adultos = parseInt(document.getElementById('e-adultos').value)||1;
+  var t       = CATALOGO[slug];
+  var prev    = document.getElementById('e-preview');
+  if(t && adultos > 0){
+    document.getElementById('e-total').textContent = fmt(t.precio*adultos)+' MXN';
+    prev.style.display='block';
+  } else { prev.style.display='none'; }
+}
+
+async function generarEnlace(){
+  var slug    = document.getElementById('e-tour').value;
+  var adultos = parseInt(document.getElementById('e-adultos').value)||1;
+  var fecha   = document.getElementById('e-fecha').value;
+  var vendedor= document.getElementById('e-vendedor').value;
+  if(!slug){ alert('Selecciona un tour'); return; }
+  var btn = document.getElementById('btn-generar');
+  btn.disabled=true; btn.textContent='Generando...';
+  try {
+    var res  = await fetch('/api/generar-enlace',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tour_slug:slug,adultos:adultos,fecha:fecha,vendedor:vendedor})});
+    var data = await res.json();
+    if(data.url){
+      document.getElementById('enlace-url').textContent = data.url;
+      document.getElementById('enlace-result').style.display='block';
+    } else { alert('Error: '+(data.error||'sin URL')); }
+  } catch(err){ alert('Error de conexión: '+err.message); }
+  btn.disabled=false; btn.textContent='Generar enlace de pago';
+}
+
+function copiarEnlace(){
+  var url = document.getElementById('enlace-url').textContent;
+  navigator.clipboard.writeText(url).then(function(){
+    mostrarToast('✓ Enlace copiado');
+  });
+}
+
+// ── MANUAL ────────────────────────────────────────────────
+function actualizarPreviewManual(){
+  var slug    = document.getElementById('m-tour').value;
+  var adultos = parseInt(document.getElementById('m-adultos').value)||1;
+  var vendedor= document.getElementById('m-vendedor').value;
+  var prev    = document.getElementById('m-preview');
+  var d = calcular(slug, adultos, vendedor);
+  if(d){
+    document.getElementById('m-ganancia').textContent = fmt(d.neta);
+    document.getElementById('m-jesus').textContent    = fmt(d.jesus);
+    document.getElementById('m-enrique').textContent  = fmt(d.enrique);
+    prev.style.display='block';
+  } else { prev.style.display='none'; }
+}
+
+async function registrarManual(){
+  var slug    = document.getElementById('m-tour').value;
+  var adultos = parseInt(document.getElementById('m-adultos').value)||1;
+  var fecha   = document.getElementById('m-fecha').value;
+  var cliente = document.getElementById('m-cliente').value;
+  var vendedor= document.getElementById('m-vendedor').value;
+  var canal   = document.getElementById('m-canal').value;
+  if(!slug){ alert('Selecciona un tour'); return; }
+  var btn = document.getElementById('btn-registrar');
+  btn.disabled=true; btn.textContent='Registrando...';
+  try {
+    var res  = await fetch('/api/venta-manual',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tour_slug:slug,adultos:adultos,ninos:0,vendedor:vendedor,canal:canal,fecha_tour:fecha,cliente:cliente})});
+    var data = await res.json();
+    if(data.ok){
+      document.getElementById('manual-result').style.display='block';
+      mostrarToast('✓ Venta registrada en Sheets');
+    } else { alert('Error: '+(data.error||'desconocido')); }
+  } catch(err){ alert('Error: '+err.message); }
+  btn.disabled=false; btn.textContent='Registrar venta';
+}
+
+function mostrarToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+// Inicializar fecha mínima
+(function(){
+  var hoy = new Date();
+  var min = hoy.toISOString().split('T')[0];
+  document.getElementById('e-fecha').min = min;
+  document.getElementById('m-fecha').min = min;
+})();
+</script>
+</body>
+</html>

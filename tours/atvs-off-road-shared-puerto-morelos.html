@@ -146,7 +146,8 @@ Nota: Este tour NO es apto para niños.</p>
 
   <aside class="page-sidebar">
     <div class="reserve-card">
-      <div class="reserve-card-header">
+      <div class="reserve-card-header" style="position:relative">
+      <div style="position:absolute;top:12px;right:12px;background:rgba(232,160,0,0.2);color:#f6c000;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:10px;letter-spacing:0.1em;text-transform:uppercase">Precio en revisión</div>
         <div class="reserve-price">$1,290 <span style="font-size:1.4rem">MXN</span></div>
         <div class="reserve-price-label">por persona</div>
         
@@ -169,10 +170,10 @@ Nota: Este tour NO es apto para niños.</p>
             <div id="checkout-detalle" style="font-size:0.72rem;color:#bbb;margin-top:2px;text-align:right">1 adulto × $1,290</div>
           </div>
           <!-- Pagar con tarjeta -->
-          <button id="btn-pagar" class="reserve-btn-wa"
+          <button id="btn-pagar" class="reserve-btn-wa" disabled style="background:#aaa;cursor:not-allowed;box-shadow:none"
                   style="background:var(--selva);box-shadow:0 3px 12px rgba(26,58,42,0.3)"
-                  onclick="iniciarPago()">
-            💳 Pagar con tarjeta
+                  >
+            🚧 Próximamente
           </button>
           <!-- WhatsApp -->
           <button class="reserve-btn-form" onclick="reservarWA('atvs-off-road-shared-puerto-morelos')">
