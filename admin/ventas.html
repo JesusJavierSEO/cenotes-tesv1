@@ -195,6 +195,28 @@ body{font-family:'Outfit',sans-serif;background:var(--gris);min-height:100vh}
 <div class="toast" id="toast"></div>
 
 <script>
+
+// ── MANEJO DE TOKEN DE SESIÓN ─────────────────────────────
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var token  = params.get('token') || sessionStorage.getItem('adminToken');
+  if (token) {
+    sessionStorage.setItem('adminToken', token);
+    // Limpiar token de URL sin recargar
+    if (params.get('token')) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    // Interceptar fetch para agregar token
+    var origFetch = window.fetch;
+    window.fetch = function(url, opts) {
+      opts = opts || {};
+      opts.headers = opts.headers || {};
+      opts.headers['x-admin-token'] = token;
+      return origFetch(url, opts);
+    };
+  }
+})();
+
 var CATALOGO = {
   'cenote-santa-barbara':          {precio:575,  costo:450},
   'cenote-santa-rosa':             {precio:315,  costo:180},

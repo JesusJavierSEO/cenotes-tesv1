@@ -90,6 +90,17 @@ app.use(cors({
 }));
 app.use('/api/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
+// Archivos admin protegidos por contraseña
+app.use('/admin', (req, res, next) => {
+  // Permitir solo si viene con token válido o es la página de login implícita
+  const token = req.query.token;
+  if (token && adminSessions.has(token)) {
+    // Inyectar token en la respuesta HTML para que JS lo tenga
+    return next();
+  }
+  res.status(401).send(getLoginPage());
+});
+
 app.use(express.static(path.join(__dirname), {
   setHeaders: function(res, filePath) {
     if (filePath.endsWith('.js') || filePath.endsWith('.css')) {
@@ -97,6 +108,86 @@ app.use(express.static(path.join(__dirname), {
     }
   }
 }));
+
+
+// ── PROTECCIÓN DEL PANEL ADMIN ────────────────────────────
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Tutravelsolution2143*';
+const adminSessions  = new Set(); // tokens activos en memoria
+
+function adminAuth(req, res, next) {
+  const token = req.headers['x-admin-token'] || req.query.token;
+  if (adminSessions.has(token)) return next();
+  // Servir página de login en lugar del recurso
+  res.status(401).send(getLoginPage());
+}
+
+function getLoginPage() {
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso restringido — Cenotes Homún</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:#0d2b1e;min-height:100vh;display:flex;align-items:center;justify-content:center}
+.card{background:white;border-radius:16px;padding:40px;width:100%;max-width:360px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.3)}
+.logo{font-size:1.1rem;font-weight:700;color:#1a3a2a;margin-bottom:6px}
+.logo span{color:#0a9da8}
+.sub{font-size:0.8rem;color:#aaa;margin-bottom:28px}
+input{width:100%;padding:12px;border:1.5px solid #e2e2de;border-radius:8px;font-size:0.9rem;outline:none;margin-bottom:12px;font-family:inherit;transition:border-color 0.2s}
+input:focus{border-color:#0a9da8}
+button{width:100%;padding:12px;background:#1a3a2a;color:white;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background 0.2s}
+button:hover{background:#0d2b1e}
+.error{color:#e53e3e;font-size:0.8rem;margin-top:8px;display:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Cenotes <span>Homún</span></div>
+  <div class="sub">Panel privado — acceso restringido</div>
+  <input type="password" id="pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')login()">
+  <button onclick="login()">Entrar</button>
+  <div class="error" id="err">Contraseña incorrecta</div>
+</div>
+<script>
+async function login() {
+  var pwd = document.getElementById('pwd').value;
+  var res = await fetch('/api/admin-login', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd})});
+  var data = await res.json();
+  if (data.token) {
+    sessionStorage.setItem('adminToken', data.token);
+    window.location.reload();
+  } else {
+    document.getElementById('err').style.display='block';
+  }
+}
+// Si ya tenemos token, agregarlo a todas las peticiones futuras
+var t = sessionStorage.getItem('adminToken');
+if (t) {
+  // Recargar con token en header no funciona directo — usar fetch interceptor
+  document.addEventListener('DOMContentLoaded', function() {
+    window.location.href = window.location.pathname + '?token=' + t;
+  });
+}
+</script>
+</body>
+</html>`;
+}
+
+// Login endpoint
+app.post('/api/admin-login', (req, res) => {
+  const { password } = req.body;
+  if (password === ADMIN_PASSWORD) {
+    const token = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    adminSessions.add(token);
+    // Limpiar sesiones viejas después de 8 horas
+    setTimeout(() => adminSessions.delete(token), 8 * 60 * 60 * 1000);
+    res.json({ token });
+  } else {
+    res.status(401).json({ error: 'Contraseña incorrecta' });
+  }
+});
 
 // ── API: CHECKOUT ─────────────────────────────────────────
 app.post('/api/checkout', async (req, res) => {
