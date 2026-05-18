@@ -368,7 +368,7 @@ app.post('/api/venta-manual', async (req, res) => {
 app.use((req, res) => res.status(404).sendFile(path.join(__dirname, 'index.html')));
 
 app.listen(PORT, () => {
-  console.log(`🌊 Cenotes Homún corriendo en puerto ${PORT}`);
+  console.log(`🔧 [DEV] Cenotes Homún corriendo en puerto ${PORT}`);
   console.log(`   Stripe:  ${process.env.STRIPE_SECRET_KEY  ? '✓' : '⚠ falta STRIPE_SECRET_KEY'}`);
   console.log(`   Sheets:  ${process.env.SHEETS_URL         ? '✓' : '⚠ falta SHEETS_URL'}`);
 });
