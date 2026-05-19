@@ -27,34 +27,45 @@ const CATALOGO = {
 const FONDO_POR_VENTA = 20; // MXN por venta
 const SHEETS_URL = process.env.SHEETS_URL || '';
 
+// ── CALCULAR COMISIÓN DE STRIPE ──────────────────────────
+// México: 3.6% + $3 MXN tarjetas nacionales
+//         4.6% + $3 MXN tarjetas internacionales
+function calcularComisionStripe(monto, tipoTarjeta) {
+  const pct  = tipoTarjeta === 'internacional' ? 0.046 : 0.036;
+  const fijo = 3; // MXN
+  return Math.round((monto * pct) + fijo);
+}
+
 // ── CALCULAR DISTRIBUCIÓN DE GANANCIAS ───────────────────
-function calcularGanancias(slug, totalCobrado, personas, vendedor) {
+function calcularGanancias(slug, totalCobrado, personas, vendedor, tipoTarjeta) {
   const tour  = CATALOGO[slug] || {};
   const costo = tour.costo || 0;
 
-  const costoTotal  = costo * personas;
-  const fondo       = FONDO_POR_VENTA;
-  const gananciaNeta = totalCobrado - costoTotal - fondo;
+  const costoTotal       = costo * personas;
+  const comisionStripe   = calcularComisionStripe(totalCobrado, tipoTarjeta || 'nacional');
+  const fondo            = FONDO_POR_VENTA;
+  const gananciaNeta     = totalCobrado - costoTotal - comisionStripe - fondo;
 
-  const pctFijo = { jesus: 0.35, enrique: 0.40 };
+  const pctFijo  = { jesus: 0.35, enrique: 0.40 };
   const pctVenta = 0.25;
 
   let jesusTotal   = gananciaNeta * pctFijo.jesus;
   let enriqueTotal = gananciaNeta * pctFijo.enrique;
   let vendedorGana = gananciaNeta * pctVenta;
 
-  if (vendedor === 'jesus')   jesusTotal   += vendedorGana;
+  if (vendedor === 'jesus')        jesusTotal   += vendedorGana;
   else if (vendedor === 'enrique') enriqueTotal += vendedorGana;
 
   return {
-    precio_venta:    totalCobrado,
-    costo_reporte:   costoTotal,
-    fondo_operativo: fondo,
-    ganancia_neta:   Math.round(gananciaNeta),
-    jesus_recibe:    Math.round(jesusTotal),
-    enrique_recibe:  Math.round(enriqueTotal),
-    vendedor:        vendedor,
-    vendedor_bono:   vendedor === 'jesus' || vendedor === 'enrique' ? Math.round(vendedorGana) : 0,
+    precio_venta:      totalCobrado,
+    costo_reporte:     costoTotal,
+    comision_stripe:   comisionStripe,
+    fondo_operativo:   fondo,
+    ganancia_neta:     Math.round(gananciaNeta),
+    jesus_recibe:      Math.round(jesusTotal),
+    enrique_recibe:    Math.round(enriqueTotal),
+    vendedor:          vendedor,
+    vendedor_bono:     Math.round(vendedorGana),
   };
 }
 
@@ -301,24 +312,26 @@ app.post('/api/webhook', async (req, res) => {
     const slug     = meta.tour_slug || '';
     const vendedor = meta.vendedor || 'jesus';
 
-    const dist = calcularGanancias(slug, total, personas, vendedor);
+    const dist = calcularGanancias(slug, total, personas, vendedor, 'nacional');
 
     const registro = {
-      hoja:            'ventas',
-      fecha:           new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),
-      tour:            meta.tour || slug,
-      cliente:         meta.cliente || '',
-      fecha_tour:      meta.fecha || '',
-      personas:        personas,
-      canal:           meta.canal || 'web',
-      vendedor:        vendedor,
-      precio_venta:    dist.precio_venta,
-      costo_reporte:   dist.costo_reporte,
-      fondo_operativo: dist.fondo_operativo,
-      ganancia_neta:   dist.ganancia_neta,
-      jesus_recibe:    dist.jesus_recibe,
-      enrique_recibe:  dist.enrique_recibe,
-      stripe_id:       session.id,
+      hoja:             'ventas',
+      fecha:            new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),
+      tour:             meta.tour || slug,
+      cliente:          meta.cliente || '',
+      fecha_tour:       meta.fecha || '',
+      personas:         personas,
+      canal:            meta.canal || 'web',
+      vendedor:         vendedor,
+      precio_venta:     dist.precio_venta,
+      costo_reporte:    dist.costo_reporte,
+      comision_stripe:  dist.comision_stripe,
+      fondo_operativo:  dist.fondo_operativo,
+      ganancia_neta:    dist.ganancia_neta,
+      jesus_recibe:     dist.jesus_recibe,
+      enrique_recibe:   dist.enrique_recibe,
+      stripe_id:        session.id,
+      modo:             session.livemode ? 'live' : 'test',
     };
 
     console.log('✅ Pago completado:', registro);
