@@ -292,20 +292,55 @@ app.post('/api/generar-enlace', async (req, res) => {
 });
 
 // ── API: WEBHOOK STRIPE ───────────────────────────────────
+// Maneja tanto webhooks clásicos (payload completo)
+// como webhooks del Workbench (thin events / resumen)
 app.post('/api/webhook', async (req, res) => {
   let event;
+  const sig    = req.headers['stripe-signature'];
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const body   = req.body;
+
   try {
-    const sig     = req.headers['stripe-signature'];
-    const secret  = process.env.STRIPE_WEBHOOK_SECRET;
-    event = secret
-      ? stripe.webhooks.constructEvent(req.body, sig, secret)
-      : JSON.parse(req.body.toString());
+    if (secret && sig) {
+      // Webhook clásico con firma
+      event = stripe.webhooks.constructEvent(body, sig, secret);
+    } else {
+      // Sin firma — parsear directamente
+      event = JSON.parse(body.toString());
+    }
   } catch (err) {
+    console.error('❌ Webhook parse error:', err.message);
     return res.status(400).send('Webhook error: ' + err.message);
   }
 
+  console.log('📨 Webhook recibido:', event.type, '| ID:', event.id);
+
+  // Workbench thin event: solo contiene el ID, hay que buscar los datos
+  // Se detecta porque data.object no existe o es un string (el ID del recurso)
+  let session = null;
+
   if (event.type === 'checkout.session.completed') {
-    const session  = event.data.object;
+    try {
+      if (event.data && event.data.object && typeof event.data.object === 'object') {
+        // Webhook clásico — datos completos
+        session = event.data.object;
+        console.log('📦 Payload completo recibido');
+      } else {
+        // Thin event del Workbench — buscar sesión por ID
+        const sessionId = event.data?.id || event.data?.object;
+        if (sessionId) {
+          console.log('🔍 Thin event — buscando sesión:', sessionId);
+          session = await stripe.checkout.sessions.retrieve(sessionId, {
+            expand: ['payment_intent'],
+          });
+        }
+      }
+    } catch(err) {
+      console.error('❌ Error obteniendo sesión:', err.message);
+    }
+  }
+
+  if (event.type === 'checkout.session.completed' && session) {
     const meta     = session.metadata || {};
     const total    = session.amount_total / 100;
     const personas = parseInt(meta.personas) || 1;
@@ -334,7 +369,7 @@ app.post('/api/webhook', async (req, res) => {
       modo:             session.livemode ? 'live' : 'test',
     };
 
-    console.log('✅ Pago completado:', registro);
+    console.log('✅ Pago completado — registrando:', registro.tour, '|', registro.precio_venta, 'MXN');
     await registrarEnSheets(registro);
   }
 
