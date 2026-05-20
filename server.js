@@ -377,6 +377,94 @@ app.post('/api/venta-manual', async (req, res) => {
   }
 });
 
+
+// ── API: DIAGNÓSTICO (solo para debugging) ───────────────
+app.get('/api/diagnostico', async (req, res) => {
+  const resultados = {
+    servidor:       '✅ funcionando',
+    stripe_key:     process.env.STRIPE_SECRET_KEY ? '✅ configurada' : '❌ falta STRIPE_SECRET_KEY',
+    webhook_secret: process.env.STRIPE_WEBHOOK_SECRET ? '✅ configurado' : '⚠️ falta STRIPE_WEBHOOK_SECRET',
+    sheets_url:     process.env.SHEETS_URL ? '✅ configurada' : '❌ falta SHEETS_URL',
+    sheets_url_val: process.env.SHEETS_URL ? process.env.SHEETS_URL.substring(0, 60) + '...' : 'no definida',
+    node_version:   process.version,
+    entorno:        process.env.NODE_ENV || 'production',
+  };
+
+  // Probar conexión con Sheets
+  if (process.env.SHEETS_URL) {
+    try {
+      const testData = {
+        hoja: 'ventas',
+        fecha: new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),
+        tour: '🔧 TEST DIAGNÓSTICO',
+        cliente: 'Sistema',
+        fecha_tour: '',
+        personas: 0,
+        canal: 'test',
+        vendedor: 'sistema',
+        precio_venta: 0,
+        costo_reporte: 0,
+        comision_stripe: 0,
+        fondo_operativo: 0,
+        ganancia_neta: 0,
+        jesus_recibe: 0,
+        enrique_recibe: 0,
+        stripe_id: 'DIAGNOSTICO-' + Date.now(),
+        modo: 'test',
+      };
+      await registrarEnSheets(testData);
+      resultados.sheets_test = '✅ registro enviado a Sheets';
+    } catch(e) {
+      resultados.sheets_test = '❌ error: ' + e.message;
+    }
+  } else {
+    resultados.sheets_test = '⏭️ saltado (sin SHEETS_URL)';
+  }
+
+  res.json(resultados);
+});
+
+// ── API: SIMULAR WEBHOOK MANUALMENTE ─────────────────────
+app.post('/api/simular-venta', async (req, res) => {
+  try {
+    const { tour_slug, adultos, vendedor } = req.body;
+    const tour = CATALOGO[tour_slug];
+    if (!tour) return res.status(400).json({ error: 'Tour no encontrado: ' + tour_slug });
+
+    const total    = tour.precio * (adultos || 1);
+    const personas = adultos || 1;
+    const dist     = calcularGanancias(tour_slug, total, personas, vendedor || 'jesus', 'nacional');
+
+    const registro = {
+      hoja:             'ventas',
+      fecha:            new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),
+      tour:             tour.nombre,
+      cliente:          'SIMULACIÓN',
+      fecha_tour:       '',
+      personas:         personas,
+      canal:            'test',
+      vendedor:         vendedor || 'jesus',
+      precio_venta:     dist.precio_venta,
+      costo_reporte:    dist.costo_reporte,
+      comision_stripe:  dist.comision_stripe,
+      fondo_operativo:  dist.fondo_operativo,
+      ganancia_neta:    dist.ganancia_neta,
+      jesus_recibe:     dist.jesus_recibe,
+      enrique_recibe:   dist.enrique_recibe,
+      stripe_id:        'SIM-' + Date.now(),
+      modo:             'test',
+    };
+
+    console.log('🔧 Simulando venta:', registro);
+    await registrarEnSheets(registro);
+
+    res.json({ ok: true, registro, distribucion: dist });
+  } catch(err) {
+    console.error('Simular venta error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── INICIO ────────────────────────────────────────────────
 app.use((req, res) => res.status(404).sendFile(path.join(__dirname, 'index.html')));
 
