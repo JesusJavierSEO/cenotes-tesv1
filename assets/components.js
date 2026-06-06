@@ -44,7 +44,7 @@
      CONFIGURACIÓN — edita solo esta sección
   ───────────────────────────────────────────────────────── */
   const CONFIG = {
-    whatsapp: "529988968407", // ← Reemplaza con tu número real (con código de país, sin +)
+    whatsapp: "529994105737", // ← Reemplaza con tu número real (con código de país, sin +)
     siteName: "Cenotes Homún",
 
     // Páginas con nav oscuro (hero background)
@@ -174,6 +174,10 @@
     "/destinos/isla-mujeres-en.html": "/destinos/isla-mujeres.html",
     "/destinos/puerto-morelos.html":  "/destinos/puerto-morelos-en.html",
     "/destinos/puerto-morelos-en.html":"/destinos/puerto-morelos.html",
+    // Página unificada Casa Tortuga
+    "/tours/casa-tortuga.html":         "/tours/casa-tortuga-en.html",
+    "/tours/casa-tortuga-en.html":      "/tours/casa-tortuga.html",
+    // Tours individuales (se mantienen para SEO)
     // Tours nuevos ES <-> EN
     "/tours/isla-mujeres-catamaran.html":          "/tours/isla-mujeres-catamaran-en.html",
     "/tours/isla-mujeres-catamaran-en.html":       "/tours/isla-mujeres-catamaran.html",

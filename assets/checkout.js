@@ -77,7 +77,7 @@ function _abrirWA(tourNombre, lang) {
   if (adultos && adultos !== '0') msg += ' Adultos: ' + adultos + '.';
   if (ninos   && ninos   !== '0') msg += ' Niños: '   + ninos   + '.';
 
-  window.open('https://wa.me/529988968407?text=' + encodeURIComponent(msg), '_blank');
+  window.open('https://wa.me/529994105737?text=' + encodeURIComponent(msg), '_blank');
 }
 
 // ── PAGO CON TARJETA ────────────────────────────────────────
