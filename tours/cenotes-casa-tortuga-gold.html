@@ -43,35 +43,29 @@
 
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery-wrap" data-tour="casa-tortuga-gold">
-      <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/casa-tortuga-gold-1.jpg -->
-      <div class="tour-gallery-grid" id="gallery-casa-tortuga-gold" style="display:none">
+    <div class="tour-gallery-wrap">
+      <div class="tour-gallery-grid" style="display:grid">
         <div class="tg-main">
-          <img id="tg-main-img" src="" alt="casa-tortuga-gold foto principal" loading="lazy"
-               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Casa Tortuga GOLD"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-casa-tortuga-gold"></div>
-      </div>
-      <!-- FALLBACK SVG cuando no hay fotos -->
-      <div class="tour-gallery" id="gallery-fallback-casa-tortuga-gold" style="min-height:260px;cursor:default">
-        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#2a1a00 0%,#140d00 100%)"></div>
-        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
-          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
-          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
-          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
-          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="190,50 183,128 197,128" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="300,44 293,125 307,125" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="410,50 403,128 417,128" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="520,60 513,130 527,130" fill="rgba(13,42,28,0.9)"/>
-          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
-          <circle cx="250" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
-          <circle cx="340" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
-          <circle cx="290" cy="175" r="2.5" fill="none" stroke="rgba(127,227,232,0.25)" stroke-width="1"/>
-        </svg>
-        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
-          <div style="font-size:2.4rem;margin-bottom:10px">🥇</div>
-          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Fotos próximamente</p>
+        <div class="tg-thumbs">
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
         </div>
       </div>
     </div>
@@ -186,6 +180,16 @@ El Paquete GOLD te da acceso a actividades adicionales que no están en los paqu
 <script>
 function reservarWA(t){var n=document.getElementById("r-nombre").value||"",f=document.getElementById("r-fecha").value||"",p=document.getElementById("r-personas").value||"";var m="Hola%2C%20me%20interesa%20el%20tour%20%22"+encodeURIComponent(t)+"%22.";if(n)m+="%20Mi%20nombre%20es%20"+encodeURIComponent(n)+".";if(f)m+="%20Fecha%3A%20"+encodeURIComponent(f)+".";if(p)m+="%20Somos%20"+encodeURIComponent(p)+"%20personas.";window.open("https://wa.me/529994105737?text="+m,"_blank");}
 (function(){var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");o.unobserve(e.target)}})},{threshold:0.1});function i(){document.querySelectorAll(".reveal").forEach(function(e){o.observe(e)})}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",i);else setTimeout(i,100)})();
+</script>
+<script>
+function tgSwap(thumb, src) {
+  var main = document.getElementById('tg-main-img');
+  if (!main) return;
+  main.style.opacity = '0';
+  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
+  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
+  thumb.classList.add('active');
+}
 </script>
 </body>
 </html>
