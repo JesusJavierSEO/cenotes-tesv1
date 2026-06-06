@@ -709,8 +709,8 @@ body {
         <div class="checklist-item" data-val="Chaleco salvavidas" onclick="toggleCheck(this, 'incluye')">
           <div class="check-box"></div><span class="checklist-label">🦺 Chaleco salvavidas</span>
         </div>
-        <div class="checklist-item" data-val="Seguro de viaje" onclick="toggleCheck(this, 'incluye')">
-          <div class="check-box"></div><span class="checklist-label">🛡 Seguro de viaje</span>
+        <div class="checklist-item" data-val="" onclick="toggleCheck(this, 'incluye')">
+          <div class="check-box"></div><span class="checklist-label">🛡</span>
         </div>
         <div class="checklist-item" data-val="Fotos / video" onclick="toggleCheck(this, 'incluye')">
           <div class="check-box"></div><span class="checklist-label">📸 Fotos / video</span>
@@ -1293,7 +1293,7 @@ function llenarFormulario(t) {
 
   // Incluye
   const CHECKS = ['Transporte','Guía local','Guía bilingüe','Entrada a sitios',
-    'Comida','Bebidas / agua','Equipo de snorkel','Chaleco salvavidas','Seguro de viaje','Fotos / video'];
+    'Comida','Bebidas / agua','Equipo de snorkel','Chaleco salvavidas','','Fotos / video'];
   const incluye = t.incluye || [];
   selecciones.incluye = incluye.filter(v => CHECKS.includes(v));
   document.querySelectorAll('#checklist-incluye .checklist-item').forEach(item => {
