@@ -209,28 +209,34 @@
 
 <!-- GALERÍA -->
 <div class="ct-gallery">
-  <div class="ct-gallery-svg" id="ct-gallery-main">
-    <svg width="100%" height="100%" viewBox="0 0 900 400" fill="none" style="position:absolute;inset:0;opacity:0.7" preserveAspectRatio="xMidYMid slice">
-      <ellipse cx="450" cy="280" rx="380" ry="100" fill="rgba(10,157,168,0.35)"/>
-      <ellipse cx="450" cy="272" rx="280" ry="65" fill="rgba(13,232,245,0.2)"/>
-      <path d="M0 120 Q225 70,450 85 Q675 70,900 120 L900 0 L0 0Z" fill="rgba(4,16,10,0.85)"/>
-      <polygon points="100,108 90,200 110,200" fill="rgba(10,42,28,0.9)"/>
-      <polygon points="240,80 228,200 252,200" fill="rgba(10,42,28,0.9)"/>
-      <polygon points="390,72 378,200 402,200" fill="rgba(10,42,28,0.9)"/>
-      <polygon points="540,78 528,200 552,200" fill="rgba(10,42,28,0.9)"/>
-      <polygon points="700,90 688,200 712,200" fill="rgba(10,42,28,0.9)"/>
-      <polygon points="820,105 808,200 832,200" fill="rgba(10,42,28,0.9)"/>
-      <path d="M360 0 L340 272 L560 272 L540 0Z" fill="rgba(127,227,232,0.06)"/>
-      <line x1="450" y1="0" x2="446" y2="272" stroke="rgba(127,227,232,0.2)" stroke-width="2"/>
-      <circle cx="380" cy="265" r="8" fill="none" stroke="rgba(127,227,232,0.5)" stroke-width="2"/>
-      <circle cx="500" cy="260" r="6" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
-      <circle cx="430" cy="255" r="4" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
-    </svg>
-    <div style="position:relative;z-index:2;text-align:center">
-      <div style="font-size:3rem;margin-bottom:10px">🐢</div>
-      <p style="color:rgba(245,237,224,0.5);font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase">Fotos próximamente</p>
+  <div style="border-radius:18px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.25)">
+          <div class="tour-gallery-wrap">
+      <div class="tour-gallery-grid" style="display:grid">
+        <div class="tg-main">
+          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="Cenotes Casa Tortuga Tulum — foto principal"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
+        </div>
+        <div class="tg-thumbs">
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="Cenotes Casa Tortuga Tulum" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Cenotes Casa Tortuga Tulum" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg" alt="Cenotes Casa Tortuga Tulum" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="Cenotes Casa Tortuga Tulum" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <div class="tg-count">+3</div>
+        </div>
+        </div>
+      </div>
     </div>
-  </div>
+    </div>
 </div>
 
 <!-- QUÉ ES -->
