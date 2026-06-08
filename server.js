@@ -313,6 +313,8 @@ app.post('/api/checkout', async (req, res) => {
         quantity: i.cantidad,
       })),
       mode: 'payment',
+      customer_email: req.body.email || undefined,  // Stripe envía recibo automático
+      phone_number_collection: { enabled: false },
       success_url: success_url || 'https://cenoteshomun.com/gracias.html',
       cancel_url:  cancel_url  || 'https://cenoteshomun.com/',
       metadata: {
@@ -323,6 +325,7 @@ app.post('/api/checkout', async (req, res) => {
         personas:  totalPersonas.toString(),
         vendedor:  ref || 'jesus',  // ventas web = Jesús por defecto
         canal:     ref ? 'whatsapp' : 'web',
+        email:     req.body.email || '',
       },
       payment_intent_data: {
         description: `${tour_nombre} — ${totalPersonas} persona(s)`,
@@ -459,6 +462,7 @@ app.post('/api/webhook', async (req, res) => {
       ganancia_neta:    dist.ganancia_neta,
       jesus_recibe:     dist.jesus_recibe,
       enrique_recibe:   dist.enrique_recibe,
+      email_cliente:    session.customer_email || meta.email || '',
       stripe_id:        session.id,
       modo:             session.livemode ? 'live' : 'test',
     };
