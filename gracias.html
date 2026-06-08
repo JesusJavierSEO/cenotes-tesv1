@@ -3,143 +3,375 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>¡Pago confirmado! — Cenotes Homún by TuTravelSolutions</title>
-<meta name="robots" content="noindex">
+<title>¡Reserva confirmada! — Cenotes Homún</title>
+<meta name="description" content="Tu reserva en Cenotes Homún está confirmada. Revisa tu correo para los detalles del tour.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<style>
-.thanks-wrap {
-  min-height: 100vh;
-  background: linear-gradient(155deg, #0d2b1e 0%, #1a3a2a 55%, #0a4052 100%);
-  display: flex; align-items: center; justify-content: center;
-  padding: 48px 24px; position: relative; overflow: hidden;
-}
-.thanks-wrap::before {
-  content: '';
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(10,157,168,0.15), transparent 65%);
-  top: 50%; left: 50%; transform: translate(-50%,-50%);
-}
-.thanks-card {
-  background: white; border-radius: 24px;
-  padding: 56px 48px; max-width: 520px; width: 100%;
-  text-align: center; position: relative; z-index: 1;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-}
-.thanks-icon {
-  width: 80px; height: 80px;
-  background: linear-gradient(135deg, #38a169, #276749);
-  border-radius: 50%; margin: 0 auto 24px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem;
-  box-shadow: 0 8px 24px rgba(56,161,105,0.35);
-  animation: popIn 0.5s var(--ease-spring, cubic-bezier(0.34,1.56,0.64,1)) forwards;
-}
-@keyframes popIn {
-  from { transform: scale(0); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-.thanks-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem; color: var(--selva, #1a3a2a);
-  margin-bottom: 10px; letter-spacing: -0.02em;
-}
-.thanks-tour {
-  font-size: 1.1rem; font-weight: 600;
-  color: var(--agua, #0a9da8); margin-bottom: 20px;
-}
-.thanks-msg {
-  font-size: 0.95rem; color: #666;
-  line-height: 1.75; margin-bottom: 32px;
-}
-.thanks-steps {
-  background: #f8fffe; border-radius: 12px;
-  padding: 20px; margin-bottom: 28px;
-  border: 1px solid rgba(10,157,168,0.15);
-  text-align: left;
-}
-.thanks-step {
-  display: flex; gap: 12px; align-items: flex-start;
-  font-size: 0.88rem; color: #555; margin-bottom: 12px;
-}
-.thanks-step:last-child { margin-bottom: 0; }
-.thanks-step-num {
-  width: 24px; height: 24px; min-width: 24px;
-  background: var(--agua, #0a9da8); color: white;
-  border-radius: 50%; font-size: 0.72rem; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  margin-top: 1px;
-}
-.thanks-wa {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #25D366; color: white;
-  text-decoration: none; padding: 13px 28px;
-  border-radius: 10px; font-weight: 700; font-size: 0.95rem;
-  transition: all 0.25s; margin-bottom: 12px; width: 100%;
-  justify-content: center;
-  box-shadow: 0 4px 14px rgba(37,211,102,0.35);
-}
-.thanks-wa:hover { background: #1da851; transform: translateY(-2px); }
-.thanks-home {
-  display: block; color: #aaa; font-size: 0.82rem;
-  text-decoration: none; transition: color 0.2s;
-}
-.thanks-home:hover { color: var(--agua, #0a9da8); }
-</style>
-<link rel="canonical" href="https://cenoteshomun.com/gracias.html">
-<meta name="description" content="¡Reserva confirmada! Tu aventura en los cenotes te espera. Revisa tu correo para los detalles de tu tour.">
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18219974220"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-18219974220');
+  // Conversión de Google Ads
+  gtag('event', 'conversion', { 'send_to': 'AW-18219974220' });
 </script>
+<style>
+  body { background: #f8f7f4; min-height: 100vh; display: flex; flex-direction: column; }
+
+  .gracias-hero {
+    background: linear-gradient(160deg, var(--selva) 0%, #041510 100%);
+    padding: 80px 24px 64px;
+    text-align: center;
+    color: white;
+  }
+  .gracias-icon {
+    width: 72px; height: 72px;
+    background: rgba(10,157,168,0.2);
+    border: 2px solid rgba(10,157,168,0.5);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 20px;
+  }
+  .gracias-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: var(--arena);
+    margin-bottom: 12px;
+  }
+  .gracias-subtitle {
+    font-size: 1rem;
+    color: rgba(245,237,224,0.65);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .gracias-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    flex: 1;
+  }
+
+  /* Tarjeta de confirmación */
+  .confirm-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(10,28,20,0.08);
+    margin-bottom: 28px;
+  }
+  .confirm-card-header {
+    background: var(--selva);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .confirm-card-header span {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,237,224,0.7);
+  }
+  .confirm-card-body {
+    padding: 24px;
+  }
+  .confirm-tour-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--selva);
+    margin-bottom: 16px;
+  }
+  .confirm-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .confirm-detail-item {
+    background: var(--gris);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .confirm-detail-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 4px;
+  }
+  .confirm-detail-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--selva);
+  }
+
+  /* Próximos pasos */
+  .steps-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(10,28,20,0.08);
+    margin-bottom: 28px;
+  }
+  .steps-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 18px;
+  }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gris);
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px;
+    background: rgba(10,157,168,0.12);
+    color: var(--agua);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-text strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--selva);
+    margin-bottom: 2px;
+  }
+  .step-text span {
+    font-size: 0.82rem;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  /* WhatsApp CTA */
+  .wa-cta {
+    background: linear-gradient(135deg, #1a3a2a, #0a2a1a);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .wa-cta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--arena);
+    margin-bottom: 8px;
+  }
+  .wa-cta p {
+    font-size: 0.85rem;
+    color: rgba(245,237,224,0.55);
+    margin-bottom: 18px;
+  }
+  .wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .wa-btn:hover { background: #1da855; }
+
+  /* Tours relacionados */
+  .related-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 14px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .related-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(10,28,20,0.06);
+    text-decoration: none;
+    display: block;
+    transition: transform 0.2s;
+  }
+  .related-card:hover { transform: translateY(-2px); }
+  .related-card img {
+    width: 100%; height: 120px;
+    object-fit: cover; display: block;
+  }
+  .related-card-info {
+    padding: 12px 14px;
+  }
+  .related-card-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--selva);
+    margin-bottom: 2px;
+  }
+  .related-card-price {
+    font-size: 0.78rem;
+    color: var(--agua);
+    font-weight: 600;
+  }
+
+  @media (max-width: 480px) {
+    .confirm-details { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+    .gracias-hero { padding: 64px 20px 48px; }
+    .gracias-body { padding: 32px 16px 60px; }
+  }
+</style>
 </head>
 <body>
-<div class="thanks-wrap">
-  <div class="thanks-card">
-    <div class="thanks-icon">✓</div>
-    <h1 class="thanks-title">¡Pago confirmado!</h1>
-    <div class="thanks-tour" id="tour-nombre">Tu reservación está lista</div>
-    <p class="thanks-msg">
-      Recibirás un correo de confirmación de Stripe con el recibo de tu pago.
-      Nuestro equipo se pondrá en contacto contigo para confirmar los detalles del tour.
-    </p>
-    <div class="thanks-steps">
-      <div class="thanks-step">
-        <div class="thanks-step-num">1</div>
-        <span>Revisa tu correo — recibirás el comprobante de pago de Stripe en los próximos minutos.</span>
-      </div>
-      <div class="thanks-step">
-        <div class="thanks-step-num">2</div>
-        <span>Nuestro guía te contactará por WhatsApp para confirmar punto de encuentro y detalles.</span>
-      </div>
-      <div class="thanks-step">
-        <div class="thanks-step-num">3</div>
-        <span>El día del tour llega 10 minutos antes al punto acordado. ¡Disfrútalo!</span>
+<div id="nav-placeholder"></div>
+
+<div class="gracias-hero">
+  <div class="gracias-icon">✓</div>
+  <h1 class="gracias-title">¡Reserva confirmada!</h1>
+  <p class="gracias-subtitle">Tu pago fue procesado exitosamente. Revisa tu correo — te enviamos todos los detalles de tu tour.</p>
+</div>
+
+<div class="gracias-body">
+
+  <!-- Detalles de la reserva -->
+  <div class="confirm-card">
+    <div class="confirm-card-header">
+      <span>Detalles de tu reserva</span>
+    </div>
+    <div class="confirm-card-body">
+      <div class="confirm-tour-name" id="conf-tour">Cargando...</div>
+      <div class="confirm-details">
+        <div class="confirm-detail-item">
+          <div class="confirm-detail-label">Fecha solicitada</div>
+          <div class="confirm-detail-value" id="conf-fecha">—</div>
+        </div>
+        <div class="confirm-detail-item">
+          <div class="confirm-detail-label">Punto de encuentro</div>
+          <div class="confirm-detail-value">Entrada del municipio de Homún</div>
+        </div>
+        <div class="confirm-detail-item">
+          <div class="confirm-detail-label">WhatsApp de contacto</div>
+          <div class="confirm-detail-value">+52 999 410 5737</div>
+        </div>
+        <div class="confirm-detail-item">
+          <div class="confirm-detail-label">Horario de inicio</div>
+          <div class="confirm-detail-value">9:00 AM</div>
+        </div>
       </div>
     </div>
-    <a href="https://wa.me/529994105737?text=Hola%2C%20acabo%20de%20realizar%20un%20pago%20en%20línea.%20¿Pueden%20confirmarme%20los%20detalles%20del%20tour%3F" rel="noopener noreferrer"
-       target="_blank" class="thanks-wa">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Confirmar por WhatsApp
-    </a>
-    <a href="/" class="thanks-home">← Volver al inicio</a>
   </div>
+
+  <!-- Próximos pasos -->
+  <div class="steps-card">
+    <div class="steps-title">Qué sigue</div>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <strong>Revisa tu correo</strong>
+        <span>Te enviamos un recibo de pago con el resumen de tu reserva.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <strong>Confirma tu fecha por WhatsApp</strong>
+        <span>Escríbenos al +52 999 410 5737 para confirmar la fecha y hora exacta de tu tour.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <strong>Llega al punto de encuentro</strong>
+        <span>Lleva traje de baño, toalla y bloqueador solar biodegradable. Todo lo demás lo tenemos nosotros.</span>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-text">
+        <strong>¡Disfruta!</strong>
+        <span>Nuestro guía local te estará esperando. Prepárate para una experiencia que no olvidarás.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp CTA -->
+  <div class="wa-cta">
+    <h3>¿Tienes alguna pregunta?</h3>
+    <p>Escríbenos por WhatsApp y te respondemos en menos de 1 hora.</p>
+    <a class="wa-btn" id="wa-link" href="https://wa.me/529994105737?text=Hola%2C%20acabo%20de%20hacer%20una%20reserva%20y%20tengo%20una%20pregunta" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Contactar por WhatsApp
+    </a>
+  </div>
+
+  <!-- Tours relacionados -->
+  <div class="related-title">Próximas aventuras que te pueden interesar</div>
+  <div class="related-grid">
+    <a href="/tours/cenotes-santa-cruz.html" class="related-card">
+      <img src="/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg" alt="Cenotes Santa Cruz">
+      <div class="related-card-info">
+        <div class="related-card-name">Cenotes Santa Cruz + Hacienda</div>
+        <div class="related-card-price">desde $600 MXN</div>
+      </div>
+    </a>
+    <a href="/tours/cenotes-casa-tortuga.html" class="related-card">
+      <img src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="Casa Tortuga Tulum">
+      <div class="related-card-info">
+        <div class="related-card-name">Casa Tortuga — Tulum</div>
+        <div class="related-card-price">desde $750 MXN</div>
+      </div>
+    </a>
+  </div>
+
 </div>
+
+<div id="footer-placeholder"></div>
+<script src="assets/components.js"></script>
 <script>
-  // Mostrar nombre del tour si viene en la URL
-  var params = new URLSearchParams(window.location.search);
-  var tour = params.get('tour');
-  if (tour) document.getElementById('tour-nombre').textContent = tour;
-  // GTM / Analytics — evento de conversión
-  if (window.dataLayer) {
-    window.dataLayer.push({ event: 'purchase', tour: tour });
+  // Leer parámetros de la URL para mostrar detalles del tour
+  const params = new URLSearchParams(window.location.search);
+  const tourName = params.get('tour');
+
+  if (tourName) {
+    document.getElementById('conf-tour').textContent = decodeURIComponent(tourName);
+    // Actualizar el mensaje de WhatsApp con el nombre del tour
+    const waLink = document.getElementById('wa-link');
+    waLink.href = `https://wa.me/529994105737?text=Hola%2C%20acabo%20de%20reservar%20${encodeURIComponent(tourName)}%20y%20quiero%20confirmar%20mi%20fecha`;
+  } else {
+    document.getElementById('conf-tour').textContent = 'Tu tour en los cenotes';
+  }
+
+  // Leer fecha del sessionStorage si la guardaron antes del checkout
+  const fechaGuardada = sessionStorage.getItem('fechaTour');
+  if (fechaGuardada) {
+    document.getElementById('conf-fecha').textContent = fechaGuardada;
+    sessionStorage.removeItem('fechaTour');
+  } else {
+    document.getElementById('conf-fecha').textContent = 'Por confirmar vía WhatsApp';
   }
 </script>
 </body>
