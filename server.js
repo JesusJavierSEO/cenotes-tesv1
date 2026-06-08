@@ -94,6 +94,32 @@ async function registrarEnSheets(venta) {
   }
 }
 
+// ── HEADERS DE SEGURIDAD ─────────────────────────────────
+app.use((req, res, next) => {
+  // Evita que la página se cargue en un iframe (clickjacking)
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  // Evita que el navegador adivine el tipo de contenido
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  // Fuerza HTTPS por 1 año
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+  // Controla qué información se envía en el Referer
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  // Deshabilita características del navegador que no se usan
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  // Content Security Policy — solo permite recursos del mismo dominio + CDNs usados
+  res.setHeader('Content-Security-Policy',
+    "default-src 'self'; " +
+    "script-src 'self' 'unsafe-inline' https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://www.googleadservices.com; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' https://fonts.gstatic.com; " +
+    "img-src 'self' data: https:; " +
+    "connect-src 'self' https://api.stripe.com https://www.google-analytics.com; " +
+    "frame-src https://js.stripe.com; " +
+    "object-src 'none';"
+  );
+  next();
+});
+
 // ── MIDDLEWARE ────────────────────────────────────────────
 app.use(cors({
   origin: ['https://cenoteshomun.com', 'https://www.cenoteshomun.com'],
@@ -112,6 +138,19 @@ app.use('/admin', (req, res, next) => {
   res.status(401).send(getLoginPage());
 });
 
+// Bloquear acceso a archivos sensibles
+const BLOCKED_PATHS = [
+  '/server.js', '/package.json', '/package-lock.json',
+  '/.env', '/.gitignore', '/node_modules'
+];
+app.use((req, res, next) => {
+  const url = req.path.toLowerCase();
+  if (BLOCKED_PATHS.some(p => url === p || url.startsWith('/node_modules'))) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+  next();
+});
+
 app.use(express.static(path.join(__dirname), {
   setHeaders: function(res, filePath) {
     if (filePath.endsWith('.js') || filePath.endsWith('.css')) {
@@ -122,7 +161,11 @@ app.use(express.static(path.join(__dirname), {
 
 
 // ── PROTECCIÓN DEL PANEL ADMIN ────────────────────────────
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Tutravelsolution2143*';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+if (!ADMIN_PASSWORD) {
+  console.error('❌ ADMIN_PASSWORD no está configurada en las variables de entorno');
+  process.exit(1); // No arrancar sin contraseña configurada
+}
 const adminSessions  = new Set(); // tokens activos en memoria
 
 function adminAuth(req, res, next) {
@@ -186,11 +229,45 @@ if (t) {
 </html>`;
 }
 
+// Rate limiter simple para login (sin dependencias extra)
+const loginAttempts = new Map(); // ip -> { count, lastAttempt }
+
+function checkLoginRateLimit(req) {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+  const now = Date.now();
+  const window = 15 * 60 * 1000; // ventana de 15 minutos
+  const maxAttempts = 10;
+
+  const entry = loginAttempts.get(ip) || { count: 0, firstAttempt: now };
+
+  // Resetear si pasó la ventana de tiempo
+  if (now - entry.firstAttempt > window) {
+    loginAttempts.set(ip, { count: 1, firstAttempt: now });
+    return { allowed: true };
+  }
+
+  if (entry.count >= maxAttempts) {
+    const waitMinutes = Math.ceil((window - (now - entry.firstAttempt)) / 60000);
+    return { allowed: false, waitMinutes };
+  }
+
+  loginAttempts.set(ip, { count: entry.count + 1, firstAttempt: entry.firstAttempt });
+  return { allowed: true, remaining: maxAttempts - entry.count - 1 };
+}
+
 // Login endpoint
 app.post('/api/admin-login', (req, res) => {
+  const rateCheck = checkLoginRateLimit(req);
+  if (!rateCheck.allowed) {
+    return res.status(429).json({
+      error: `Demasiados intentos. Espera ${rateCheck.waitMinutes} minutos.`
+    });
+  }
+
   const { password } = req.body;
   if (password === ADMIN_PASSWORD) {
-    const token = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    const crypto = require('crypto');
+    const token = crypto.randomBytes(32).toString('hex');
     adminSessions.add(token);
     // Limpiar sesiones viejas después de 8 horas
     setTimeout(() => adminSessions.delete(token), 8 * 60 * 60 * 1000);
@@ -208,8 +285,21 @@ app.post('/api/checkout', async (req, res) => {
     if (!line_items || line_items.length === 0)
       return res.status(400).json({ error: 'Sin artículos' });
 
-    const totalPersonas = line_items.reduce((a, i) => a + i.cantidad, 0);
+    const totalPersonas = line_items.reduce((a, i) => a + (parseInt(i.cantidad) || 0), 0);
     if (totalPersonas < 1) return res.status(400).json({ error: 'Personas inválido' });
+    if (totalPersonas > 30) return res.status(400).json({ error: 'Máximo 30 personas por reserva' });
+
+    // Validar que los precios no sean manipulados desde el cliente
+    // Los precios deben venir del catálogo del servidor, no del cliente
+    const tourData = CATALOGO[tour_slug];
+    if (tourData) {
+      const expectedMin = tourData.precio * 0.9; // 10% de tolerancia por niños
+      const totalCalculado = line_items.reduce((a, i) => a + (parseInt(i.cantidad) || 0) * (parseInt(i.precio_unitario) || 0), 0);
+      if (totalCalculado < expectedMin * totalPersonas * 0.5) {
+        console.warn('⚠ Posible manipulación de precios:', { tour_slug, totalCalculado, esperado: tourData.precio });
+        return res.status(400).json({ error: 'Precio inválido' });
+      }
+    }
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -246,8 +336,8 @@ app.post('/api/checkout', async (req, res) => {
   }
 });
 
-// ── API: GENERAR ENLACE DE PAGO CON ATRIBUCIÓN ────────────
-app.post('/api/generar-enlace', async (req, res) => {
+// ── API: GENERAR ENLACE (requiere auth) ────────────────────
+app.post('/api/generar-enlace', adminAuth, async (req, res) => {
   try {
     const { tour_slug, adultos, ninos, vendedor, fecha } = req.body;
 
@@ -301,16 +391,19 @@ app.post('/api/webhook', async (req, res) => {
   const body   = req.body;
 
   try {
-    if (secret && sig) {
-      // Webhook clásico con firma
-      event = stripe.webhooks.constructEvent(body, sig, secret);
-    } else {
-      // Sin firma — parsear directamente
-      event = JSON.parse(body.toString());
+    if (!secret) {
+      console.error('❌ STRIPE_WEBHOOK_SECRET no configurado — rechazando webhook');
+      return res.status(400).send('Webhook secret not configured');
     }
+    if (!sig) {
+      console.error('❌ Webhook sin firma — posible petición maliciosa');
+      return res.status(400).send('Missing stripe-signature header');
+    }
+    // Verificar firma siempre — rechazar si no es válida
+    event = stripe.webhooks.constructEvent(body, sig, secret);
   } catch (err) {
-    console.error('❌ Webhook parse error:', err.message);
-    return res.status(400).send('Webhook error: ' + err.message);
+    console.error('❌ Webhook firma inválida:', err.message);
+    return res.status(400).send('Webhook signature verification failed');
   }
 
   console.log('📨 Webhook recibido:', event.type, '| ID:', event.id);
@@ -376,8 +469,8 @@ app.post('/api/webhook', async (req, res) => {
   res.json({ received: true });
 });
 
-// ── API: REGISTRAR VENTA MANUAL ───────────────────────────
-app.post('/api/venta-manual', async (req, res) => {
+// ── API: REGISTRAR VENTA MANUAL (requiere auth) ─────────────
+app.post('/api/venta-manual', adminAuth, async (req, res) => {
   try {
     const { tour_slug, adultos, ninos, vendedor, canal, fecha_tour, cliente } = req.body;
     const tour = CATALOGO[tour_slug];
@@ -413,8 +506,8 @@ app.post('/api/venta-manual', async (req, res) => {
 });
 
 
-// ── API: DIAGNÓSTICO (solo para debugging) ───────────────
-app.get('/api/diagnostico', async (req, res) => {
+// ── API: DIAGNÓSTICO (protegido) ─────────────────────────
+app.get('/api/diagnostico', adminAuth, async (req, res) => {
   const resultados = {
     servidor:       '✅ funcionando',
     stripe_key:     process.env.STRIPE_SECRET_KEY ? '✅ configurada' : '❌ falta STRIPE_SECRET_KEY',
@@ -459,8 +552,8 @@ app.get('/api/diagnostico', async (req, res) => {
   res.json(resultados);
 });
 
-// ── API: SIMULAR WEBHOOK MANUALMENTE ─────────────────────
-app.post('/api/simular-venta', async (req, res) => {
+// ── API: SIMULAR WEBHOOK (protegido) ──────────────────────
+app.post('/api/simular-venta', adminAuth, async (req, res) => {
   try {
     const { tour_slug, adultos, vendedor } = req.body;
     const tour = CATALOGO[tour_slug];
