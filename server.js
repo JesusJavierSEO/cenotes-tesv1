@@ -72,26 +72,27 @@ function calcularGanancias(slug, totalCobrado, personas, vendedor, tipoTarjeta) 
 
 // ── REGISTRAR VENTA EN GOOGLE SHEETS ─────────────────────
 async function registrarEnSheets(venta) {
-  if (!SHEETS_URL) return;
+  if (!SHEETS_URL) {
+    console.warn('⚠ SHEETS_URL no configurada — venta no registrada');
+    return;
+  }
   try {
-    const https = require('https');
-    const data  = JSON.stringify(venta);
-    const url   = new URL(SHEETS_URL);
-    const opts  = {
-      hostname: url.hostname,
-      path:     url.pathname + url.search,
-      method:   'POST',
-      headers:  { 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(data) },
-    };
-    await new Promise((resolve) => {
-      const req = https.request(opts, resolve);
-      req.on('error', () => resolve());
-      req.write(data);
-      req.end();
+    // Usar fetch (Node 18+) que sigue redirects automáticamente
+    // Apps Script responde con 302 redirect que https.request NO seguía
+    const response = await fetch(SHEETS_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(venta),
+      redirect: 'follow',
     });
-    console.log('✓ Venta registrada en Sheets:', venta.tour);
+    const text = await response.text();
+    if (response.ok) {
+      console.log('✓ Venta registrada en Sheets:', venta.tour, '| Status:', response.status);
+    } else {
+      console.error('❌ Sheets respondió con error:', response.status, text.slice(0, 200));
+    }
   } catch (e) {
-    console.error('Sheets error:', e.message);
+    console.error('❌ Sheets fetch error:', e.message);
   }
 }
 
