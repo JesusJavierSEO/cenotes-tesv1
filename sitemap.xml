@@ -68,4 +68,22 @@
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/que-hacer-tulum-cenotes.html"/>
   </url>
+  <url>
+    <loc>https://cenoteshomun.com/que-hacer-homun.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/que-visitar-merida-yucatan.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/ruta-cenotes-yucatan.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
