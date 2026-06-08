@@ -66,8 +66,8 @@ function reservarWhatsApp(tourNombre) { _abrirWA(tourNombre, 'es'); }
 
 function _abrirWA(tourNombre, lang) {
   var nombre  = (document.getElementById('r-nombre')  || {}).value || '';
-  var email   = (document.getElementById('r-email')   || {}).value || '';
-  var telefono = (document.getElementById('r-telefono') || {}).value || '';
+  // email ya fue validado arriba
+  var telefono = ((document.getElementById('r-telefono') || {}).value || '').trim();
   var fecha   = (document.getElementById('r-fecha')   || {}).value || '';
   var adultos = (document.getElementById('r-adultos') || {}).value || '';
   var ninos   = (document.getElementById('r-ninos')   || {}).value || '';
@@ -98,6 +98,15 @@ async function iniciarPago() {
 
   if (adultos + ninos === 0) {
     alert('Por favor indica el número de personas.');
+    return;
+  }
+
+  // Validar email obligatorio
+  var email = ((document.getElementById('r-email') || {}).value || '').trim();
+  if (!email || !email.includes('@')) {
+    alert('Por favor ingresa tu correo electrónico para enviarte la confirmación de reserva.');
+    var emailEl = document.getElementById('r-email');
+    if (emailEl) { emailEl.focus(); emailEl.style.borderColor = '#e53e3e'; }
     return;
   }
 
