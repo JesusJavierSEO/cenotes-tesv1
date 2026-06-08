@@ -96,6 +96,93 @@ async function registrarEnSheets(venta) {
   }
 }
 
+
+// ─── EMAIL DE CONFIRMACIÓN ────────────────────────────────
+function crearTransporter() {
+  const user = process.env.EMAIL_USER;
+  const pass = process.env.EMAIL_PASS;
+  const host = process.env.EMAIL_HOST || 'smtp.hostinger.com';
+  const port = parseInt(process.env.EMAIL_PORT || '465');
+  if (!user || !pass) {
+    console.warn('⚠ EMAIL_USER/EMAIL_PASS no configurados — emails desactivados');
+    return null;
+  }
+  return nodemailer.createTransport({
+    host, port,
+    secure: port === 465,
+    auth: { user, pass },
+  });
+}
+
+async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio }) {
+  if (!email) return;
+  const transporter = crearTransporter();
+  if (!transporter) return;
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<style>
+  body{font-family:'Helvetica Neue',sans-serif;background:#f8f7f4;margin:0;padding:20px}
+  .wrap{max-width:560px;margin:0 auto;background:white;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+  .hdr{background:#1a3a2a;padding:28px 24px;text-align:center}
+  .hdr h1{color:#f5ede0;font-size:1.3rem;margin:0 0 4px}
+  .hdr p{color:rgba(245,237,224,0.55);font-size:0.82rem;margin:0}
+  .bod{padding:28px 24px}
+  .icon{text-align:center;font-size:2.8rem;margin-bottom:12px}
+  .ttl{text-align:center;font-size:1.15rem;font-weight:700;color:#1a3a2a;margin-bottom:6px}
+  .sub{text-align:center;color:#888;font-size:0.85rem;margin-bottom:24px}
+  .card{background:#f8f7f4;border-radius:12px;padding:18px;margin-bottom:20px}
+  .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #eee;font-size:0.85rem}
+  .row:last-child{border-bottom:none}
+  .lbl{color:#999}.val{color:#1a3a2a;font-weight:600}
+  .steps{margin-bottom:20px}
+  .step{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
+  .step:last-child{border-bottom:none}
+  .num{width:24px;height:24px;background:rgba(10,157,168,0.12);color:#0a9da8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:700;flex-shrink:0;margin-top:1px}
+  .stxt strong{display:block;font-size:0.85rem;color:#1a3a2a}
+  .stxt span{font-size:0.8rem;color:#999}
+  .wa{display:block;text-align:center;background:#25D366;color:white;text-decoration:none;padding:13px;border-radius:10px;font-weight:600;font-size:0.88rem;margin-bottom:20px}
+  .ftr{background:#f8f7f4;padding:18px 24px;text-align:center;font-size:0.75rem;color:#bbb}
+</style></head>
+<body><div class="wrap">
+  <div class="hdr"><h1>Cenotes Homún</h1><p>by TuTravelSolutions</p></div>
+  <div class="bod">
+    <div class="icon">✅</div>
+    <div class="ttl">¡Reserva confirmada!</div>
+    <div class="sub">Hola ${nombre || 'viajero'}, tu pago fue procesado exitosamente.</div>
+    <div class="card">
+      <div class="row"><span class="lbl">Tour</span><span class="val">${tour}</span></div>
+      <div class="row"><span class="lbl">Fecha solicitada</span><span class="val">${fecha || 'Por confirmar'}</span></div>
+      <div class="row"><span class="lbl">Personas</span><span class="val">${personas}</span></div>
+      <div class="row"><span class="lbl">Total pagado</span><span class="val">$${precio} MXN</span></div>
+      <div class="row"><span class="lbl">Punto de encuentro</span><span class="val">Entrada de Homún, Yucatán</span></div>
+      <div class="row"><span class="lbl">Horario</span><span class="val">9:00 AM</span></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div class="stxt"><strong>Confirma tu fecha por WhatsApp</strong><span>Escríbenos para agendar el día y hora exacta de tu tour.</span></div></div>
+      <div class="step"><div class="num">2</div><div class="stxt"><strong>Lleva traje de baño y toalla</strong><span>Snorkel y chaleco salvavidas están incluidos en el tour.</span></div></div>
+      <div class="step"><div class="num">3</div><div class="stxt"><strong>Bloqueador solar biodegradable</strong><span>Obligatorio para proteger el ecosistema de los cenotes.</span></div></div>
+    </div>
+    <a class="wa" href="https://wa.me/529994105737?text=Hola%2C%20acabo%20de%20reservar%20y%20quiero%20confirmar%20mi%20fecha">
+      💬 Confirmar fecha por WhatsApp
+    </a>
+  </div>
+  <div class="ftr">Cenotes Homún by TuTravelSolutions &nbsp;·&nbsp; +52 999 410 5737<br>cenoteshomun.com &nbsp;·&nbsp; Homún, Yucatán, México</div>
+</div></body></html>`;
+
+  try {
+    await transporter.sendMail({
+      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
+      to:      email,
+      subject: '✅ Reserva confirmada — ' + tour,
+      html,
+    });
+    console.log('✅ Email de confirmación enviado a:', email);
+  } catch(e) {
+    console.error('❌ Error enviando email:', e.message);
+  }
+}
+
 // ── HEADERS DE SEGURIDAD ─────────────────────────────────
 app.use((req, res, next) => {
   // Evita que la página se cargue en un iframe (clickjacking)
