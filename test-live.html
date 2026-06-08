@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Pago Live — Solo uso interno</title>
+<style>
+  body { font-family: sans-serif; background: #0d2b1e; color: white;
+         display: flex; align-items: center; justify-content: center;
+         min-height: 100vh; margin: 0; }
+  .card { background: #1a3a2a; border-radius: 16px; padding: 40px;
+          max-width: 420px; width: 100%; text-align: center; }
+  h1 { font-size: 1.2rem; margin-bottom: 8px; }
+  p { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 28px; line-height: 1.6; }
+  .precio { font-size: 2rem; font-weight: 700; color: #0a9da8; margin-bottom: 6px; }
+  .comision { font-size: 0.8rem; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+  button { background: #0a9da8; color: white; border: none; padding: 14px 32px;
+           border-radius: 10px; font-size: 1rem; cursor: pointer; width: 100%; }
+  button:hover { background: #087e8b; }
+  .warning { background: rgba(255,200,0,0.1); border: 1px solid rgba(255,200,0,0.3);
+             border-radius: 8px; padding: 12px; font-size: 0.8rem; color: #ffd700;
+             margin-bottom: 20px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔧 Test de pago en producción</h1>
+  <p>Solo para verificar que el webhook live de Stripe funciona y registra en Google Sheets.</p>
+  <div class="warning">⚠ Este pago es REAL. Úsalo solo una vez para la prueba.</div>
+  <div class="precio">$10 MXN</div>
+  <div class="comision">Comisión Stripe aprox. $3.36 MXN</div>
+  <button onclick="pagar()">Pagar $10 MXN con tarjeta real</button>
+</div>
+<script>
+async function pagar() {
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tour_slug: 'test-pago-live',
+        tour_nombre: 'TEST — Verificación de sistema',
+        line_items: [{ nombre: 'TEST Live Webhook', precio_unitario: 10, cantidad: 1 }],
+        cliente: 'Jesus (test live)',
+        fecha: new Date().toLocaleDateString('es-MX'),
+        success_url: window.location.origin + '/test-live.html?ok=1',
+        cancel_url: window.location.origin + '/test-live.html',
+        ref: 'jesus'
+      })
+    });
+    const data = await res.json();
+    if (data.url) window.location.href = data.url;
+    else alert('Error: ' + JSON.stringify(data));
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+// Mostrar resultado si regresó de Stripe
+if (new URLSearchParams(location.search).get('ok') === '1') {
+  document.querySelector('.card').innerHTML = `
+    <div style="font-size:3rem;margin-bottom:16px">✅</div>
+    <h1>Pago completado</h1>
+    <p style="margin-bottom:0">Revisa Google Sheets — debería aparecer una fila nueva con el registro del pago.<br><br>
+    Si la fila aparece, el webhook live funciona correctamente.</p>
+  `;
+}
+</script>
+</body>
+</html>
