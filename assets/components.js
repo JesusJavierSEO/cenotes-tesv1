@@ -58,6 +58,7 @@
       { label: "Tulum",    href: "/destinos/tulum.html" },
       { label: "Cancún",   href: "/tours-cancun.html" },
       { label: "Guía",     href: "/guia-cenotes-homun.html" },
+      { label: "Blog",     href: "/blog.html" },
     ],
     navCtaES: { label: "Reservar", href: "/#paquetes" },
 

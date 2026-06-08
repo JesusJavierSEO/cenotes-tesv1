@@ -375,3 +375,15 @@
   .tg-thumb:first-child { border-radius: 0 0 0 var(--r-xl); }
   .tg-thumb:last-child { border-radius: 0 0 var(--r-xl) 0; }
 }
+
+/* ─── MOBILE FIXES TOURS ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .tour-layout { grid-template-columns: 1fr; gap: 24px; }
+  .reserve-card { position: static; width: 100%; }
+  .tour-gallery-wrap { height: 260px; }
+  .page-hero { padding: 64px 20px 48px; }
+  .tg-thumbnails { gap: 6px; }
+  .tg-thumb { width: 52px; height: 52px; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .include-grid { grid-template-columns: 1fr 1fr; }
+}

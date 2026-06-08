@@ -671,3 +671,42 @@ body {
   .ch-lb-next { right: 8px; }
   .ch-lb-content { width: 98vw; }
 }
+
+/* ─── MOBILE FIXES — overflow y responsive ──────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+
+@media (max-width: 768px) {
+  /* Footer */
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .footer-brand { grid-column: 1 / -1; }
+  #site-footer { padding: 48px 20px 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+  /* Secciones generales */
+  .section-exp, .section-cenotes, .section-paquetes,
+  .section-proceso, .section-reviews, .section-cta,
+  .section-destinos, .section-garantias, .seo-section {
+    padding: 48px 20px;
+  }
+
+  /* Garantias strip */
+  .garantias-strip { padding: 24px 16px; overflow-x: auto; }
+  .garantias-inner { gap: 16px; min-width: auto; flex-wrap: wrap; justify-content: center; }
+  .garantia-item { min-width: 140px; flex: 1 1 140px; }
+}
+
+@media (max-width: 480px) {
+  /* Footer colapsar a 1 columna */
+  .footer-inner { grid-template-columns: 1fr; }
+
+  /* Nav padding mínimo */
+  #site-nav { padding: 12px 16px; }
+
+  /* Textos del hero más pequeños */
+  .page-hero { padding: 64px 20px 48px; }
+  .page-hero h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+}
