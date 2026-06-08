@@ -224,12 +224,19 @@ body {
   padding: 6px;
   border-radius: var(--r-s);
   transition: background 0.2s;
+  /* Reset browser defaults — evita el cuadrado blanco en mobile */
+  background: transparent;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 .nav-toggle:hover { background: rgba(255,255,255,0.1); }
 .nav-toggle span {
   display: block;
   width: 22px; height: 2px;
   border-radius: 2px;
+  background: var(--arena); /* color por defecto — visible antes de que cargue el JS */
   transition: all 0.3s var(--ease-out);
 }
 .nav-dark .nav-toggle span,
