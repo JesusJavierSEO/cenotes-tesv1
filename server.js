@@ -402,7 +402,7 @@ app.post('/api/checkout', async (req, res) => {
       })),
       mode: 'payment',
       customer_email: req.body.email || undefined,  // Stripe envía recibo automático
-      phone_number_collection: { enabled: false },
+      phone_number_collection: { enabled: true },
       success_url: success_url || 'https://cenoteshomun.com/gracias.html',
       cancel_url:  cancel_url  || 'https://cenoteshomun.com/',
       metadata: {
@@ -552,7 +552,7 @@ app.post('/api/webhook', async (req, res) => {
       jesus_recibe:     dist.jesus_recibe,
       enrique_recibe:   dist.enrique_recibe,
       email_cliente:    session.customer_email || meta.email || '',
-      telefono:         meta.telefono || '',
+      telefono:         (session.customer_details && session.customer_details.phone) || meta.telefono || '',
       stripe_id:        session.id,
       modo:             session.livemode ? 'live' : 'test',
     };
