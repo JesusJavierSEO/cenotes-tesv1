@@ -98,35 +98,84 @@ async function registrarEnSheets(venta) {
 
 
 // ─── EMAIL DE CONFIRMACIÓN ────────────────────────────────
-function crearTransporter() {
-  if (!nodemailer) {
-    console.error('❌ nodemailer no está instalado. Ejecuta npm install en Hostinger.');
-    return null;
+function getEmailConfig() {
+  return {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+    host: process.env.EMAIL_HOST || 'smtp.hostinger.com',
+    port: parseInt(process.env.EMAIL_PORT || '465'),
+  };
+}
+
+// Envío SMTP nativo — sin nodemailer, solo módulos de Node.js
+function smtpCommand(socket, cmd) {
+  return new Promise((resolve) => {
+    socket.write(cmd + '\r\n');
+    socket.once('data', (d) => resolve(d.toString()));
+  });
+}
+
+async function enviarEmailSMTP(to, subject, htmlBody) {
+  const cfg = getEmailConfig();
+  if (!cfg.user || !cfg.pass) {
+    throw new Error('EMAIL_USER o EMAIL_PASS no configurados en Hostinger');
   }
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASS;
-  const host = process.env.EMAIL_HOST || 'smtp.hostinger.com';
-  const port = parseInt(process.env.EMAIL_PORT || '465');
-  if (!user || !pass) {
-    console.warn('⚠ EMAIL_USER/EMAIL_PASS no configurados — emails desactivados');
-    return null;
-  }
-  console.log('📧 Creando transporter SMTP:', host + ':' + port, '| user:', user);
-  return nodemailer.createTransport({
-    host, port,
-    secure: port === 465,
-    auth: { user, pass },
-    tls: { rejectUnauthorized: false }, // Evita errores de certificado en Hostinger
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
+
+  const boundary = 'bound' + Date.now();
+  const msg = [
+    'From: "Cenotes Homún" <' + cfg.user + '>',
+    'To: ' + to,
+    'Subject: ' + subject,
+    'MIME-Version: 1.0',
+    'Content-Type: multipart/alternative; boundary="' + boundary + '"',
+    '',
+    '--' + boundary,
+    'Content-Type: text/html; charset=UTF-8',
+    'Content-Transfer-Encoding: 7bit',
+    '',
+    htmlBody,
+    '',
+    '--' + boundary + '--',
+  ].join('\r\n');
+
+  return new Promise((resolve, reject) => {
+    const socket = tls.connect({ host: cfg.host, port: cfg.port, rejectUnauthorized: false }, async () => {
+      try {
+        let resp;
+        // Esperar greeting
+        await new Promise(r => socket.once('data', r));
+        // EHLO
+        resp = await smtpCommand(socket, 'EHLO cenoteshomun.com');
+        if (!resp.startsWith('2')) throw new Error('EHLO failed: ' + resp);
+        // AUTH LOGIN
+        resp = await smtpCommand(socket, 'AUTH LOGIN');
+        resp = await smtpCommand(socket, Buffer.from(cfg.user).toString('base64'));
+        resp = await smtpCommand(socket, Buffer.from(cfg.pass).toString('base64'));
+        if (!resp.startsWith('2')) throw new Error('AUTH failed: ' + resp);
+        // MAIL FROM
+        resp = await smtpCommand(socket, 'MAIL FROM:<' + cfg.user + '>');
+        // RCPT TO
+        resp = await smtpCommand(socket, 'RCPT TO:<' + to + '>');
+        // DATA
+        await smtpCommand(socket, 'DATA');
+        resp = await smtpCommand(socket, msg + '\r\n.');
+        if (!resp.startsWith('2')) throw new Error('DATA failed: ' + resp);
+        // QUIT
+        socket.write('QUIT\r\n');
+        socket.destroy();
+        resolve(true);
+      } catch(e) {
+        socket.destroy();
+        reject(e);
+      }
+    });
+    socket.on('error', reject);
+    socket.setTimeout(15000, () => { socket.destroy(); reject(new Error('SMTP timeout')); });
   });
 }
 
 async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio }) {
   if (!email) return;
-  const transporter = crearTransporter();
-  if (!transporter) return;
-
   const html = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <style>
@@ -179,16 +228,10 @@ async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio
 </div></body></html>`;
 
   try {
-    await transporter.sendMail({
-      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
-      to:      email,
-      subject: '✅ Reserva confirmada — ' + tour,
-      html,
-    });
+    await enviarEmailSMTP(email, '✅ Reserva confirmada — ' + tour, html);
     console.log('✅ Email de confirmación enviado a:', email);
   } catch(e) {
     console.error('❌ Error enviando email:', e.message);
-    console.error('   Código:', e.code, '| Respuesta:', e.response);
   }
 }
 
@@ -363,75 +406,38 @@ app.post('/api/test-email-directo', async (req, res) => {
   }
   if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
 
-  if (!nodemailer) {
+  const cfg = getEmailConfig();
+  if (!cfg.user || !cfg.pass) {
     return res.status(500).json({
-      error: 'nodemailer no está instalado. Ve a Hostinger → Node.js → terminal y ejecuta: npm install',
-      fix: 'npm install'
-    });
-  }
-
-  const transporter = crearTransporter();
-  if (!transporter) {
-    return res.status(500).json({
-      error: 'Variables de email no configuradas en Hostinger',
+      error: 'Variables de email no configuradas',
       variables: {
-        EMAIL_USER:  process.env.EMAIL_USER  ? '✅ configurado' : '❌ falta',
-        EMAIL_PASS:  process.env.EMAIL_PASS  ? '✅ configurado' : '❌ falta',
-        EMAIL_HOST:  process.env.EMAIL_HOST  || '(default smtp.hostinger.com)',
-        EMAIL_PORT:  process.env.EMAIL_PORT  || '(default 465)',
+        EMAIL_USER: cfg.user ? '✅' : '❌ falta',
+        EMAIL_PASS: cfg.pass ? '✅' : '❌ falta',
+        EMAIL_HOST: cfg.host,
+        EMAIL_PORT: cfg.port,
       }
     });
   }
 
   try {
-    await transporter.verify();
-    await transporter.sendMail({
-      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
+    await enviarEmailSMTP(
       to,
-      subject: '🧪 Test email — Cenotes Homún',
-      html:    '<p>El sistema de emails funciona correctamente. ✅</p><p>Enviado desde <b>' + process.env.EMAIL_USER + '</b> via <b>' + (process.env.EMAIL_HOST || 'smtp.hostinger.com') + ':' + (process.env.EMAIL_PORT || '465') + '</b></p>',
-    });
+      '🧪 Test email — Cenotes Homún',
+      '<p>El sistema de emails funciona correctamente. ✅</p>' +
+      '<p>Desde: <b>' + cfg.user + '</b> via <b>' + cfg.host + ':' + cfg.port + '</b></p>'
+    );
     res.json({ ok: true, mensaje: 'Email enviado correctamente a ' + to });
   } catch(e) {
     res.status(500).json({
-      error: e.message,
-      code:  e.code || null,
-      response: e.response || null,
+      error:    e.message,
+      host:     cfg.host,
+      port:     cfg.port,
+      user:     cfg.user,
     });
   }
 });
 
-// ── API: TEST EMAIL (protegido) ───────────────────────────
-app.post('/api/test-email', adminAuth, async (req, res) => {
-  const { to } = req.body;
-  if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
-
-  const transporter = crearTransporter();
-  if (!transporter) {
-    return res.status(500).json({ error: 'EMAIL_USER o EMAIL_PASS no configurados en Hostinger' });
-  }
-
-  try {
-    // Verificar conexión SMTP primero
-    await transporter.verify();
-    console.log('✅ Conexión SMTP verificada');
-
-    await transporter.sendMail({
-      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
-      to,
-      subject: '🧪 Test email — Cenotes Homún',
-      html:    '<p>El sistema de emails está funcionando correctamente. ✅</p>',
-    });
-    res.json({ ok: true, mensaje: 'Email enviado a ' + to });
-  } catch(e) {
-    console.error('❌ Test email error:', e.message, e.code, e.response);
-    res.status(500).json({
-      error: e.message,
-      code: e.code,
-      response: e.response,
-    });
-  }
-});
+// (test-email-directo reemplaza este endpoint)
 
 // Login endpoint
 app.post('/api/admin-login', (req, res) => {
