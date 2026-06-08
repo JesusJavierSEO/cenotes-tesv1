@@ -67,6 +67,7 @@ function reservarWhatsApp(tourNombre) { _abrirWA(tourNombre, 'es'); }
 function _abrirWA(tourNombre, lang) {
   var nombre  = (document.getElementById('r-nombre')  || {}).value || '';
   var email   = (document.getElementById('r-email')   || {}).value || '';
+  var telefono = (document.getElementById('r-telefono') || {}).value || '';
   var fecha   = (document.getElementById('r-fecha')   || {}).value || '';
   var adultos = (document.getElementById('r-adultos') || {}).value || '';
   var ninos   = (document.getElementById('r-ninos')   || {}).value || '';
@@ -121,8 +122,8 @@ async function iniciarPago() {
         tour_nombre: tour.nombre,
         line_items:  lineItems,
         cliente:     nombre,
-      email:       email,
         email:       email,
+        telefono:    telefono,
         fecha:       fecha,
         success_url: CHECKOUT_CONFIG.successUrl + '?tour=' + encodeURIComponent(tour.nombre),
         cancel_url:  window.location.href,

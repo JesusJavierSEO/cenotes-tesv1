@@ -10,7 +10,8 @@
   "dependencies": {
     "express": "^4.19.2",
     "stripe": "^16.0.0",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "nodemailer": "^6.9.14"
   },
   "engines": {
     "node": ">=20.0.0"
