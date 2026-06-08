@@ -107,10 +107,14 @@ function crearTransporter() {
     console.warn('⚠ EMAIL_USER/EMAIL_PASS no configurados — emails desactivados');
     return null;
   }
+  console.log('📧 Creando transporter SMTP:', host + ':' + port, '| user:', user);
   return nodemailer.createTransport({
     host, port,
     secure: port === 465,
     auth: { user, pass },
+    tls: { rejectUnauthorized: false }, // Evita errores de certificado en Hostinger
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
   });
 }
 
@@ -180,6 +184,7 @@ async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio
     console.log('✅ Email de confirmación enviado a:', email);
   } catch(e) {
     console.error('❌ Error enviando email:', e.message);
+    console.error('   Código:', e.code, '| Respuesta:', e.response);
   }
 }
 
@@ -343,6 +348,39 @@ function checkLoginRateLimit(req) {
   loginAttempts.set(ip, { count: entry.count + 1, firstAttempt: entry.firstAttempt });
   return { allowed: true, remaining: maxAttempts - entry.count - 1 };
 }
+
+
+// ── API: TEST EMAIL (protegido) ───────────────────────────
+app.post('/api/test-email', adminAuth, async (req, res) => {
+  const { to } = req.body;
+  if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
+
+  const transporter = crearTransporter();
+  if (!transporter) {
+    return res.status(500).json({ error: 'EMAIL_USER o EMAIL_PASS no configurados en Hostinger' });
+  }
+
+  try {
+    // Verificar conexión SMTP primero
+    await transporter.verify();
+    console.log('✅ Conexión SMTP verificada');
+
+    await transporter.sendMail({
+      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
+      to,
+      subject: '🧪 Test email — Cenotes Homún',
+      html:    '<p>El sistema de emails está funcionando correctamente. ✅</p>',
+    });
+    res.json({ ok: true, mensaje: 'Email enviado a ' + to });
+  } catch(e) {
+    console.error('❌ Test email error:', e.message, e.code, e.response);
+    res.status(500).json({
+      error: e.message,
+      code: e.code,
+      response: e.response,
+    });
+  }
+});
 
 // Login endpoint
 app.post('/api/admin-login', (req, res) => {
