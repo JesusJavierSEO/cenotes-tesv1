@@ -22,6 +22,7 @@ const CATALOGO = {
   'cenotes-casa-tortuga-gold':   { nombre: 'Casa Tortuga — Paquete GOLD',           precio: 1650, costo: 850  },
   'off-road-casa-tortugas':      { nombre: 'Off Road Casa Tortugas',                precio: 1750, costo: 900  },
   'isla-mujeres-catamaran':      { nombre: 'Isla Mujeres Catamarán All Inclusive',  precio: 1590, costo: 800  },
+  'test-pago-live':              { nombre: 'TEST — Verificación de sistema',         precio: 10,   costo: 0    },
 };
 
 const FONDO_POR_VENTA = 20; // MXN por venta
