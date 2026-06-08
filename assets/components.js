@@ -175,6 +175,9 @@
     "/destinos/puerto-morelos.html":  "/destinos/puerto-morelos-en.html",
     "/destinos/puerto-morelos-en.html":"/destinos/puerto-morelos.html",
     // Blog posts
+    "/que-hacer-homun.html":             "/que-hacer-homun.html",
+    "/que-visitar-merida-yucatan.html":  "/que-visitar-merida-yucatan.html",
+    "/ruta-cenotes-yucatan.html":        "/ruta-cenotes-yucatan.html",
     "/mejores-cenotes-cerca-merida.html": "/mejores-cenotes-cerca-merida.html",
     "/que-hacer-tulum-cenotes.html":      "/que-hacer-tulum-cenotes.html",
     // Página unificada Casa Tortuga
