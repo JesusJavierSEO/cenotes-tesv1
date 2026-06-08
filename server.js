@@ -99,6 +99,10 @@ async function registrarEnSheets(venta) {
 
 // ─── EMAIL DE CONFIRMACIÓN ────────────────────────────────
 function crearTransporter() {
+  if (!nodemailer) {
+    console.error('❌ nodemailer no está instalado. Ejecuta npm install en Hostinger.');
+    return null;
+  }
   const user = process.env.EMAIL_USER;
   const pass = process.env.EMAIL_PASS;
   const host = process.env.EMAIL_HOST || 'smtp.hostinger.com';
@@ -359,15 +363,22 @@ app.post('/api/test-email-directo', async (req, res) => {
   }
   if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
 
+  if (!nodemailer) {
+    return res.status(500).json({
+      error: 'nodemailer no está instalado. Ve a Hostinger → Node.js → terminal y ejecuta: npm install',
+      fix: 'npm install'
+    });
+  }
+
   const transporter = crearTransporter();
   if (!transporter) {
     return res.status(500).json({
-      error: 'EMAIL_USER o EMAIL_PASS no configurados en Hostinger',
+      error: 'Variables de email no configuradas en Hostinger',
       variables: {
-        EMAIL_USER: !!process.env.EMAIL_USER,
-        EMAIL_PASS: !!process.env.EMAIL_PASS,
-        EMAIL_HOST: process.env.EMAIL_HOST || '(default smtp.hostinger.com)',
-        EMAIL_PORT: process.env.EMAIL_PORT || '(default 465)',
+        EMAIL_USER:  process.env.EMAIL_USER  ? '✅ configurado' : '❌ falta',
+        EMAIL_PASS:  process.env.EMAIL_PASS  ? '✅ configurado' : '❌ falta',
+        EMAIL_HOST:  process.env.EMAIL_HOST  || '(default smtp.hostinger.com)',
+        EMAIL_PORT:  process.env.EMAIL_PORT  || '(default 465)',
       }
     });
   }
