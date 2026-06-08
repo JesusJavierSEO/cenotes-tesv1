@@ -174,6 +174,9 @@
     "/destinos/isla-mujeres-en.html": "/destinos/isla-mujeres.html",
     "/destinos/puerto-morelos.html":  "/destinos/puerto-morelos-en.html",
     "/destinos/puerto-morelos-en.html":"/destinos/puerto-morelos.html",
+    // Blog posts
+    "/mejores-cenotes-cerca-merida.html": "/mejores-cenotes-cerca-merida.html",
+    "/que-hacer-tulum-cenotes.html":      "/que-hacer-tulum-cenotes.html",
     // Página unificada Casa Tortuga
     "/tours/casa-tortuga.html":         "/tours/casa-tortuga-en.html",
     "/tours/casa-tortuga-en.html":      "/tours/casa-tortuga.html",

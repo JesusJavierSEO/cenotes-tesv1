@@ -54,4 +54,18 @@
   <url><loc>https://cenoteshomun.com/como-llegar.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://cenoteshomun.com/getting-there.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
+  <url>
+    <loc>https://cenoteshomun.com/mejores-cenotes-cerca-merida.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/mejores-cenotes-cerca-merida.html"/>
+  </url>
+  <url>
+    <loc>https://cenoteshomun.com/que-hacer-tulum-cenotes.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://cenoteshomun.com/que-hacer-tulum-cenotes.html"/>
+  </url>
 </urlset>
