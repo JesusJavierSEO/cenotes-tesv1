@@ -60,31 +60,23 @@ async function probar() {
   mostrar('ok', '⏳ Autenticando...');
 
   try {
-    // 1. Login para obtener token
-    const loginRes = await fetch('/api/admin-login', {
+    mostrar('ok', '⏳ Enviando email de prueba a ' + to + '...');
+
+    // Llamar directo al endpoint de test (incluye la contraseña admin en el body)
+    const emailRes = await fetch('/api/test-email-directo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pass })
+      body: JSON.stringify({ to, password: pass })
     });
-    const loginData = await loginRes.json();
 
-    if (!loginData.token) {
-      mostrar('err', '❌ Contraseña incorrecta.\n\n' + JSON.stringify(loginData));
+    let emailData;
+    try {
+      const txt = await emailRes.text();
+      emailData = JSON.parse(txt);
+    } catch(e) {
+      mostrar('err', '❌ Respuesta inesperada del servidor (status ' + emailRes.status + ')');
       return;
     }
-
-    mostrar('ok', '⏳ Enviando email a ' + to + '...');
-
-    // 2. Probar email
-    const emailRes = await fetch('/api/test-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + loginData.token
-      },
-      body: JSON.stringify({ to })
-    });
-    const emailData = await emailRes.json();
 
     if (emailData.ok) {
       mostrar('ok',

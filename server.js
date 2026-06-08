@@ -350,6 +350,46 @@ function checkLoginRateLimit(req) {
 }
 
 
+
+// ── API: TEST EMAIL DIRECTO (verifica contraseña en el body) ──
+app.post('/api/test-email-directo', async (req, res) => {
+  const { to, password } = req.body;
+  if (password !== ADMIN_PASSWORD) {
+    return res.status(401).json({ error: 'Contraseña incorrecta' });
+  }
+  if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
+
+  const transporter = crearTransporter();
+  if (!transporter) {
+    return res.status(500).json({
+      error: 'EMAIL_USER o EMAIL_PASS no configurados en Hostinger',
+      variables: {
+        EMAIL_USER: !!process.env.EMAIL_USER,
+        EMAIL_PASS: !!process.env.EMAIL_PASS,
+        EMAIL_HOST: process.env.EMAIL_HOST || '(default smtp.hostinger.com)',
+        EMAIL_PORT: process.env.EMAIL_PORT || '(default 465)',
+      }
+    });
+  }
+
+  try {
+    await transporter.verify();
+    await transporter.sendMail({
+      from:    '"Cenotes Homún" <' + process.env.EMAIL_USER + '>',
+      to,
+      subject: '🧪 Test email — Cenotes Homún',
+      html:    '<p>El sistema de emails funciona correctamente. ✅</p><p>Enviado desde <b>' + process.env.EMAIL_USER + '</b> via <b>' + (process.env.EMAIL_HOST || 'smtp.hostinger.com') + ':' + (process.env.EMAIL_PORT || '465') + '</b></p>',
+    });
+    res.json({ ok: true, mensaje: 'Email enviado correctamente a ' + to });
+  } catch(e) {
+    res.status(500).json({
+      error: e.message,
+      code:  e.code || null,
+      response: e.response || null,
+    });
+  }
+});
+
 // ── API: TEST EMAIL (protegido) ───────────────────────────
 app.post('/api/test-email', adminAuth, async (req, res) => {
   const { to } = req.body;
