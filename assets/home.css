@@ -639,3 +639,36 @@ select.cta-input { cursor: pointer; appearance: none; }
   .garantia-item { min-width: 100%; }
   .hero-stats { gap: 16px; }
 }
+
+/* ─── MOBILE FIXES ADICIONALES ──────────────────────────── */
+@media (max-width: 480px) {
+  /* Hero */
+  .hero { min-height: 100svh; }
+  .hero-content { padding: 80px 20px 48px; }
+  .hero-title { font-size: clamp(2rem, 10vw, 3rem); }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; justify-content: center; }
+
+  /* Cenotes scroll — 1 columna en mobile pequeño */
+  .cenotes-scroll { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Steps */
+  .steps { grid-template-columns: 1fr; }
+
+  /* Destinos */
+  .destinos-grid { grid-template-columns: 1fr; }
+
+  /* Reviews */
+  .reviews-grid { grid-template-columns: 1fr; }
+
+  /* Packages */
+  .packages-grid { grid-template-columns: 1fr; }
+
+  /* Section paddings */
+  .section-exp, .section-cenotes, .section-paquetes,
+  .section-proceso, .section-reviews, .section-cta,
+  .section-destinos, .section-garantias, .seo-section {
+    padding: 40px 16px;
+  }
+  .section-header { margin-bottom: 28px; }
+}
