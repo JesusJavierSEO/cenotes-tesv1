@@ -107,71 +107,48 @@ function getEmailConfig() {
   };
 }
 
-// Envío SMTP nativo — sin nodemailer, solo módulos de Node.js
-function smtpCommand(socket, cmd) {
-  return new Promise((resolve) => {
-    socket.write(cmd + '\r\n');
-    socket.once('data', (d) => resolve(d.toString()));
-  });
-}
-
 async function enviarEmailSMTP(to, subject, htmlBody) {
-  const cfg = getEmailConfig();
-  if (!cfg.user || !cfg.pass) {
-    throw new Error('EMAIL_USER o EMAIL_PASS no configurados en Hostinger');
+  // ── Opción 1: Resend API (recomendado — zero npm, mejor deliverability) ──
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey) {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + resendKey,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify({
+        from:    'Cenotes Homún <reservas@cenoteshomun.com>',
+        to:      [to],
+        subject: subject,
+        html:    htmlBody,
+      }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error('Resend error: ' + JSON.stringify(data));
+    console.log('✅ Email enviado via Resend a:', to);
+    return;
   }
 
-  const boundary = 'bound' + Date.now();
-  const msg = [
-    'From: "Cenotes Homún" <' + cfg.user + '>',
-    'To: ' + to,
-    'Subject: ' + subject,
-    'MIME-Version: 1.0',
-    'Content-Type: multipart/alternative; boundary="' + boundary + '"',
-    '',
-    '--' + boundary,
-    'Content-Type: text/html; charset=UTF-8',
-    'Content-Transfer-Encoding: 7bit',
-    '',
-    htmlBody,
-    '',
-    '--' + boundary + '--',
-  ].join('\r\n');
+  // ── Opción 2: nodemailer + SMTP Hostinger ─────────────────────────────────
+  let nm;
+  try { nm = require('nodemailer'); } catch(e) {
+    throw new Error('nodemailer no instalado y RESEND_API_KEY no configurado. Configura una de las dos opciones.');
+  }
+  const cfg = getEmailConfig();
+  if (!cfg.user || !cfg.pass) throw new Error('EMAIL_USER o EMAIL_PASS no configurados');
 
-  return new Promise((resolve, reject) => {
-    const socket = tls.connect({ host: cfg.host, port: cfg.port, rejectUnauthorized: false }, async () => {
-      try {
-        let resp;
-        // Esperar greeting
-        await new Promise(r => socket.once('data', r));
-        // EHLO
-        resp = await smtpCommand(socket, 'EHLO cenoteshomun.com');
-        if (!resp.startsWith('2')) throw new Error('EHLO failed: ' + resp);
-        // AUTH LOGIN
-        resp = await smtpCommand(socket, 'AUTH LOGIN');
-        resp = await smtpCommand(socket, Buffer.from(cfg.user).toString('base64'));
-        resp = await smtpCommand(socket, Buffer.from(cfg.pass).toString('base64'));
-        if (!resp.startsWith('2')) throw new Error('AUTH failed: ' + resp);
-        // MAIL FROM
-        resp = await smtpCommand(socket, 'MAIL FROM:<' + cfg.user + '>');
-        // RCPT TO
-        resp = await smtpCommand(socket, 'RCPT TO:<' + to + '>');
-        // DATA
-        await smtpCommand(socket, 'DATA');
-        resp = await smtpCommand(socket, msg + '\r\n.');
-        if (!resp.startsWith('2')) throw new Error('DATA failed: ' + resp);
-        // QUIT
-        socket.write('QUIT\r\n');
-        socket.destroy();
-        resolve(true);
-      } catch(e) {
-        socket.destroy();
-        reject(e);
-      }
-    });
-    socket.on('error', reject);
-    socket.setTimeout(15000, () => { socket.destroy(); reject(new Error('SMTP timeout')); });
+  const transporter = nm.createTransport({
+    host: cfg.host, port: cfg.port,
+    secure: cfg.port === 465,
+    auth: { user: cfg.user, pass: cfg.pass },
+    tls: { rejectUnauthorized: false },
   });
+  await transporter.sendMail({
+    from:    '"Cenotes Homún" <' + cfg.user + '>',
+    to, subject, html: htmlBody,
+  });
+  console.log('✅ Email enviado via SMTP a:', to);
 }
 
 async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio }) {
@@ -407,14 +384,14 @@ app.post('/api/test-email-directo', async (req, res) => {
   if (!to) return res.status(400).json({ error: 'Falta el campo "to"' });
 
   const cfg = getEmailConfig();
-  if (!cfg.user || !cfg.pass) {
+  const metodo = process.env.RESEND_API_KEY ? 'Resend API' : (cfg.user ? 'SMTP Hostinger' : 'No configurado');
+  if (!process.env.RESEND_API_KEY && !cfg.user) {
     return res.status(500).json({
-      error: 'Variables de email no configuradas',
-      variables: {
-        EMAIL_USER: cfg.user ? '✅' : '❌ falta',
-        EMAIL_PASS: cfg.pass ? '✅' : '❌ falta',
-        EMAIL_HOST: cfg.host,
-        EMAIL_PORT: cfg.port,
+      error: 'Sin configuración de email. Configura RESEND_API_KEY (recomendado) o EMAIL_USER + EMAIL_PASS.',
+      metodo,
+      opciones: {
+        'Opción A (recomendada)': 'Crear cuenta en resend.com → agregar RESEND_API_KEY en Hostinger',
+        'Opción B':               'Configurar EMAIL_USER, EMAIL_PASS, EMAIL_HOST=smtp.hostinger.com, EMAIL_PORT=465 en Hostinger',
       }
     });
   }
@@ -423,17 +400,11 @@ app.post('/api/test-email-directo', async (req, res) => {
     await enviarEmailSMTP(
       to,
       '🧪 Test email — Cenotes Homún',
-      '<p>El sistema de emails funciona correctamente. ✅</p>' +
-      '<p>Desde: <b>' + cfg.user + '</b> via <b>' + cfg.host + ':' + cfg.port + '</b></p>'
+      '<p>El sistema de emails funciona correctamente. ✅</p><p>Método: <b>' + metodo + '</b></p>'
     );
-    res.json({ ok: true, mensaje: 'Email enviado correctamente a ' + to });
+    res.json({ ok: true, mensaje: 'Email enviado a ' + to, metodo });
   } catch(e) {
-    res.status(500).json({
-      error:    e.message,
-      host:     cfg.host,
-      port:     cfg.port,
-      user:     cfg.user,
-    });
+    res.status(500).json({ error: e.message, metodo });
   }
 });
 
