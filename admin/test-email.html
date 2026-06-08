@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Email — Admin</title>
+<style>
+  body { font-family: sans-serif; background: #0d2b1e; color: white;
+         display: flex; align-items: center; justify-content: center;
+         min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+  .card { background: #1a3a2a; border-radius: 16px; padding: 32px 28px;
+          max-width: 480px; width: 100%; }
+  h2 { margin: 0 0 6px; font-size: 1.1rem; }
+  p  { color: rgba(255,255,255,0.5); font-size: 0.82rem; margin: 0 0 24px; }
+  label { font-size: 0.75rem; color: rgba(255,255,255,0.5); display: block; margin-bottom: 4px; }
+  input { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+          color: white; padding: 11px 14px; border-radius: 8px; font-size: 0.88rem;
+          margin-bottom: 14px; box-sizing: border-box; }
+  input::placeholder { color: rgba(255,255,255,0.3); }
+  button { background: #0a9da8; color: white; border: none; padding: 12px;
+           border-radius: 10px; font-size: 0.9rem; cursor: pointer; width: 100%;
+           font-weight: 600; margin-bottom: 10px; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .result { border-radius: 10px; padding: 14px 16px; font-size: 0.83rem;
+            margin-top: 16px; line-height: 1.6; display: none; }
+  .ok  { background: rgba(56,161,105,0.15); border: 1px solid rgba(56,161,105,0.4); color: #68d391; }
+  .err { background: rgba(229,62,62,0.15);  border: 1px solid rgba(229,62,62,0.4);  color: #fc8181; }
+  .sep { border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>🧪 Test de Email</h2>
+  <p>Prueba el envío de emails sin necesidad de hacer un pago real.</p>
+
+  <label>Contraseña de admin</label>
+  <input id="pass" type="password" placeholder="CenotesH0mun@2026!">
+
+  <div class="sep"></div>
+
+  <label>Enviar email de prueba a</label>
+  <input id="to" type="email" placeholder="tu@correo.com">
+
+  <button onclick="probar()">📧 Enviar email de prueba</button>
+
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+async function probar() {
+  const pass = document.getElementById('pass').value.trim();
+  const to   = document.getElementById('to').value.trim();
+  const res  = document.getElementById('result');
+
+  if (!pass || !to) {
+    mostrar('err', '⚠ Completa todos los campos.');
+    return;
+  }
+
+  mostrar('ok', '⏳ Autenticando...');
+
+  try {
+    // 1. Login para obtener token
+    const loginRes = await fetch('/api/admin-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass })
+    });
+    const loginData = await loginRes.json();
+
+    if (!loginData.token) {
+      mostrar('err', '❌ Contraseña incorrecta.\n\n' + JSON.stringify(loginData));
+      return;
+    }
+
+    mostrar('ok', '⏳ Enviando email a ' + to + '...');
+
+    // 2. Probar email
+    const emailRes = await fetch('/api/test-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + loginData.token
+      },
+      body: JSON.stringify({ to })
+    });
+    const emailData = await emailRes.json();
+
+    if (emailData.ok) {
+      mostrar('ok',
+        '✅ Email enviado correctamente a ' + to + '\n\n' +
+        'Revisa tu bandeja de entrada (y spam).\n' +
+        'Si llegó → el sistema de emails funciona.\n' +
+        'Si no llegó → revisa spam o el puerto SMTP.'
+      );
+    } else {
+      mostrar('err',
+        '❌ Error al enviar:\n\n' +
+        'Mensaje: ' + (emailData.error || 'desconocido') + '\n' +
+        'Código: '  + (emailData.code || '-') + '\n' +
+        'Respuesta SMTP: ' + (emailData.response || '-') + '\n\n' +
+        getAyuda(emailData.code, emailData.error)
+      );
+    }
+  } catch(e) {
+    mostrar('err', '❌ Error de red: ' + e.message);
+  }
+}
+
+function getAyuda(code, msg) {
+  msg = (msg || '').toLowerCase();
+  if (code === 'EAUTH' || msg.includes('invalid login') || msg.includes('535')) {
+    return '💡 La contraseña de contacto@cenoteshomun.com es incorrecta.\nVerifica en Hostinger → Emails.';
+  }
+  if (code === 'ECONNECTION' || code === 'ETIMEDOUT') {
+    return '💡 El puerto 465 está bloqueado.\nCambia EMAIL_PORT a 587 en las variables de Hostinger.';
+  }
+  if (msg.includes('certificate') || msg.includes('self signed')) {
+    return '💡 Error de certificado SSL. Ya está aplicado el fix — reinicia el servidor en Hostinger.';
+  }
+  if (!code) {
+    return '💡 Verifica que EMAIL_USER, EMAIL_PASS, EMAIL_HOST y EMAIL_PORT estén configurados en Hostinger.';
+  }
+  return '';
+}
+
+function mostrar(tipo, msg) {
+  const el = document.getElementById('result');
+  el.className = 'result ' + tipo;
+  el.style.display = 'block';
+  el.style.whiteSpace = 'pre-wrap';
+  el.textContent = msg;
+}
+</script>
+</body>
+</html>
