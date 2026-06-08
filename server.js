@@ -327,6 +327,7 @@ app.post('/api/checkout', async (req, res) => {
         vendedor:  ref || 'jesus',  // ventas web = Jesús por defecto
         canal:     ref ? 'whatsapp' : 'web',
         email:     req.body.email || '',
+        telefono:  req.body.telefono || '',
       },
       payment_intent_data: {
         description: `${tour_nombre} — ${totalPersonas} persona(s)`,
@@ -464,12 +465,24 @@ app.post('/api/webhook', async (req, res) => {
       jesus_recibe:     dist.jesus_recibe,
       enrique_recibe:   dist.enrique_recibe,
       email_cliente:    session.customer_email || meta.email || '',
+      telefono:         meta.telefono || '',
       stripe_id:        session.id,
       modo:             session.livemode ? 'live' : 'test',
     };
 
     console.log('✅ Pago completado — registrando:', registro.tour, '|', registro.precio_venta, 'MXN');
     await registrarEnSheets(registro);
+
+    // Enviar email de confirmación al cliente
+    await enviarConfirmacion({
+      email:    registro.email_cliente,
+      nombre:   meta.cliente || '',
+      tour:     registro.tour,
+      fecha:    registro.fecha_tour,
+      telefono: registro.telefono || '',
+      precio:   registro.precio_venta,
+      personas: registro.personas,
+    });
   }
 
   res.json({ received: true });
