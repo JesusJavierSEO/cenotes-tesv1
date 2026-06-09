@@ -51,23 +51,35 @@
 </section>
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery-wrap" data-tour="isla-mujeres-catamaran" data-imgs="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg,/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg,/assets/img/tours/isla-mujeres-beach-club-aerial.jpg,/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg,/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg,/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg,/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg,/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg,/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg">
+    <div class="tour-gallery-wrap" data-tour="isla-mujeres-catamaran" data-imgs="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg,/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg,/assets/img/tours/isla-mujeres-beach-club-aerial.jpg,/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg,/assets/img/tours/isla-mujeres-costa-desde-catamarán.jpg,/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg,/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg,/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg,/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg">
       <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/isla-mujeres-catamaran-1.jpg -->
-      <div class="tour-gallery-grid" id="gallery-isla-mujeres-catamaran">
+      <div class="tour-gallery-grid" id="gallery-isla-mujeres-catamaran" style="display:none">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="isla-mujeres-catamaran"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
+          <img id="tg-main-img" src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="isla-mujeres-catamaran foto principal" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-isla-mujeres-catamaran">
-          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-beach-club-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-beach-club-aerial.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg')"><img src="/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg')"><img src="/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg')"><img src="/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg')"><img src="/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg')"><img src="/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg" alt="" loading="lazy"></div>
+        <div class="tg-thumbs" id="tg-thumbs-isla-mujeres-catamaran"></div>
+      </div>
+      <!-- FALLBACK SVG cuando no hay fotos -->
+      <div class="tour-gallery" id="gallery-fallback-isla-mujeres-catamaran" style="min-height:260px;cursor:default">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#0a2a4a 0%,#041020 100%)"></div>
+        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
+          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
+          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
+          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
+          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="190,50 183,128 197,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="300,44 293,125 307,125" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="410,50 403,128 417,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="520,60 513,130 527,130" fill="rgba(13,42,28,0.9)"/>
+          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
+          <circle cx="250" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
+          <circle cx="340" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
+          <circle cx="290" cy="175" r="2.5" fill="none" stroke="rgba(127,227,232,0.25)" stroke-width="1"/>
+        </svg>
+        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
+          <div style="font-size:2.4rem;margin-bottom:10px">⛵</div>
+          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Photos coming soon</p>
         </div>
       </div>
     </div>
@@ -139,15 +151,13 @@ Everything is included — no hidden costs on the boat.</p></div>
   <aside class="page-sidebar">
     <div class="reserve-card">
       <div class="reserve-card-header">
-        <div class="reserve-price">$1,590 <span style="font-size:1.4rem">MXN</span>
+        <div class="reserve-price">$1,590 <span style="font-size:1.4rem">MXN</span></div>
         <div class="reserve-price-label">per person</div>
         <div class="reserve-price-nino">Kids: $750 MXN/person</div>
       </div>
       <div class="reserve-card-body">
         <div class="reserve-form">
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
-          <input type="email" class="reserve-input" id="r-email" required placeholder="your@email.com (required)" autocomplete="email">
-          <input type="tel" class="reserve-input" id="r-telefono" placeholder="+1 555 123 4567" autocomplete="tel">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
             <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
@@ -184,8 +194,6 @@ Everything is included — no hidden costs on the boat.</p></div>
       </div>
     </div>
   </aside>
-</div>
-
 </div>
 <div id="footer-placeholder"></div>
 <script src="../assets/galeria.js"></script>

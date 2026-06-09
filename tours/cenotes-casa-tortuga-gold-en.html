@@ -52,22 +52,29 @@
 <div class="page-layout">
   <main class="page-main">
     <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" id="gallery-cenotes-casa-tortuga">
+      <div class="tour-gallery-grid" style="display:grid">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="cenotes-casa-tortuga"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
+          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="Casa Tortuga GOLD"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-cenotes-casa-tortuga">
-          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg')"><img src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="" loading="lazy"></div>
+        <div class="tg-thumbs">
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-kayak-cenote.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
         </div>
-      </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-tirolesa-selva.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')">
+          <img src="/assets/img/tours/casa-tortuga-cenote-cueva-columnas.jpg" alt="Casa Tortuga GOLD" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        </div>
       </div>
     </div>
     <div class="tour-section"><div class="tour-section-title">About this tour</div><p class="tour-desc">The premium Casa Tortuga experience — everything in one day:
@@ -130,15 +137,13 @@ The GOLD Package gives you access to activities not available in the Basic or Si
   <aside class="page-sidebar">
     <div class="reserve-card">
       <div class="reserve-card-header">
-        <div class="reserve-price">$1,650 <span style="font-size:1.4rem">MXN</span>
+        <div class="reserve-price">$1,650 <span style="font-size:1.4rem">MXN</span></div>
         <div class="reserve-price-label">per person</div>
         
       </div>
       <div class="reserve-card-body">
         <div class="reserve-form">
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
-          <input type="email" class="reserve-input" id="r-email" required placeholder="your@email.com (required)" autocomplete="email">
-          <input type="tel" class="reserve-input" id="r-telefono" placeholder="+1 555 123 4567" autocomplete="tel">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
             <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
@@ -172,8 +177,6 @@ The GOLD Package gives you access to activities not available in the Basic or Si
       </div>
     </div>
   </aside>
-</div>
-
 </div>
 <div id="footer-placeholder"></div>
 <script src="../assets/galeria.js"></script>

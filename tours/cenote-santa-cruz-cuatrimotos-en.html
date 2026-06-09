@@ -54,22 +54,42 @@
 
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery-wrap" data-tour="santa-cruz-cuatrimotos" data-imgs="/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg,/assets/img/tours/santa-cruz-cuatrimotos-hacienda.jpg,/assets/img/tours/santa-cruz-hacienda-kampepem.jpg,/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg,/assets/img/tours/santa-cruz-tirolesa-accion.jpg,/assets/img/tours/santa-cruz-cenote-interior-personas.jpg,/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg,/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg">
+    <div class="tour-gallery-wrap" data-tour="santa-cruz-cuatrimotos">
       <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/santa-cruz-cuatrimotos-1.jpg -->
-      <div class="tour-gallery-grid" id="gallery-santa-cruz-cuatrimotos">
+      <div class="tour-gallery-grid" id="gallery-santa-cruz-cuatrimotos" style="display:none">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg" alt="cenote-santa-cruz-cuatrimotos"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
+          <img id="tg-main-img" src="/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg" alt="santa-cruz-cuatrimotos foto principal" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-santa-cruz-cuatrimotos">
-          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg')"><img src="/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-cuatrimotos-hacienda.jpg')"><img src="/assets/img/tours/santa-cruz-cuatrimotos-hacienda.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-hacienda-kampepem.jpg')"><img src="/assets/img/tours/santa-cruz-hacienda-kampepem.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg')"><img src="/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-tirolesa-accion.jpg')"><img src="/assets/img/tours/santa-cruz-tirolesa-accion.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-cenote-interior-personas.jpg')"><img src="/assets/img/tours/santa-cruz-cenote-interior-personas.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg')"><img src="/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg')"><img src="/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg" alt="" loading="lazy"></div>
+        <div class="tg-thumbs" id="tg-thumbs-santa-cruz-cuatrimotos"></div>
+      </div>
+      <!-- FALLBACK SVG cuando no hay fotos -->
+          <div class="tour-gallery-wrap" data-tour="santa-cruz-cuatrimotos">
+      <div class="tour-gallery-grid" id="gallery-santa-cruz-cuatrimotos" style="display:none">
+        <div class="tg-main">
+          <img id="tg-main-img-santa-cruz-cuatrimotos" src="/assets/img/tours/santa-cruz-cuatrimotos-grupo-entrada.jpg" alt="santa-cruz-cuatrimotos" loading="lazy"
+               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+        </div>
+        <div class="tg-thumbs" id="tg-thumbs-santa-cruz-cuatrimotos"></div>
+      </div>
+      <div class="tour-gallery" id="gallery-fallback-santa-cruz-cuatrimotos" style="min-height:280px;cursor:default">
+        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#3a1a08 0%,#1a0800 100%)"></div>
+        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
+          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
+          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
+          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
+          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="200,48 193,128 207,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="310,43 303,125 317,125" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="420,50 413,128 427,128" fill="rgba(13,42,28,0.9)"/>
+          <polygon points="530,60 523,130 537,130" fill="rgba(13,42,28,0.9)"/>
+          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
+          <circle cx="255" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
+          <circle cx="345" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
+        </svg>
+        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
+          <div style="font-size:2.4rem;margin-bottom:10px">🏍</div>
+          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Photos coming soon</p>
         </div>
       </div>
     </div>
@@ -166,15 +186,13 @@ Meeting point: Leaving from the exit of Homún, Yucatán.</p>
   <aside class="page-sidebar">
     <div class="reserve-card">
       <div class="reserve-card-header">
-        <div class="reserve-price">$900 <span style="font-size:1.4rem">MXN</span>
+        <div class="reserve-price">$900 <span style="font-size:1.4rem">MXN</span></div>
         <div class="reserve-price-label">per person</div>
         
       </div>
       <div class="reserve-card-body">
         <div class="reserve-form">
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
-          <input type="email" class="reserve-input" id="r-email" required placeholder="your@email.com (required)" autocomplete="email">
-          <input type="tel" class="reserve-input" id="r-telefono" placeholder="+1 555 123 4567" autocomplete="tel">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
             <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
@@ -208,8 +226,6 @@ Meeting point: Leaving from the exit of Homún, Yucatán.</p>
       </div>
     </div>
   </aside>
-</div>
-
 </div>
 
 <script>

@@ -55,22 +55,28 @@
 <div class="page-layout">
   <main class="page-main">
     <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" id="gallery-cenote-santa-barbara">
-        <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp" alt="cenote-santa-barbara"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
+      <div class="tour-gallery-grid" style="display:grid">
+        <div class="tg-main" id="tg-main-wrap">
+          <img id="tg-main-img" src="/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp" alt="Cenote Santa Bárbara Basic — foto principal"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-cenote-santa-barbara">
-          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp')"><img src="/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-cenote-abierto.webp')"><img src="/assets/img/tours/cenote-santa-barbara-cenote-abierto.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-arriba.webp')"><img src="/assets/img/tours/cenote-santa-barbara-vista-arriba.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp')"><img src="/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp')"><img src="/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp')"><img src="/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-edificio-principal-recepcion.webp')"><img src="/assets/img/tours/cenote-santa-barbara-edificio-principal-recepcion.webp" alt="" loading="lazy"></div>
-          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-escultura-maya.webp')"><img src="/assets/img/tours/cenote-santa-barbara-escultura-maya.webp" alt="" loading="lazy"></div>
+        <div class="tg-thumbs">
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-arriba.webp')">
+          <img src="/assets/img/tours/cenote-santa-barbara-vista-arriba.webp" alt="Cenote Santa Bárbara Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
         </div>
-      </div>
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp')">
+          <img src="/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp" alt="Cenote Santa Bárbara Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp')">
+          <img src="/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp" alt="Cenote Santa Bárbara Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp')">
+          <img src="/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp" alt="Cenote Santa Bárbara Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <div class="tg-count">+4</div>
+        </div>
         </div>
       </div>
     </div>
@@ -160,15 +166,13 @@ Meeting point: Main entrance of Homún municipality. Show your reservation and r
   <aside class="page-sidebar">
     <div class="reserve-card">
       <div class="reserve-card-header">
-        <div class="reserve-price">$575 <span style="font-size:1.4rem">MXN</span>
+        <div class="reserve-price">$575 <span style="font-size:1.4rem">MXN</span></div>
         <div class="reserve-price-label">per person</div>
         <div class="reserve-price-nino">Kids: $490 MXN/person</div>
       </div>
       <div class="reserve-card-body">
         <div class="reserve-form">
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
-          <input type="email" class="reserve-input" id="r-email" required placeholder="your@email.com (required)" autocomplete="email">
-          <input type="tel" class="reserve-input" id="r-telefono" placeholder="+1 555 123 4567" autocomplete="tel">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
             <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
@@ -205,8 +209,6 @@ Meeting point: Main entrance of Homún municipality. Show your reservation and r
       </div>
     </div>
   </aside>
-</div>
-
 </div>
 
 <script>
