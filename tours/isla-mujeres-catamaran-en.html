@@ -53,12 +53,22 @@
   <main class="page-main">
     <div class="tour-gallery-wrap" data-tour="isla-mujeres-catamaran" data-imgs="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg,/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg,/assets/img/tours/isla-mujeres-beach-club-aerial.jpg,/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg,/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg,/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg,/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg,/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg,/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg">
       <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/isla-mujeres-catamaran-1.jpg -->
-      <div class="tour-gallery-grid" id="gallery-isla-mujeres-catamaran" style="display:none">
+      <div class="tour-gallery-grid" id="gallery-isla-mujeres-catamaran">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="isla-mujeres-catamaran foto principal" loading="lazy"
-               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+          <img id="tg-main-img" src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="isla-mujeres-catamaran"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-isla-mujeres-catamaran"></div>
+        <div class="tg-thumbs" id="tg-thumbs-isla-mujeres-catamaran">
+          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaran-snorkel-underwater.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaran-velero-aerial.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-beach-club-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-beach-club-aerial.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg')"><img src="/assets/img/tours/isla-mujeres-catamaranes-muelle-aerial.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg')"><img src="/assets/img/tours/isla-mujeres-costa-desde-catamaran.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg')"><img src="/assets/img/tours/isla-mujeres-grupo-snorkel-mar-caribe.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg')"><img src="/assets/img/tours/isla-mujeres-snorkel-ok-turquesa.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg')"><img src="/assets/img/tours/isla-mujeres-vista-cancun-desde-mar.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg')"><img src="/assets/img/tours/isla-mujeres-navegando-mar-caribe.jpg" alt="" loading="lazy"></div>
+        </div>
       </div>
       <!-- FALLBACK SVG cuando no hay fotos -->
       <div class="tour-gallery" id="gallery-fallback-isla-mujeres-catamaran" style="min-height:260px;cursor:default">

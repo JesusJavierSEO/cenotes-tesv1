@@ -86,29 +86,22 @@
 <div class="page-layout">
   <main class="page-main">
     <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
+      <div class="tour-gallery-grid" id="gallery-casa-tortuga-silver">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg" alt="Casa Tortuga Silver"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
+          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg" alt="casa-tortuga-silver"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
         </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
+        <div class="tg-thumbs" id="tg-thumbs-casa-tortuga-silver">
+          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg')"><img src="/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg')"><img src="/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')"><img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="" loading="lazy"></div>
         </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        </div>
+      </div>
       </div>
     </div>
 
