@@ -142,32 +142,25 @@
   <main class="page-main">
 
     <!-- Galería placeholder -->
-        <div class="tour-gallery-wrap" data-tour="santa-rosa">
-      <div class="tour-gallery-grid" id="gallery-santa-rosa" style="display:none">
-        <div class="tg-main">
-          <img id="tg-main-img-santa-rosa" src="/assets/img/tours/santa-rosa-cenote-abierto-nadadores.jpg" alt="santa-rosa" loading="lazy"
-               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+        <div class="tour-gallery-wrap">
+      <div class="tour-gallery-grid" style="display:grid">
+        <div class="tg-main" id="tg-main-wrap">
+          <img id="tg-main-img" src="/assets/img/tours/santa-rosa-cenote-abierto-nadadores.jpg" alt="Cenote Santa Rosa — foto principal"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-santa-rosa"></div>
-      </div>
-      <div class="tour-gallery" id="gallery-fallback-santa-rosa" style="min-height:280px;cursor:default">
-        <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a3a2a 0%,#0a1a10 100%)"></div>
-        <svg width="100%" height="100%" viewBox="0 0 600 280" fill="none" style="position:absolute;inset:0;opacity:0.65" preserveAspectRatio="xMidYMid slice">
-          <ellipse cx="300" cy="200" rx="240" ry="70" fill="rgba(10,157,168,0.35)"/>
-          <ellipse cx="300" cy="195" rx="180" ry="48" fill="rgba(13,232,245,0.2)"/>
-          <path d="M0 80 Q150 40,300 55 Q450 40,600 80 L600 0 L0 0Z" fill="rgba(6,20,14,0.8)"/>
-          <polygon points="80,70 73,130 87,130" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="200,48 193,128 207,128" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="310,43 303,125 317,125" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="420,50 413,128 427,128" fill="rgba(13,42,28,0.9)"/>
-          <polygon points="530,60 523,130 537,130" fill="rgba(13,42,28,0.9)"/>
-          <path d="M250 0 L235 190 L365 190 L350 0Z" fill="rgba(127,227,232,0.07)"/>
-          <circle cx="255" cy="185" r="5" fill="none" stroke="rgba(127,227,232,0.4)" stroke-width="1.5"/>
-          <circle cx="345" cy="180" r="3.5" fill="none" stroke="rgba(127,227,232,0.3)" stroke-width="1"/>
-        </svg>
-        <div style="position:relative;z-index:2;text-align:center;padding:40px 20px;margin-top:auto">
-          <div style="font-size:2.4rem;margin-bottom:10px">🌸</div>
-          <p style="color:rgba(245,237,224,0.45);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase">Fotos próximamente</p>
+        <div class="tg-thumbs">
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-cenote-subterraneo-luces-azul.jpg')">
+          <img src="/assets/img/tours/santa-rosa-cenote-subterraneo-luces-azul.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-cenote-abierto-aerial.jpg')">
+          <img src="/assets/img/tours/santa-rosa-cenote-abierto-aerial.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
+        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-entrada-letrero.jpg')">
+          <img src="/assets/img/tours/santa-rosa-entrada-letrero.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          
+        </div>
         </div>
       </div>
     </div>
@@ -319,6 +312,16 @@ function reservarWhatsApp(tourNombre) {
   if (fecha) msg += '%20Fecha%20tentativa%3A%20' + encodeURIComponent(fecha) + '.';
   if (personas) msg += '%20Somos%20' + encodeURIComponent(personas) + '%20personas.';
   window.open('https://wa.me/529994105737?' + 'text=' + msg, '_blank');
+}
+</script>
+<script>
+function tgSwap(thumb, src) {
+  var main = document.getElementById('tg-main-img');
+  if (!main) return;
+  main.style.opacity = '0';
+  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
+  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
+  thumb.classList.add('active');
 }
 </script>
 </body>
