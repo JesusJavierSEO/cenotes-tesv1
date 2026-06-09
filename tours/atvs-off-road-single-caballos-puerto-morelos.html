@@ -86,12 +86,23 @@
   <main class="page-main">
     <div class="tour-gallery-wrap" data-tour="atvs-single-caballos-puerto-morelos" data-imgs="/assets/img/tours/puerto-morelos-cenote-pareja-escaleras.jpg,/assets/img/tours/puerto-morelos-atv-barro-accion.jpg,/assets/img/tours/puerto-morelos-cenote-salto-extremo.jpg,/assets/img/tours/puerto-morelos-atvs-barro-splash.jpg,/assets/img/tours/puerto-morelos-show-maya-fuego.jpg,/assets/img/tours/puerto-morelos-atvs-grupo-feliz.jpg,/assets/img/tours/puerto-morelos-atvs-aerial-selva.jpg,/assets/img/tours/puerto-morelos-cenote-abierto-azul.jpg,/assets/img/tours/puerto-morelos-cenote-nadadores-arriba.jpg,/assets/img/tours/puerto-morelos-tequila-tasting-botellas.jpg">
       <!-- GALERÍA: se activa cuando existen fotos en /assets/img/tours/atvs-single-caballos-puerto-morelos-1.jpg -->
-      <div class="tour-gallery-grid" id="gallery-atvs-single-caballos-puerto-morelos" style="display:none">
+      <div class="tour-gallery-grid" id="gallery-atvs-single-caballos-puerto-morelos">
         <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/puerto-morelos-cenote-pareja-escaleras.jpg" alt="atvs-single-caballos-puerto-morelos foto principal" loading="lazy"
-               style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px">
+          <img id="tg-main-img" src="/assets/img/tours/puerto-morelos-cenote-pareja-escaleras.jpg" alt="atvs-off-road-single-caballos-puerto-morelos"
+               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s;cursor:pointer">
         </div>
-        <div class="tg-thumbs" id="tg-thumbs-atvs-single-caballos-puerto-morelos"></div>
+        <div class="tg-thumbs" id="tg-thumbs-atvs-single-caballos-puerto-morelos">
+          <div class="tg-thumb active" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-cenote-pareja-escaleras.jpg')"><img src="/assets/img/tours/puerto-morelos-cenote-pareja-escaleras.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-atv-barro-accion.jpg')"><img src="/assets/img/tours/puerto-morelos-atv-barro-accion.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-cenote-salto-extremo.jpg')"><img src="/assets/img/tours/puerto-morelos-cenote-salto-extremo.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-atvs-barro-splash.jpg')"><img src="/assets/img/tours/puerto-morelos-atvs-barro-splash.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-show-maya-fuego.jpg')"><img src="/assets/img/tours/puerto-morelos-show-maya-fuego.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-atvs-grupo-feliz.jpg')"><img src="/assets/img/tours/puerto-morelos-atvs-grupo-feliz.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-atvs-aerial-selva.jpg')"><img src="/assets/img/tours/puerto-morelos-atvs-aerial-selva.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-cenote-abierto-azul.jpg')"><img src="/assets/img/tours/puerto-morelos-cenote-abierto-azul.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-cenote-nadadores-arriba.jpg')"><img src="/assets/img/tours/puerto-morelos-cenote-nadadores-arriba.jpg" alt="" loading="lazy"></div>
+          <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/puerto-morelos-tequila-tasting-botellas.jpg')"><img src="/assets/img/tours/puerto-morelos-tequila-tasting-botellas.jpg" alt="" loading="lazy"></div>
+        </div>
       </div>
       <!-- FALLBACK SVG cuando no hay fotos -->
       <div class="tour-gallery" id="gallery-fallback-atvs-single-caballos-puerto-morelos" style="min-height:260px;cursor:default">
