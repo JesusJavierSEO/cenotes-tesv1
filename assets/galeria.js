@@ -184,7 +184,63 @@
       }
     };
 
-    // 3. Hacer clickeable la imagen principal de las galerías antiguas
+    // 2. Galerías tour-gallery-wrap con data-imgs — construye thumbs y muestra galería
+    document.querySelectorAll('.tour-gallery-wrap[data-imgs]').forEach(function(wrap) {
+      var imgsRaw = (wrap.dataset.imgs || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+      if (!imgsRaw.length) return;
+
+      var slug = wrap.dataset.tour || '';
+
+      // Mostrar el grid y ocultar el fallback
+      var grid = wrap.querySelector('.tour-gallery-grid');
+      var fallback = wrap.querySelector('[id^="gallery-fallback"]');
+      if (grid)    { grid.style.display = ''; }
+      if (fallback){ fallback.style.display = 'none'; }
+
+      // Poner la primera imagen en el main
+      var mainImg = wrap.querySelector('[id^="tg-main-img"]');
+      if (mainImg && !mainImg.src.includes('/tours/')) {
+        mainImg.src = imgsRaw[0];
+      }
+
+      // Construir thumbnails si el contenedor está vacío
+      var thumbsEl = wrap.querySelector('[id^="tg-thumbs"]');
+      if (thumbsEl && thumbsEl.children.length === 0) {
+        imgsRaw.forEach(function(src, i) {
+          var div = document.createElement('div');
+          div.className = 'tg-thumb' + (i === 0 ? ' tg-thumb-active' : '');
+          div.dataset.src = src;
+          var img = document.createElement('img');
+          img.src = src;
+          img.alt = '';
+          img.loading = 'lazy';
+          div.appendChild(img);
+          thumbsEl.appendChild(div);
+        });
+      }
+
+      // Click en thumbnail → cambiar imagen principal + abrir lightbox
+      wrap.querySelectorAll('.tg-thumb').forEach(function(thumb) {
+        thumb.onclick = function() {
+          var src = thumb.dataset.src || (thumb.querySelector('img') && thumb.querySelector('img').src);
+          if (!src) return;
+          if (mainImg) { mainImg.src = src; }
+          wrap.querySelectorAll('.tg-thumb').forEach(function(t){ t.classList.remove('tg-thumb-active'); });
+          thumb.classList.add('tg-thumb-active');
+        };
+      });
+
+      // Click en imagen principal → abrir lightbox
+      if (mainImg) {
+        mainImg.style.cursor = 'pointer';
+        mainImg.onclick = function() {
+          var idx = imgsRaw.indexOf(mainImg.src.replace(location.origin, ''));
+          CHGaleria.open(imgsRaw, Math.max(0, idx));
+        };
+      }
+    });
+
+        // 3. Hacer clickeable la imagen principal de las galerías antiguas
     document.querySelectorAll('#tg-main-img').forEach(function(img) {
       img.style.cursor = 'pointer';
       img.onclick = function() {
