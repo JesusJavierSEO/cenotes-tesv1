@@ -323,9 +323,9 @@
 /* Grid de galería cuando hay fotos */
 .tour-gallery-grid {
   display: grid;
-  grid-template-columns: 1fr 140px;
+  grid-template-columns: 1fr 160px;
   gap: 6px;
-  height: 340px;
+  height: 460px;
 }
 .tg-main {
   border-radius: var(--r-xl) 0 0 var(--r-xl);
@@ -336,9 +336,12 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   border-radius: 0 var(--r-xl) var(--r-xl) 0;
+  scrollbar-width: none;
 }
+.tg-thumbs::-webkit-scrollbar { display: none; }
 .tg-thumb {
   flex: 1;
   overflow: hidden;
