@@ -25,7 +25,13 @@
   <url><loc>https://cenoteshomun.com/tours/cenote-santa-cruz-cuatrimotos.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
   <!-- TOURS TULUM -->
-  <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+    <url>
+    <loc>https://cenoteshomun.com/tours/casa-tortuga.html</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+<url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://cenoteshomun.com/tours/casa-tortuga-silver.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://cenoteshomun.com/tours/cenotes-casa-tortuga-gold.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://cenoteshomun.com/tours/off-road-casa-tortugas.html</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
