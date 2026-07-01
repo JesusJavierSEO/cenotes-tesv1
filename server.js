@@ -151,8 +151,53 @@ async function enviarEmailSMTP(to, subject, htmlBody) {
   console.log('✅ Email enviado via SMTP a:', to);
 }
 
-async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio }) {
+const TEXTOS_CONFIRMACION = {
+  es: {
+    saludo: (n) => `Hola ${n || 'viajero'}, tu pago fue procesado exitosamente.`,
+    titulo: '¡Reserva confirmada!',
+    lblTour: 'Tour', lblFecha: 'Fecha solicitada', lblPersonas: 'Personas',
+    lblTotal: 'Total pagado', lblPunto: 'Punto de encuentro', lblHorario: 'Horario',
+    lblPago: 'Método de pago', porConfirmar: 'Por confirmar',
+    pagoLabel: { transferencia: 'Transferencia bancaria', stripe: 'Tarjeta (Stripe)' },
+    pasoTitulo: 'Siguientes pasos',
+    pasos: [
+      ['Confirma tu fecha por WhatsApp', 'Escríbenos para agendar el día y hora exacta de tu tour.'],
+      ['Lleva traje de baño y toalla', 'Snorkel y chaleco salvavidas están incluidos en el tour.'],
+      ['Bloqueador solar biodegradable', 'Obligatorio para proteger el ecosistema de los cenotes.'],
+    ],
+    waTexto: 'Hola%2C%20acabo%20de%20reservar%20y%20quiero%20confirmar%20mi%20fecha',
+    waBtn: '💬 Confirmar fecha por WhatsApp',
+    asunto: (t) => '✅ Reserva confirmada — ' + t,
+    puntoDefault: 'Entrada de Homún, Yucatán',
+    horaDefault: '9:00 AM',
+  },
+  en: {
+    saludo: (n) => `Hi ${n || 'traveler'}, your payment was processed successfully.`,
+    titulo: 'Booking confirmed!',
+    lblTour: 'Tour', lblFecha: 'Requested date', lblPersonas: 'Guests',
+    lblTotal: 'Total paid', lblPunto: 'Meeting point', lblHorario: 'Time',
+    lblPago: 'Payment method', porConfirmar: 'To be confirmed',
+    pagoLabel: { transferencia: 'Bank transfer', stripe: 'Card (Stripe)' },
+    pasoTitulo: 'Next steps',
+    pasos: [
+      ['Confirm your date on WhatsApp', 'Message us to schedule the exact day and time of your tour.'],
+      ['Bring a swimsuit and towel', 'Snorkel gear and life jacket are included in the tour.'],
+      ['Biodegradable sunscreen', 'Required to protect the cenote ecosystem.'],
+    ],
+    waTexto: 'Hi%2C%20I%20just%20booked%20and%20want%20to%20confirm%20my%20date',
+    waBtn: '💬 Confirm date on WhatsApp',
+    asunto: (t) => '✅ Booking confirmed — ' + t,
+    puntoDefault: 'Homún town entrance, Yucatán',
+    horaDefault: '9:00 AM',
+  },
+};
+
+async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio, metodoPago, hora, puntoEncuentro, notas, lang }) {
   if (!email) return;
+  const idioma = (lang === 'en') ? 'en' : 'es';
+  const t = TEXTOS_CONFIRMACION[idioma];
+  const pagoTxt = t.pagoLabel[metodoPago] || t.pagoLabel.transferencia;
+
   const html = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
 <style>
@@ -169,6 +214,7 @@ async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio
   .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #eee;font-size:0.85rem}
   .row:last-child{border-bottom:none}
   .lbl{color:#999}.val{color:#1a3a2a;font-weight:600}
+  .note{background:rgba(10,157,168,0.06);border-radius:10px;padding:12px 14px;font-size:0.82rem;color:#555;margin-bottom:20px}
   .steps{margin-bottom:20px}
   .step{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
   .step:last-child{border-bottom:none}
@@ -182,33 +228,35 @@ async function enviarConfirmacion({ email, nombre, tour, fecha, personas, precio
   <div class="hdr"><h1>Cenotes Homún</h1><p>by TuTravelSolutions</p></div>
   <div class="bod">
     <div class="icon">✅</div>
-    <div class="ttl">¡Reserva confirmada!</div>
-    <div class="sub">Hola ${nombre || 'viajero'}, tu pago fue procesado exitosamente.</div>
+    <div class="ttl">${t.titulo}</div>
+    <div class="sub">${t.saludo(nombre)}</div>
     <div class="card">
-      <div class="row"><span class="lbl">Tour</span><span class="val">${tour}</span></div>
-      <div class="row"><span class="lbl">Fecha solicitada</span><span class="val">${fecha || 'Por confirmar'}</span></div>
-      <div class="row"><span class="lbl">Personas</span><span class="val">${personas}</span></div>
-      <div class="row"><span class="lbl">Total pagado</span><span class="val">$${precio} MXN</span></div>
-      <div class="row"><span class="lbl">Punto de encuentro</span><span class="val">Entrada de Homún, Yucatán</span></div>
-      <div class="row"><span class="lbl">Horario</span><span class="val">9:00 AM</span></div>
+      <div class="row"><span class="lbl">${t.lblTour}</span><span class="val">${tour}</span></div>
+      <div class="row"><span class="lbl">${t.lblFecha}</span><span class="val">${fecha || t.porConfirmar}</span></div>
+      <div class="row"><span class="lbl">${t.lblPersonas}</span><span class="val">${personas}</span></div>
+      <div class="row"><span class="lbl">${t.lblTotal}</span><span class="val">$${precio}</span></div>
+      <div class="row"><span class="lbl">${t.lblPago}</span><span class="val">${pagoTxt}</span></div>
+      <div class="row"><span class="lbl">${t.lblPunto}</span><span class="val">${puntoEncuentro || t.puntoDefault}</span></div>
+      <div class="row"><span class="lbl">${t.lblHorario}</span><span class="val">${hora || t.horaDefault}</span></div>
     </div>
+    ${notas ? `<div class="note">${notas}</div>` : ''}
     <div class="steps">
-      <div class="step"><div class="num">1</div><div class="stxt"><strong>Confirma tu fecha por WhatsApp</strong><span>Escríbenos para agendar el día y hora exacta de tu tour.</span></div></div>
-      <div class="step"><div class="num">2</div><div class="stxt"><strong>Lleva traje de baño y toalla</strong><span>Snorkel y chaleco salvavidas están incluidos en el tour.</span></div></div>
-      <div class="step"><div class="num">3</div><div class="stxt"><strong>Bloqueador solar biodegradable</strong><span>Obligatorio para proteger el ecosistema de los cenotes.</span></div></div>
+      ${t.pasos.map((p, i) => `<div class="step"><div class="num">${i + 1}</div><div class="stxt"><strong>${p[0]}</strong><span>${p[1]}</span></div></div>`).join('')}
     </div>
-    <a class="wa" href="https://wa.me/529994105737?text=Hola%2C%20acabo%20de%20reservar%20y%20quiero%20confirmar%20mi%20fecha">
-      💬 Confirmar fecha por WhatsApp
+    <a class="wa" href="https://wa.me/529994105737?text=${t.waTexto}">
+      ${t.waBtn}
     </a>
   </div>
   <div class="ftr">Cenotes Homún by TuTravelSolutions &nbsp;·&nbsp; +52 999 410 5737<br>cenoteshomun.com &nbsp;·&nbsp; Homún, Yucatán, México</div>
 </div></body></html>`;
 
   try {
-    await enviarEmailSMTP(email, '✅ Reserva confirmada — ' + tour, html);
-    console.log('✅ Email de confirmación enviado a:', email);
+    await enviarEmailSMTP(email, t.asunto(tour), html);
+    console.log('✅ Email de confirmación enviado a:', email, '| idioma:', idioma);
+    return { ok: true };
   } catch(e) {
     console.error('❌ Error enviando email:', e.message);
+    return { ok: false, error: e.message };
   }
 }
 
@@ -677,6 +725,46 @@ app.post('/api/venta-manual', adminAuth, async (req, res) => {
   }
 });
 
+
+// ── API: ENVIAR CONFIRMACIÓN MANUAL (requiere auth) ──────
+// Para reservas cobradas por transferencia o Stripe fuera del checkout web
+app.post('/api/enviar-confirmacion', adminAuth, async (req, res) => {
+  try {
+    const {
+      tour_slug, tour_nombre, cliente, email, fecha_tour, hora,
+      personas, precio, metodo_pago, punto_encuentro, notas, lang,
+    } = req.body;
+
+    if (!email) return res.status(400).json({ error: 'Falta el email del cliente' });
+
+    const tourCat   = CATALOGO[tour_slug];
+    const nombreTour = (tour_nombre && tour_nombre.trim()) || (tourCat && tourCat.nombre) || tour_slug || 'Tour';
+    const personasN  = parseInt(personas) || 1;
+    const precioFinal = (precio !== undefined && precio !== null && precio !== '')
+      ? precio
+      : (tourCat ? tourCat.precio * personasN : 0);
+
+    const resultado = await enviarConfirmacion({
+      email,
+      nombre:         cliente || '',
+      tour:           nombreTour,
+      fecha:          fecha_tour || '',
+      hora:           hora || '',
+      personas:       personasN,
+      precio:         precioFinal,
+      metodoPago:     metodo_pago === 'stripe' ? 'stripe' : 'transferencia',
+      puntoEncuentro: punto_encuentro || '',
+      notas:          notas || '',
+      lang:           lang === 'en' ? 'en' : 'es',
+    });
+
+    if (!resultado.ok) return res.status(500).json({ error: resultado.error });
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Enviar confirmación manual error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // ── API: DIAGNÓSTICO (protegido) ─────────────────────────
 app.get('/api/diagnostico', adminAuth, async (req, res) => {
