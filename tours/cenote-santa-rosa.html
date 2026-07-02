@@ -142,28 +142,7 @@
   <main class="page-main">
 
     <!-- Galería placeholder -->
-        <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
-        <div class="tg-main" id="tg-main-wrap">
-          <img id="tg-main-img" src="/assets/img/tours/santa-rosa-cenote-abierto-nadadores.jpg" alt="Cenote Santa Rosa — foto principal"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
-        </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-cenote-subterraneo-luces-azul.jpg')">
-          <img src="/assets/img/tours/santa-rosa-cenote-subterraneo-luces-azul.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-cenote-abierto-aerial.jpg')">
-          <img src="/assets/img/tours/santa-rosa-cenote-abierto-aerial.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-rosa-entrada-letrero.jpg')">
-          <img src="/assets/img/tours/santa-rosa-entrada-letrero.jpg" alt="Cenote Santa Rosa" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        </div>
-      </div>
-    </div>
+        <div class="ch-gallery" data-imgs="/assets/img/tours/santa-rosa-cenote-abierto-nadadores.jpg,/assets/img/tours/santa-rosa-cenote-subterraneo-luces-azul.jpg,/assets/img/tours/santa-rosa-cenote-abierto-aerial.jpg,/assets/img/tours/santa-rosa-entrada-letrero.jpg"></div>
 
     <!-- Descripción -->
     <div class="tour-section">
@@ -312,16 +291,6 @@ function reservarWhatsApp(tourNombre) {
   if (fecha) msg += '%20Fecha%20tentativa%3A%20' + encodeURIComponent(fecha) + '.';
   if (personas) msg += '%20Somos%20' + encodeURIComponent(personas) + '%20personas.';
   window.open('https://wa.me/529994105737?' + 'text=' + msg, '_blank');
-}
-</script>
-<script>
-function tgSwap(thumb, src) {
-  var main = document.getElementById('tg-main-img');
-  if (!main) return;
-  main.style.opacity = '0';
-  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
-  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
-  thumb.classList.add('active');
 }
 </script>
 </body>
