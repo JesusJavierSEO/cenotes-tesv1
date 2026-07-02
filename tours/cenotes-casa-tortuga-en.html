@@ -54,32 +54,7 @@
 
 <div class="page-layout">
   <main class="page-main">
-    <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
-        <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="Casa Tortuga Basic"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
-        </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Casa Tortuga Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="Casa Tortuga Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg" alt="Casa Tortuga Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg" alt="Casa Tortuga Basic" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        </div>
-      </div>
-    </div>
+    <div class="ch-gallery" data-imgs="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg,/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg,/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg,/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg,/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg"></div>
     </div>
 
     <div class="tour-section">
@@ -216,16 +191,6 @@ function bookWhatsApp(t){var n=document.getElementById("r-name").value||"",d=doc
 <script src="../assets/checkout.js?v=3"></script>
 <script>
 (function(){var o=new IntersectionObserver(function(e){e.forEach(function(e){if(e.isIntersecting){e.target.classList.add("visible");o.unobserve(e.target)}})},{threshold:0.1,rootMargin:"0px 0px -40px 0px"});function i(){document.querySelectorAll(".reveal").forEach(function(e){o.observe(e)})}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",i);else setTimeout(i,100)})();
-</script>
-<script>
-function tgSwap(thumb, src) {
-  var main = document.getElementById('tg-main-img');
-  if (!main) return;
-  main.style.opacity = '0';
-  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
-  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
-  thumb.classList.add('active');
-}
 </script>
 </body>
 </html>
