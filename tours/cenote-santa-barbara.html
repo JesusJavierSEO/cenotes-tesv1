@@ -142,32 +142,7 @@
   <main class="page-main">
 
     <!-- Galería placeholder -->
-        <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
-        <div class="tg-main" id="tg-main-wrap">
-          <img id="tg-main-img" src="/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp" alt="Cenote Santa Bárbara Básico — foto principal"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
-        </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-arriba.webp')">
-          <img src="/assets/img/tours/cenote-santa-barbara-vista-arriba.webp" alt="Cenote Santa Bárbara Básico" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp')">
-          <img src="/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp" alt="Cenote Santa Bárbara Básico" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp')">
-          <img src="/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp" alt="Cenote Santa Bárbara Básico" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp')">
-          <img src="/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp" alt="Cenote Santa Bárbara Básico" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          <div class="tg-count">+4</div>
-        </div>
-        </div>
-      </div>
-    </div>
+        <div class="ch-gallery" data-imgs="/assets/img/tours/cenote-santa-barbara-cenote-abierto-agua-cristalina.webp,/assets/img/tours/cenote-santa-barbara-vista-arriba.webp,/assets/img/tours/cenote-santa-barbara-entrada-cenote-cerrado.webp,/assets/img/tours/cenote-santa-barbara-vista-interior-plano-hacia-apertura-natural.webp,/assets/img/tours/cenote-santa-barbara-vista-interior-cerrado.webp"></div>
 
     <!-- Descripción -->
     <div class="tour-section">
@@ -322,15 +297,5 @@ function reservarWhatsApp(tourNombre) {
 }
 </script>
 
-<script>
-function tgSwap(thumb, src) {
-  var main = document.getElementById('tg-main-img');
-  if (!main) return;
-  main.style.opacity = '0';
-  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
-  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
-  thumb.classList.add('active');
-}
-</script>
 </body>
 </html>
