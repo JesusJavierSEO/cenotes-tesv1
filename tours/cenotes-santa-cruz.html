@@ -142,26 +142,7 @@
   <main class="page-main">
 
     <!-- Galería placeholder -->
-        <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
-        <div class="tg-main" id="tg-main-wrap">
-          <img id="tg-main-img" src="/assets/img/tours/santa-cruz-real-cueva-entrada-turquesa.webp" alt="Cenotes Santa Cruz Hacienda"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
-        </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-estalactitas-cueva.webp')"><img src="/assets/img/tours/santa-cruz-real-estalactitas-cueva.webp" alt="Estalactitas cenote Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-entrada-mural-maya.webp')"><img src="/assets/img/tours/santa-cruz-real-entrada-mural-maya.webp" alt="Mural maya entrada Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-cenote-rio-interior.webp')"><img src="/assets/img/tours/santa-cruz-real-cenote-rio-interior.webp" alt="Río interior cenote Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-cueva-luz-interior.webp')"><img src="/assets/img/tours/santa-cruz-real-cueva-luz-interior.webp" alt="Luz interior cueva Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-cenote-vista-arriba.webp')"><img src="/assets/img/tours/santa-cruz-real-cenote-vista-arriba.webp" alt="Vista desde arriba cenote Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-real-alberca-exterior.webp')"><img src="/assets/img/tours/santa-cruz-real-alberca-exterior.webp" alt="Alberca exterior Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-cueva-estalactitas-luces.jpg')"><img src="/assets/img/tours/santa-cruz-cueva-estalactitas-luces.jpg" alt="Cueva con estalactitas e iluminación Santa Cruz" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg')"><img src="/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg" alt="Puente colgante colorido Santa Cruz Homún" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-restaurante-palapa.jpg')"><img src="/assets/img/tours/santa-cruz-restaurante-palapa.jpg" alt="Restaurante palapa buffet Hacienda Kampepem" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        <div class="tg-thumb" onclick="tgSwap(this, '/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg')"><img src="/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg" alt="Preparación tirolesa Santa Cruz Homún" loading="lazy" style="width:100%;height:100%;object-fit:cover"></div>
-        </div>
-      </div>
-    </div>
+        <div class="ch-gallery" data-imgs="/assets/img/tours/santa-cruz-real-cueva-entrada-turquesa.webp,/assets/img/tours/santa-cruz-real-estalactitas-cueva.webp,/assets/img/tours/santa-cruz-real-entrada-mural-maya.webp,/assets/img/tours/santa-cruz-real-cenote-rio-interior.webp,/assets/img/tours/santa-cruz-real-cueva-luz-interior.webp,/assets/img/tours/santa-cruz-real-cenote-vista-arriba.webp,/assets/img/tours/santa-cruz-real-alberca-exterior.webp,/assets/img/tours/santa-cruz-cueva-estalactitas-luces.jpg,/assets/img/tours/santa-cruz-puente-colgante-colorido.jpg,/assets/img/tours/santa-cruz-restaurante-palapa.jpg,/assets/img/tours/santa-cruz-tirolesa-preparacion.jpg"></div>
 
     <!-- Descripción -->
     <div class="tour-section">
@@ -320,16 +301,6 @@ function reservarWhatsApp(tourNombre) {
   if (fecha) msg += '%20Fecha%20tentativa%3A%20' + encodeURIComponent(fecha) + '.';
   if (personas) msg += '%20Somos%20' + encodeURIComponent(personas) + '%20personas.';
   window.open('https://wa.me/529994105737?' + 'text=' + msg, '_blank');
-}
-</script>
-<script>
-function tgSwap(thumb, src) {
-  var main = document.getElementById('tg-main-img');
-  if (!main) return;
-  main.style.opacity = '0';
-  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
-  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
-  thumb.classList.add('active');
 }
 </script>
 </body>
