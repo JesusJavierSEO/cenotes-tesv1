@@ -138,32 +138,7 @@
 </section>
 <div class="page-layout">
   <main class="page-main">
-        <div class="tour-gallery-wrap">
-      <div class="tour-gallery-grid" style="display:grid">
-        <div class="tg-main">
-          <img id="tg-main-img" src="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg" alt="Cenotes Casa Tortuga"
-               loading="eager" style="width:100%;height:100%;object-fit:cover;border-radius:16px 0 0 16px;transition:opacity 0.3s">
-        </div>
-        <div class="tg-thumbs">
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Cenotes Casa Tortuga" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg" alt="Cenotes Casa Tortuga" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg" alt="Cenotes Casa Tortuga" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg" alt="Cenotes Casa Tortuga" loading="lazy" style="width:100%;height:100%;object-fit:cover">
-          
-        </div>
-        </div>
-      </div>
-    </div>
+        <div class="ch-gallery" data-imgs="/assets/img/tours/casa-tortuga-entrada-letrero-cenote.jpg,/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg,/assets/img/tours/casa-tortuga-cenote-subterraneo-estalactitas.jpg,/assets/img/tours/casa-tortuga-cenote-rio-puente.jpg,/assets/img/tours/casa-tortuga-cenote-escaleras-turquesa.jpg"></div>
     <div class="tour-section"><div class="tour-section-title">Sobre este tour</div><p class="tour-desc">5 cenotes únicos en un solo tour:
 
 • 2 cenotes subterráneos — experiencia única bajo la tierra
@@ -259,16 +234,6 @@ Cenotes Casa Tortuga es uno de los complejos de cenotes más completos y variado
 <script src="../assets/checkout.js?v=3"></script>
 <script>
 function reservarWhatsApp(t){var n=document.getElementById("r-nombre").value||"",f=document.getElementById("r-fecha").value||"",p=document.getElementById("r-personas").value||"";var m="Hola%2C%20me%20interesa%20reservar%20%22"+encodeURIComponent(t)+"%22.";if(n)m+="%20Mi%20nombre%20es%20"+encodeURIComponent(n)+".";if(f)m+="%20Fecha%3A%20"+encodeURIComponent(f)+".";if(p)m+="%20Somos%20"+encodeURIComponent(p)+"%20personas.";window.open("https://wa.me/529994105737?text="+m,"_blank");}
-</script>
-<script>
-function tgSwap(thumb, src) {
-  var main = document.getElementById('tg-main-img');
-  if (!main) return;
-  main.style.opacity = '0';
-  setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 150);
-  document.querySelectorAll('.tg-thumb').forEach(function(t) { t.classList.remove('active'); });
-  thumb.classList.add('active');
-}
 </script>
 </body>
 </html>
