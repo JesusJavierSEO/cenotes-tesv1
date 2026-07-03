@@ -1,0 +1,26 @@
+# Cenotes Homún — llms.txt
+# https://cenoteshomun.com
+
+> Tours a cenotes en Homún, Yucatán, México. Empresa de turismo local especializada en tours de cenotes, cuatrimotos y paquetes combinados para turistas nacionales e internacionales.
+
+## Sitio
+
+- Idiomas: Español, Inglés
+- Moneda: MXN
+- Ubicación: Homún, Yucatán, México
+
+## Tours disponibles
+
+- Cenotes Santa Cruz Hacienda (tour principal)
+- Cenotes Santa Cruz + Cuatrimotos
+- Cenotes Casa Tortuga (Silver, Gold)
+- Cenote Santa Bárbara
+- Cenote Santa Rosa
+- Tours Off Road
+- Catamaran Isla Mujeres
+
+## Contacto
+
+- WhatsApp: +52 999 410 5737
+- Email: contacto@cenoteshomun.com
+- Web: https://cenoteshomun.com
