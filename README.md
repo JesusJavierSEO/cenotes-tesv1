@@ -35,4 +35,3 @@ cenotes-homun/
 - Los cenotes mencionados (Dzonbakal, Chukum, X-Batún, Chicontepec) son reales y están en Homún
 - Confirmar con tu socio cuáles cenotes están disponibles en sus paquetes
 - El número de WhatsApp y precios son lo único que falta para tener el sitio 100% operativo
-
