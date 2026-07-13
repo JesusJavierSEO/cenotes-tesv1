@@ -41,7 +41,7 @@
 <body>
 <div id="nav-placeholder"></div>
 <section class="page-hero" style="position:relative">
-  <img src="/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg" alt="Cenotes Casa Tortuga Tulum — complejo ecoturístico" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.28"><!-- tg-hero-bg -->
+  <img class="c-hero-bgimg" src="/assets/img/tours/casa-tortuga-area-descanso-camastros.jpg" alt="Cenotes Casa Tortuga Tulum — complejo ecoturístico" loading="eager"><!-- tg-hero-bg -->
   <div class="page-hero-inner">
     <nav class="breadcrumb">
       <a href="/en.html">Home</a><span>›</span>
@@ -68,19 +68,19 @@
         </div>
         <div class="tg-thumbs">
         <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <img class="u-img-cover" src="/assets/img/tours/casa-tortuga-cenote-abierto-aguas-cristalinas.jpg" alt="Casa Tortuga Silver" loading="lazy">
           
         </div>
         <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <img class="u-img-cover" src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras-atardecer.jpg" alt="Casa Tortuga Silver" loading="lazy">
           
         </div>
         <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <img class="u-img-cover" src="/assets/img/tours/casa-tortuga-cenote-abierto-palmeras.jpg" alt="Casa Tortuga Silver" loading="lazy">
           
         </div>
         <div class="tg-thumb" onclick="tgSwap(this,'/assets/img/tours/casa-tortuga-cenote-subterraneo-azul.jpg')">
-          <img src="/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg" alt="Casa Tortuga Silver" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+          <img class="u-img-cover" src="/assets/img/tours/casa-tortuga-grupo-chalecos-tour.jpg" alt="Casa Tortuga Silver" loading="lazy">
           
         </div>
         </div>
@@ -111,7 +111,7 @@ Perfect if you want a full day at the cenotes with added comfort — sun lounger
 <div class="incluye-item">Drinks</div>
 <div class="incluye-item">Snorkel gear</div>
 <div class="incluye-item">Life vest</div></div></div>
-    <div class="tour-section"><div class="tour-section-title">Activities</div><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="tour-tag">💧 5 cenotes</span>
+    <div class="tour-section"><div class="tour-section-title">Activities</div><div class="u-flex-wrap-8"><span class="tour-tag">💧 5 cenotes</span>
 <span class="tour-tag">🌊 2 underground</span>
 <span class="tour-tag">🏞 River-style</span>
 <span class="tour-tag">🛌 Sun loungers</span>
@@ -134,7 +134,7 @@ Perfect if you want a full day at the cenotes with added comfort — sun lounger
           </div>
         </div>
 
-        <div class="tour-section"><div class="tour-section-title">Important notes</div><p style="font-size:0.9rem;color:#555;line-height:1.7">Cancellations within the first 6 hours after payment: full refund.</p></div>
+        <div class="tour-section"><div class="tour-section-title">Important notes</div><p class="u-text-body">Cancellations within the first 6 hours after payment: full refund.</p></div>
     <div class="tour-section"><div class="tour-section-title">FAQ</div>
       <div class="faq-section">
         <div class="faq-item-tour"><div class="faq-q">How do I book?</div><div class="faq-a">Via WhatsApp — press the booking button, send your message and we reply in minutes.</div></div>
@@ -155,17 +155,17 @@ Perfect if you want a full day at the cenotes with added comfort — sun lounger
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
-            <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
+            <label class="c-rsv-label">Adults</label>
             <input type="number" class="reserve-input" id="r-adultos" placeholder="0" min="0" max="100" value="1" oninput="actualizarTotal()">
           </div>
           
           <!-- Total -->
-          <div style="background:var(--gris);border-radius:10px;padding:12px 14px;border:1px solid var(--gris-medio)">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:0.78rem;color:#aaa">Total</span>
-              <span id="checkout-total" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--selva);font-weight:700">$1,000 MXN</span>
+          <div class="c-rsv-box">
+            <div class="u-flex-between">
+              <span class="c-rsv-note">Total</span>
+              <span class="c-rsv-total" id="checkout-total">$1,000 MXN</span>
             </div>
-            <div id="checkout-detalle" style="font-size:0.72rem;color:#bbb;margin-top:2px;text-align:right">1 adult × $1,000</div>
+            <div class="c-rsv-breakdown" id="checkout-detalle">1 adult × $1,000</div>
           </div>
           <!-- Pay with card -->
           <button id="btn-pagar" class="reserve-btn-wa"
@@ -189,28 +189,28 @@ Perfect if you want a full day at the cenotes with added comfort — sun lounger
 </div>
 
 <!-- Related tours -->
-<section style="background:#f8f7f4;padding:48px 24px">
-  <div style="max-width:900px;margin:0 auto">
-    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a2a;text-align:center;margin:0 0 6px">You might also like</h2>
-    <p style="text-align:center;color:#777;margin:0 0 28px;font-size:0.9rem">Other available tours</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
-      <a href="cenotes-casa-tortuga-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">🐢</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Casa Tortuga Cenotes</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $750 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+<section class="c-rel-section">
+  <div class="u-wrap-900">
+    <h2 class="c-rel-title">You might also like</h2>
+    <p class="c-rel-subtitle">Other available tours</p>
+    <div class="c-rel-grid">
+      <a class="c-rel-card" href="cenotes-casa-tortuga-en.html">
+        <div class="c-rel-icon">🐢</div>
+        <div class="c-rel-name">Casa Tortuga Cenotes</div>
+        <div class="c-rel-price">from $750 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
-      <a href="cenotes-casa-tortuga-gold-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">⭐</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Casa Tortuga Gold</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $1,650 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+      <a class="c-rel-card" href="cenotes-casa-tortuga-gold-en.html">
+        <div class="c-rel-icon">⭐</div>
+        <div class="c-rel-name">Casa Tortuga Gold</div>
+        <div class="c-rel-price">from $1,650 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
-      <a href="off-road-casa-tortugas-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">🏕</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Off Road Casa Tortuga</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $1,750 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+      <a class="c-rel-card" href="off-road-casa-tortugas-en.html">
+        <div class="c-rel-icon">🏕</div>
+        <div class="c-rel-name">Off Road Casa Tortuga</div>
+        <div class="c-rel-price">from $1,750 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
     </div>
   </div>
