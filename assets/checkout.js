@@ -11,7 +11,7 @@ const CHECKOUT_CONFIG = {
 const TOUR_PRECIOS = {
   'cenote-santa-barbara':                         { precio: 575,  precio_nino: 575,  nombre: 'Cenote Santa Bárbara Básico' },
   'cenote-santa-rosa':                            { precio: 315,  precio_nino: null, nombre: 'Cenote Santa Rosa' },
-  'cenotes-santa-cruz':                           { precio: 600,  precio_nino: 450,  nombre: 'Cenotes Santa Cruz — Paquete Hacienda' },
+  'cenotes-santa-cruz':                           { precio: 600,  precio_nino: 600,  nombre: 'Cenotes Santa Cruz — Paquete Hacienda' },
   'cenote-santa-cruz-cuatrimotos':                { precio: 900,  precio_nino: null, nombre: 'Cenote Santa Cruz + Cuatrimotos' },
   'cenotes-casa-tortuga':                         { precio: 750,  precio_nino: null, nombre: 'Cenotes Casa Tortuga' },
   'casa-tortuga-silver':                          { precio: 1000, precio_nino: null, nombre: 'Casa Tortuga — Paquete Silver' },
