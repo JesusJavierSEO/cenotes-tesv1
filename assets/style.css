@@ -717,3 +717,34 @@ html { overflow-x: hidden; }
   .page-hero { padding: 64px 20px 48px; }
   .page-hero h1 { font-size: clamp(1.6rem, 6vw, 2.4rem); }
 }
+
+
+/* ═══════════════════════════════════════════════
+   UTILIDADES Y COMPONENTES (refactor estilos inline)
+   ═══════════════════════════════════════════════ */
+.c-rel-card { background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block; }
+.c-rel-icon { font-size:2rem;margin-bottom:8px; }
+.c-rel-name { font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3; }
+.c-rel-price { font-size:0.82rem;color:#888;margin-bottom:10px; }
+.c-rel-cta { font-size:0.8rem;font-weight:600;color:#0a9da8; }
+.c-rel-section { background:#f8f7f4;padding:48px 24px; }
+.u-wrap-900 { max-width:900px;margin:0 auto; }
+.c-rel-title { font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a2a;text-align:center;margin:0 0 6px; }
+.c-rel-subtitle { text-align:center;color:#777;margin:0 0 28px;font-size:0.9rem; }
+.c-rel-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px; }
+.c-rsv-label { font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px; }
+.c-rsv-box { background:var(--gris);border-radius:10px;padding:12px 14px;border:1px solid var(--gris-medio); }
+.u-flex-between { display:flex;justify-content:space-between;align-items:center; }
+.c-rsv-note { font-size:0.78rem;color:#aaa; }
+.c-rsv-total { font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--selva);font-weight:700; }
+.c-rsv-breakdown { font-size:0.72rem;color:#bbb;margin-top:2px;text-align:right; }
+.c-hero-bgimg { position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.28; }
+.u-img-cover { width:100%;height:100%;object-fit:cover; }
+.u-text-body { font-size:0.9rem;color:#555;line-height:1.7; }
+.u-text-article { font-size:0.92rem;color:#555;line-height:1.85;margin-bottom:12px; }
+.u-flex-wrap-8 { display:flex;flex-wrap:wrap;gap:8px; }
+.u-fs-13 { font-size:1.3rem; }
+.u-fs-11 { font-size:1.1rem; }
+.u-fs-10 { font-size:1rem; }
+.u-text-dim { font-size:0.78rem;color:#888; }
+.u-text-ccc { color:#ccc; }
