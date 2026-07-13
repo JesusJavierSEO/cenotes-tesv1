@@ -42,7 +42,7 @@
 <div id="nav-placeholder"></div>
 
 <section class="page-hero" style="position:relative">
-  <img src="/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg" alt="Santa Cruz Cenotes Homún" loading="eager" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0.28"><!-- tg-hero-bg -->
+  <img class="c-hero-bgimg" src="/assets/img/tours/santa-cruz-cenote-subterraneo-turquesa.jpg" alt="Santa Cruz Cenotes Homún" loading="eager"><!-- tg-hero-bg -->
   <div class="page-hero-inner">
     <nav class="breadcrumb">
       <a href="/en.html">Home</a><span>›</span>
@@ -105,7 +105,7 @@ Meeting point: Leaving from the exit of Homún, Yucatán.</p>
 
     <div class="tour-section">
       <div class="tour-section-title">Activities</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px"><span class="tour-tag">🌊 4 cenotes</span>
+      <div class="u-flex-wrap-8"><span class="tour-tag">🌊 4 cenotes</span>
 <span class="tour-tag">🏛 Hacienda</span>
 <span class="tour-tag">🍽 Buffet</span>
 <span class="tour-tag">🎯 Zip-line</span>
@@ -131,7 +131,7 @@ Meeting point: Leaving from the exit of Homún, Yucatán.</p>
 
         <div class="tour-section">
       <div class="tour-section-title">What to bring</div>
-      <p style="font-size:0.9rem;color:#555;line-height:1.7">Comfortable clothes, extra cash for drinks.</p>
+      <p class="u-text-body">Comfortable clothes, extra cash for drinks.</p>
     </div>
 
     
@@ -159,20 +159,20 @@ Meeting point: Leaving from the exit of Homún, Yucatán.</p>
           <input type="text" class="reserve-input" id="r-nombre" placeholder="Your name">
           <input type="text" class="reserve-input" id="r-fecha" placeholder="Preferred date">
           <div>
-            <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Adults</label>
+            <label class="c-rsv-label">Adults</label>
             <input type="number" class="reserve-input" id="r-adultos" placeholder="0" min="0" max="100" value="1" oninput="actualizarTotal()">
           </div>
           <div id="r-ninos-group">
-            <label style="font-size:0.75rem;color:#aaa;display:block;margin-bottom:4px">Children (under 12)</label>
+            <label class="c-rsv-label">Children (under 12)</label>
             <input type="number" class="reserve-input" id="r-ninos" placeholder="0" min="0" max="50" value="0" oninput="actualizarTotal()">
           </div>
           <!-- Total -->
-          <div style="background:var(--gris);border-radius:10px;padding:12px 14px;border:1px solid var(--gris-medio)">
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:0.78rem;color:#aaa">Total</span>
-              <span id="checkout-total" style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--selva);font-weight:700">$600 MXN</span>
+          <div class="c-rsv-box">
+            <div class="u-flex-between">
+              <span class="c-rsv-note">Total</span>
+              <span class="c-rsv-total" id="checkout-total">$600 MXN</span>
             </div>
-            <div id="checkout-detalle" style="font-size:0.72rem;color:#bbb;margin-top:2px;text-align:right">1 adult × $600</div>
+            <div class="c-rsv-breakdown" id="checkout-detalle">1 adult × $600</div>
           </div>
           <!-- Pay with card -->
           <button id="btn-pagar" class="reserve-btn-wa"
@@ -200,28 +200,28 @@ function bookWhatsApp(t){var n=document.getElementById("r-name").value||"",d=doc
 </script>
 
 <!-- Related tours -->
-<section style="background:#f8f7f4;padding:48px 24px">
-  <div style="max-width:900px;margin:0 auto">
-    <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:#1a3a2a;text-align:center;margin:0 0 6px">You might also like</h2>
-    <p style="text-align:center;color:#777;margin:0 0 28px;font-size:0.9rem">Other available tours</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
-      <a href="cenote-santa-cruz-cuatrimotos-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">🏍</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Santa Cruz + ATVs</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $900 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+<section class="c-rel-section">
+  <div class="u-wrap-900">
+    <h2 class="c-rel-title">You might also like</h2>
+    <p class="c-rel-subtitle">Other available tours</p>
+    <div class="c-rel-grid">
+      <a class="c-rel-card" href="cenote-santa-cruz-cuatrimotos-en.html">
+        <div class="c-rel-icon">🏍</div>
+        <div class="c-rel-name">Santa Cruz + ATVs</div>
+        <div class="c-rel-price">from $900 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
-      <a href="cenote-santa-barbara-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">⛪</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Santa Bárbara Cenote</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $575 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+      <a class="c-rel-card" href="cenote-santa-barbara-en.html">
+        <div class="c-rel-icon">⛪</div>
+        <div class="c-rel-name">Santa Bárbara Cenote</div>
+        <div class="c-rel-price">from $575 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
-      <a href="cenote-santa-rosa-en.html" style="background:white;border-radius:14px;padding:20px;text-decoration:none;border:1.5px solid #e8e4dc;display:block">
-        <div style="font-size:2rem;margin-bottom:8px">🌸</div>
-        <div style="font-family:'Playfair Display',serif;font-size:0.95rem;color:#1a3a2a;font-weight:700;margin-bottom:4px;line-height:1.3">Santa Rosa Cenote</div>
-        <div style="font-size:0.82rem;color:#888;margin-bottom:10px">from $315 MXN/person</div>
-        <span style="font-size:0.8rem;font-weight:600;color:#0a9da8">View tour →</span>
+      <a class="c-rel-card" href="cenote-santa-rosa-en.html">
+        <div class="c-rel-icon">🌸</div>
+        <div class="c-rel-name">Santa Rosa Cenote</div>
+        <div class="c-rel-price">from $315 MXN/person</div>
+        <span class="c-rel-cta">View tour →</span>
       </a>
     </div>
   </div>
