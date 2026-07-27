@@ -480,67 +480,13 @@ app.post('/api/admin-login', (req, res) => {
   }
 });
 
-// ── API: CHECKOUT ─────────────────────────────────────────
-app.post('/api/checkout', async (req, res) => {
-  try {
-    const { tour_slug, tour_nombre, line_items, cliente, fecha, success_url, cancel_url, lang, ref } = req.body;
-
-    if (!line_items || line_items.length === 0)
-      return res.status(400).json({ error: 'Sin artículos' });
-
-    const totalPersonas = line_items.reduce((a, i) => a + (parseInt(i.cantidad) || 0), 0);
-    if (totalPersonas < 1) return res.status(400).json({ error: 'Personas inválido' });
-    if (totalPersonas > 30) return res.status(400).json({ error: 'Máximo 30 personas por reserva' });
-
-    // Validar que los precios no sean manipulados desde el cliente
-    // Los precios deben venir del catálogo del servidor, no del cliente
-    const tourData = CATALOGO[tour_slug];
-    if (tourData) {
-      const expectedMin = tourData.precio * 0.9; // 10% de tolerancia por niños
-      const totalCalculado = line_items.reduce((a, i) => a + (parseInt(i.cantidad) || 0) * (parseInt(i.precio_unitario) || 0), 0);
-      if (totalCalculado < expectedMin * totalPersonas * 0.5) {
-        console.warn('⚠ Posible manipulación de precios:', { tour_slug, totalCalculado, esperado: tourData.precio });
-        return res.status(400).json({ error: 'Precio inválido' });
-      }
-    }
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: line_items.map(i => ({
-        price_data: {
-          currency: 'mxn',
-          product_data: { name: i.nombre },
-          unit_amount: i.precio_unitario * 100,
-        },
-        quantity: i.cantidad,
-      })),
-      mode: 'payment',
-      customer_email: req.body.email || undefined,  // Stripe envía recibo automático
-      phone_number_collection: { enabled: true },
-      success_url: success_url || 'https://cenoteshomun.com/gracias.html',
-      cancel_url:  cancel_url  || 'https://cenoteshomun.com/',
-      metadata: {
-        tour_slug: tour_slug || '',
-        tour:      tour_nombre || '',
-        cliente:   cliente || '',
-        fecha:     fecha || '',
-        personas:  totalPersonas.toString(),
-        vendedor:  ref || 'jesus',  // ventas web = Jesús por defecto
-        canal:     ref ? 'whatsapp' : 'web',
-        email:     req.body.email || '',
-        telefono:  req.body.telefono || '',
-      },
-      payment_intent_data: {
-        description: `${tour_nombre} — ${totalPersonas} persona(s)`,
-      },
-      locale: lang === 'en' ? 'en' : 'es',
-    });
-
-    res.json({ url: session.url });
-  } catch (err) {
-    console.error('Checkout error:', err.message);
-    res.status(500).json({ error: err.message });
-  }
+// ── API: CHECKOUT — DESACTIVADO ───────────────────────────
+// Pago en linea retirado: toda venta se hace por WhatsApp con
+// transferencia bancaria directa. Endpoint deshabilitado para que
+// no pueda crearse ninguna sesion de pago.
+// El codigo original esta en el historial de git si se necesita restaurar.
+app.post('/api/checkout', (req, res) => {
+  res.status(410).json({ error: 'Pago en linea no disponible. Reserva por WhatsApp.' });
 });
 
 // ── API: GENERAR ENLACE (requiere auth) ────────────────────
