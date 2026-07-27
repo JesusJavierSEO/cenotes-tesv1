@@ -590,7 +590,6 @@ function crearModal() {
             <span class="c-rsv-total" id="ct-total"></span>
           </div>
         </div>
-        <button class="reserve-btn-wa" style="background:var(--selva);box-shadow:0 3px 12px rgba(26,58,42,0.3)" onclick="pagarModal()">💳 Pagar con tarjeta</button>
         <button class="reserve-btn-form" onclick="cerrarModal()">Cancelar</button>
       </div>
     </div>`;
@@ -607,39 +606,7 @@ function actualizarModalTotal() {
   document.getElementById('ct-total').textContent = '$' + total.toLocaleString('es-MX') + ' MXN';
 }
 
-async function pagarModal() {
-  if (!_paqueteActivo) return;
-  var adultos = parseInt(document.getElementById('ct-adultos').value) || 0;
-  var nombre  = document.getElementById('ct-nombre').value.trim();
-  var fecha   = document.getElementById('ct-fecha').value;
-  if (adultos < 1) { alert('Por favor indica el número de personas'); return; }
-
-  var btn = document.querySelector('#ct-modal .reserve-btn-wa');
-  btn.disabled = true; btn.textContent = 'Procesando...';
-
-  try {
-    var res = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        tour_slug:   _paqueteActivo.slug,
-        tour_nombre: _paqueteActivo.nombre,
-        line_items:  [{nombre: _paqueteActivo.nombre + ' — Adulto', precio_unitario: _paqueteActivo.precio, cantidad: adultos}],
-        cliente:     nombre,
-        fecha:       fecha,
-        success_url: 'https://cenoteshomun.com/gracias.html?tour=' + encodeURIComponent(_paqueteActivo.nombre),
-        cancel_url:  window.location.href,
-        lang:        'es',
-      })
-    });
-    var data = await res.json();
-    if (data.url) window.location.href = data.url;
-    else throw new Error(data.error || 'Sin URL');
-  } catch(err) {
-    btn.disabled = false; btn.textContent = '💳 Pagar con tarjeta';
-    alert('Error: ' + err.message);
-  }
-}
+async
 
 function cerrarModal() {
   var m = document.getElementById('ct-modal');
