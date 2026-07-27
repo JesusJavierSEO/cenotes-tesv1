@@ -1,12 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    Cenotes Homún — checkout.js
-   Funciones de pago, WhatsApp y cálculo de totales
+   Reservas por WhatsApp y cálculo de totales
 ═══════════════════════════════════════════════════════════ */
-
-const CHECKOUT_CONFIG = {
-  apiUrl:     '/api/checkout',
-  successUrl: 'https://cenoteshomun.com/gracias.html',
-};
 
 const TOUR_PRECIOS = {
   'cenote-santa-barbara':                         { precio: 575,  precio_nino: 575,  nombre: 'Cenote Santa Bárbara Básico' },
