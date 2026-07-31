@@ -85,6 +85,7 @@
       { label: "Guía de cenotes", href: "/guia-cenotes-homun.html" },
       { label: "Cómo llegar",     href: "/como-llegar.html" },
       { label: "FAQ",             href: "/faq.html" },
+      { label: "Política de reembolsos", href: "/politica-reembolsos.html" },
       { label: "Inicio",          href: "/" },
     ],
     // Footer — columna de destinos EN
@@ -99,6 +100,7 @@
       { label: "Cenotes guide",   href: "/cenotes-guide-homun.html" },
       { label: "Getting there",   href: "/getting-there.html" },
       { label: "FAQ",             href: "/faq.html" },
+      { label: "Refund policy",   href: "/politica-reembolsos.html" },
       { label: "Home",            href: "/en.html" },
     ],
   };
