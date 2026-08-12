@@ -100,7 +100,7 @@
       { label: "Cenotes guide",   href: "/cenotes-guide-homun.html" },
       { label: "Getting there",   href: "/getting-there.html" },
       { label: "FAQ",             href: "/faq.html" },
-      { label: "Refund policy",   href: "/politica-reembolsos.html" },
+      { label: "Refund policy",   href: "/refund-policy.html" },
       { label: "Home",            href: "/en.html" },
     ],
   };
