@@ -204,7 +204,7 @@
           <div class="pkg-row"><span class="pkg-check no">—</span><span class="u-text-ccc">ATV ride</span></div>
         </div>
         <div class="pkg-footer">
-          <button class="pkg-btn-reservar" onclick="bookPackage('cenotes-casa-tortuga', 750, 'Casa Tortuga Basic')">💳 Book now</button>
+          <button class="pkg-btn-reservar" onclick="bookPackage('cenotes-casa-tortuga', 45, 'Casa Tortuga Basic')">💳 Book now</button>
           <button class="pkg-btn-wa" onclick="waBook('Casa Tortuga Basic')">💬 WhatsApp</button>
         </div>
       </div>
@@ -233,7 +233,7 @@
           <div class="pkg-row"><span class="pkg-check no">—</span><span class="u-text-ccc">ATV ride</span></div>
         </div>
         <div class="pkg-footer">
-          <button class="pkg-btn-reservar" onclick="bookPackage('casa-tortuga-silver', 1000, 'Casa Tortuga Silver')">💳 Book now</button>
+          <button class="pkg-btn-reservar" onclick="bookPackage('casa-tortuga-silver', 59, 'Casa Tortuga Silver')">💳 Book now</button>
           <button class="pkg-btn-wa" onclick="waBook('Casa Tortuga Silver')">💬 WhatsApp</button>
         </div>
       </div>
@@ -261,7 +261,7 @@
           <div class="pkg-row"><span class="pkg-check no">—</span><span class="u-text-ccc">ATV ride</span></div>
         </div>
         <div class="pkg-footer">
-          <button class="pkg-btn-reservar" onclick="bookPackage('cenotes-casa-tortuga-gold', 1650, 'Casa Tortuga GOLD')">💳 Book now</button>
+          <button class="pkg-btn-reservar" onclick="bookPackage('cenotes-casa-tortuga-gold', 99, 'Casa Tortuga GOLD')">💳 Book now</button>
           <button class="pkg-btn-wa" onclick="waBook('Casa Tortuga GOLD')">💬 WhatsApp</button>
         </div>
       </div>
@@ -289,7 +289,7 @@
           <div class="pkg-row"><span class="pkg-check atv">🏍</span><span><strong>Shared ATV ride</strong></span></div>
         </div>
         <div class="pkg-footer">
-          <button class="pkg-btn-reservar" style="background:#c05621" onclick="bookPackage('off-road-casa-tortugas', 1750, 'Off Road Casa Tortugas')">💳 Book now</button>
+          <button class="pkg-btn-reservar" style="background:#c05621" onclick="bookPackage('off-road-casa-tortugas', 105, 'Off Road Casa Tortugas')">💳 Book now</button>
           <button class="pkg-btn-wa" onclick="waBook('Off Road Casa Tortugas')">💬 WhatsApp</button>
         </div>
       </div>
@@ -389,7 +389,7 @@ function bookPackage(slug, precio, nombre) {
   if (!m) buildModal();
   document.getElementById('ct-modal').style.display = 'flex';
   document.getElementById('ct-modal-nombre').textContent = nombre;
-  document.getElementById('ct-modal-precio').textContent = '$' + precio.toLocaleString('en-US') + ' MXN';
+  document.getElementById('ct-modal-precio').textContent = '$' + precio.toLocaleString('en-US') + ' USD';
   document.getElementById('ct-adultos').value = 1;
   updateTotal();
 }
@@ -429,7 +429,7 @@ function buildModal() {
 function updateTotal() {
   if (!_pkg) return;
   var a = parseInt(document.getElementById('ct-adultos').value) || 0;
-  document.getElementById('ct-total').textContent = '$' + (a * _pkg.precio).toLocaleString('en-US') + ' MXN';
+  document.getElementById('ct-total').textContent = '$' + (a * _pkg.precio).toLocaleString('en-US') + ' USD';
 }
 
 async
