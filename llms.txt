@@ -1,26 +1,45 @@
 # Cenotes Homún — llms.txt
 # https://cenoteshomun.com
 
-> Tours a cenotes en Homún, Yucatán, México. Empresa de turismo local especializada en tours de cenotes, cuatrimotos y paquetes combinados para turistas nacionales e internacionales.
+> Local tour operator in Homún, Yucatán, Mexico. Cenote tours, ATV adventures and day trips
+> across the Yucatán Peninsula for international and domestic travelers.
+> Tour operador local en Homún, Yucatán, México.
 
-## Sitio
+## Languages / Idiomas
+- English: https://cenoteshomun.com/en.html — prices in USD
+- Español: https://cenoteshomun.com/ — precios en MXN
 
-- Idiomas: Español, Inglés
-- Moneda: MXN
-- Ubicación: Homún, Yucatán, México
+## Tours and prices (USD, English site)
 
-## Tours disponibles
+### Homún, Yucatán — 1 hour from Mérida
+- Cenote Santa Rosa — $19 USD/person
+- Cenote Santa Bárbara — $35 USD/person
+- Santa Cruz Cenotes (Hacienda tour) — $36 USD/person
+- Santa Cruz Cenotes + ATV — $55 USD/person
 
-- Cenotes Santa Cruz Hacienda (tour principal)
-- Cenotes Santa Cruz + Cuatrimotos
-- Cenotes Casa Tortuga (Silver, Gold)
-- Cenote Santa Bárbara
-- Cenote Santa Rosa
-- Tours Off Road
-- Catamaran Isla Mujeres
+### Tulum, Quintana Roo
+- Cenotes Casa Tortuga — $45 USD/person
+- Casa Tortuga Silver — $59 USD/person
+- Casa Tortuga Gold — $99 USD/person
+- Off Road + Casa Tortuga — $105 USD/person
 
-## Contacto
+### Cancún and Puerto Morelos
+- Isla Mujeres Catamaran (all inclusive) — $95 USD/person, kids $45 USD
+- Shared ATV Off Road, Puerto Morelos — $79 USD/person
+- Single ATV + Horseback Riding — $105 USD/person
 
+## Booking and payment
+- Booking is done via WhatsApp: +52 999 410 5737
+- No prepayment required. Travelers pay cash on arrival.
+- Cash accepted in US dollars or Mexican pesos.
+- Refund policy: https://cenoteshomun.com/politica-reembolsos.html
+
+## Useful for travelers
+- Getting to Homún from Mérida: https://cenoteshomun.com/getting-there.html
+- Cenotes guide: https://cenoteshomun.com/cenotes-guide-homun.html
+- Homún is about 1 hour by car from Mérida, 3.5 hours from Cancún.
+- Water temperature in cenotes stays around 75-79 F (24-26 C) year-round.
+
+## Contact
 - WhatsApp: +52 999 410 5737
-- Email: contacto@cenoteshomun.com
 - Web: https://cenoteshomun.com
